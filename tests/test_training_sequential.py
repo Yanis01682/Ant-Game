@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from SDK.training import AlphaZeroSelfPlayTrainer, AlphaZeroTrainerConfig
 from SDK.backend.model import Ant
 from SDK.training import AntWarSequentialEnv
 from SDK.utils.constants import AntStatus, OperationType
@@ -68,5 +69,32 @@ def test_lightning_storm_is_immediate_but_round_settlement_remains_deferred() ->
         assert termination1 is False
         assert truncation1 is False
         assert info1["to_play"] == 1
+    finally:
+        env.close()
+
+
+def test_capped_round_resolution_assigns_timeout_winner() -> None:
+    config = AlphaZeroTrainerConfig(
+        batches=1,
+        episodes=1,
+        max_rounds=8,
+        max_actions=16,
+        search_iterations=2,
+        max_depth=1,
+    )
+    trainer = AlphaZeroSelfPlayTrainer(
+        env_factory=lambda seed: AntWarSequentialEnv(seed=seed, max_actions=16),
+        config=config,
+        logger=None,
+    )
+    env = AntWarSequentialEnv(seed=13, max_actions=16)
+    try:
+        env.reset(seed=13)
+        env.state.round_index = config.max_rounds
+        env.state.terminal = False
+        env.state.winner = None
+        env.state.bases[0].hp = 42
+        env.state.bases[1].hp = 35
+        assert trainer._resolve_episode_winner(env) == 0
     finally:
         env.close()

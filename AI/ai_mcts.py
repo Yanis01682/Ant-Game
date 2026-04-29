@@ -111,14 +111,15 @@ class MCTSAgent(BaseAgent):
                 continue
             if model.action_dim != self.catalog.max_actions:
                 continue
-            if model.obs_dim != expected_obs_dim:
+            if model.obs_dim != expected_obs_dim and not model.resize_observation_dim(expected_obs_dim):
                 continue
             return model
         return None
 
-    def _search_profile(self, state: BackendState, bundles: list[ActionBundle]) -> SearchProfile:
+    def _search_profile(self, state: BackendState, player: int, bundles: list[ActionBundle]) -> SearchProfile:
         round_index = state.round_index
         bundle_count = len(bundles)
+        timeout_edge = self._timeout_edge(state, player)
         if round_index < 80:
             return SearchProfile(
                 iterations=max(self.base_iterations - 24, 48),
@@ -139,6 +140,26 @@ class MCTSAgent(BaseAgent):
                 prior_mix=0.76,
                 value_mix=0.70,
             )
+        if timeout_edge < 0.0:
+            return SearchProfile(
+                iterations=self.base_iterations + 40,
+                max_depth=self.base_depth + 1,
+                root_action_limit=min(bundle_count, 24),
+                child_action_limit=12,
+                c_puct=1.35,
+                prior_mix=0.64,
+                value_mix=0.82,
+            )
+        if timeout_edge > 0.0:
+            return SearchProfile(
+                iterations=self.base_iterations + 8,
+                max_depth=self.base_depth,
+                root_action_limit=min(bundle_count, 14),
+                child_action_limit=8,
+                c_puct=1.08,
+                prior_mix=0.74,
+                value_mix=0.84,
+            )
         return SearchProfile(
             iterations=self.base_iterations + 24,
             max_depth=self.base_depth + 1,
@@ -149,8 +170,18 @@ class MCTSAgent(BaseAgent):
             value_mix=0.78,
         )
 
-    def _tag_bonus(self, bundle: ActionBundle, round_index: int) -> float:
+    def _timeout_edge(self, state: BackendState, player: int) -> float:
+        enemy = 1 - player
+        edge = float(state.bases[player].hp - state.bases[enemy].hp) * 10.0
+        edge += float(state.die_count[player] - state.die_count[enemy]) * 1.5
+        edge += float(state.super_weapon_usage[enemy] - state.super_weapon_usage[player]) * 1.0
+        if hasattr(state, "ai_time"):
+            edge += float(state.ai_time[enemy] - state.ai_time[player]) * 0.05
+        return edge
+
+    def _tag_bonus(self, state: BackendState, player: int, bundle: ActionBundle, round_index: int) -> float:
         tags = set(bundle.tags)
+        timeout_edge = self._timeout_edge(state, player)
         if round_index < 80:
             if "base" in tags:
                 return 5.0
@@ -167,15 +198,52 @@ class MCTSAgent(BaseAgent):
             if "weapon" in tags:
                 return 1.0
             return 0.0
+        if timeout_edge < 0.0:
+            if "weapon" in tags:
+                return 6.0
+            if "combo" in tags:
+                return 4.0
+            if "upgrade" in tags:
+                return 2.0
+            if "sell" in tags:
+                return -5.0
+            return 0.0
         if "weapon" in tags:
             return 4.0
         if "sell" in tags:
             return -3.0
         if "base" in tags:
             return -1.5
+        if timeout_edge > 0.0 and "build" in tags:
+            return 2.0
         return 0.0
 
-    def _shortlist_bundles(self, state: BackendState, bundles: list[ActionBundle]) -> list[ActionBundle]:
+    def _bundle_priority_score(self, state: BackendState, player: int, bundle: ActionBundle) -> float:
+        round_index = state.round_index
+        score = bundle.score + self._tag_bonus(state, player, bundle, round_index)
+        tags = set(bundle.tags)
+        enemy = 1 - player
+        enemy_hp = state.bases[enemy].hp
+        timeout_edge = self._timeout_edge(state, player)
+        if enemy_hp <= 12 and ("weapon" in tags or "combo" in tags):
+            score += 8.0
+        if enemy_hp <= 8 and "upgrade" in tags:
+            score += 3.0
+        if round_index >= 96 and timeout_edge < 0.0:
+            if "weapon" in tags:
+                score += 7.0
+            if "combo" in tags:
+                score += 5.0
+            if "base" in tags:
+                score -= 2.5
+        if round_index >= 96 and timeout_edge > 0.0:
+            if "sell" in tags:
+                score -= 4.0
+            if "build" in tags:
+                score += 1.5
+        return score
+
+    def _shortlist_bundles(self, state: BackendState, player: int, bundles: list[ActionBundle]) -> list[ActionBundle]:
         if len(bundles) <= self.shortlist_size:
             return bundles
 
@@ -184,7 +252,7 @@ class MCTSAgent(BaseAgent):
         rest = bundles[1:]
         ranked = sorted(
             rest,
-            key=lambda bundle: bundle.score + self._tag_bonus(bundle, round_index),
+            key=lambda bundle: self._bundle_priority_score(state, player, bundle),
             reverse=True,
         )
 
@@ -196,6 +264,17 @@ class MCTSAgent(BaseAgent):
         if weapon_bundle is not None and weapon_bundle not in keep:
             keep[-1] = weapon_bundle
 
+        offense_bundle = next(
+            (
+                bundle
+                for bundle in ranked
+                if {"combo", "weapon", "upgrade", "offense"} & set(bundle.tags)
+            ),
+            None,
+        )
+        if offense_bundle is not None and offense_bundle not in keep:
+            keep[-1] = offense_bundle
+
         return keep
 
     def list_bundles(self, state: BackendState, player: int) -> list[ActionBundle]:
@@ -205,7 +284,7 @@ class MCTSAgent(BaseAgent):
             context=DecisionContext.for_player(player),
             rerank=False,
         )
-        return self._shortlist_bundles(state, bundles)
+        return self._shortlist_bundles(state, player, bundles)
 
     def choose_bundle(
         self,
@@ -217,8 +296,8 @@ class MCTSAgent(BaseAgent):
         if not bundles:
             return ActionBundle(name="hold", score=0.0, tags=("noop",))
 
-        bundles = self._shortlist_bundles(state, bundles)
-        profile = self._search_profile(state, bundles)
+        bundles = self._shortlist_bundles(state, player, bundles)
+        profile = self._search_profile(state, player, bundles)
         config = self.search.search_config
         config.iterations = profile.iterations
         config.max_depth = profile.max_depth
@@ -236,6 +315,9 @@ class MCTSAgent(BaseAgent):
             temperature=1e-6,
             add_root_noise=False,
         )
+        timeout_edge = self._timeout_edge(state, player)
+        if state.round_index >= 96 and timeout_edge < 0.0 and not result.bundle.operations:
+            return max(bundles[1:] or bundles, key=lambda bundle: self._bundle_priority_score(state, player, bundle))
         return result.bundle
 
 

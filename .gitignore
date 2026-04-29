@@ -31,7 +31,7 @@ logs/
 # Legacy local files
 _main.py
 __main.py
-*.zip
+
 
 src/*.o
 

@@ -7,6 +7,11 @@ import random
 
 import numpy as np
 
+try:
+    import torch
+except ModuleNotFoundError:
+    torch = None
+
 from SDK.backend import create_python_backend_state
 from SDK.backend.state import BackendState
 from SDK.utils.actions import ActionBundle, ActionCatalog
@@ -72,6 +77,12 @@ class PolicyValueNetConfig:
     hidden_dim: int = 128
     hidden_dim2: int = 64
     seed: int = 0
+
+
+def _preferred_torch_device() -> str:
+    if torch is None:
+        return "cpu"
+    return "cuda" if torch.cuda.is_available() else "cpu"
 
 
 @dataclass(slots=True)
@@ -156,6 +167,65 @@ class PolicyValueNet:
         self.value_w = rng.normal(0.0, scale3, size=(self.config.hidden_dim2, 1)).astype(np.float32)
         self.value_b = np.zeros(1, dtype=np.float32)
         self.loaded_from: str | None = None
+        self.device = _preferred_torch_device()
+        self._torch_params: dict[str, "torch.Tensor"] | None = None
+        if torch is not None:
+            self._sync_torch_from_numpy()
+
+    def _sync_torch_from_numpy(self) -> None:
+        if torch is None:
+            self._torch_params = None
+            return
+        device = torch.device(self.device)
+        self._torch_params = {
+            "w1": torch.nn.Parameter(torch.from_numpy(self.w1.copy()).to(device)),
+            "b1": torch.nn.Parameter(torch.from_numpy(self.b1.copy()).to(device)),
+            "w2": torch.nn.Parameter(torch.from_numpy(self.w2.copy()).to(device)),
+            "b2": torch.nn.Parameter(torch.from_numpy(self.b2.copy()).to(device)),
+            "policy_w": torch.nn.Parameter(torch.from_numpy(self.policy_w.copy()).to(device)),
+            "policy_b": torch.nn.Parameter(torch.from_numpy(self.policy_b.copy()).to(device)),
+            "value_w": torch.nn.Parameter(torch.from_numpy(self.value_w.copy()).to(device)),
+            "value_b": torch.nn.Parameter(torch.from_numpy(self.value_b.copy()).to(device)),
+        }
+
+    def _sync_numpy_from_torch(self) -> None:
+        if torch is None or self._torch_params is None:
+            return
+        self.w1 = self._torch_params["w1"].detach().cpu().numpy().astype(np.float32, copy=True)
+        self.b1 = self._torch_params["b1"].detach().cpu().numpy().astype(np.float32, copy=True)
+        self.w2 = self._torch_params["w2"].detach().cpu().numpy().astype(np.float32, copy=True)
+        self.b2 = self._torch_params["b2"].detach().cpu().numpy().astype(np.float32, copy=True)
+        self.policy_w = self._torch_params["policy_w"].detach().cpu().numpy().astype(np.float32, copy=True)
+        self.policy_b = self._torch_params["policy_b"].detach().cpu().numpy().astype(np.float32, copy=True)
+        self.value_w = self._torch_params["value_w"].detach().cpu().numpy().astype(np.float32, copy=True)
+        self.value_b = self._torch_params["value_b"].detach().cpu().numpy().astype(np.float32, copy=True)
+
+    def _torch_forward(
+        self,
+        observations: "torch.Tensor",
+    ) -> tuple["torch.Tensor", "torch.Tensor"]:
+        assert torch is not None
+        assert self._torch_params is not None
+        hidden1 = torch.relu(observations @ self._torch_params["w1"] + self._torch_params["b1"])
+        hidden2 = torch.relu(hidden1 @ self._torch_params["w2"] + self._torch_params["b2"])
+        logits = hidden2 @ self._torch_params["policy_w"] + self._torch_params["policy_b"]
+        values = torch.tanh(hidden2 @ self._torch_params["value_w"] + self._torch_params["value_b"])
+        return logits, values
+
+    def resize_observation_dim(self, target_obs_dim: int) -> bool:
+        if target_obs_dim == self.obs_dim:
+            return True
+        if target_obs_dim < self.obs_dim:
+            return False
+        extra_rows = target_obs_dim - self.obs_dim
+        self.w1 = np.concatenate(
+            [self.w1, np.zeros((extra_rows, self.config.hidden_dim), dtype=np.float32)],
+            axis=0,
+        )
+        self.obs_dim = target_obs_dim
+        if torch is not None:
+            self._sync_torch_from_numpy()
+        return True
 
     @classmethod
     def from_checkpoint(cls, path: str | Path) -> PolicyValueNet:
@@ -175,9 +245,12 @@ class PolicyValueNet:
         network.value_w = checkpoint["value_w"].astype(np.float32, copy=True)
         network.value_b = checkpoint["value_b"].astype(np.float32, copy=True)
         network.loaded_from = str(Path(path))
+        if torch is not None:
+            network._sync_torch_from_numpy()
         return network
 
     def save(self, path: str | Path) -> None:
+        self._sync_numpy_from_torch()
         target = Path(path)
         target.parent.mkdir(parents=True, exist_ok=True)
         np.savez(
@@ -202,6 +275,24 @@ class PolicyValueNet:
         self,
         observations: np.ndarray,
     ) -> tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray, np.ndarray, np.ndarray]:
+        if torch is not None and self._torch_params is not None:
+            with torch.no_grad():
+                obs_tensor = torch.from_numpy(observations.astype(np.float32, copy=False)).to(self.device)
+                hidden1_pre = obs_tensor @ self._torch_params["w1"] + self._torch_params["b1"]
+                hidden1 = torch.relu(hidden1_pre)
+                hidden2_pre = hidden1 @ self._torch_params["w2"] + self._torch_params["b2"]
+                hidden2 = torch.relu(hidden2_pre)
+                logits = hidden2 @ self._torch_params["policy_w"] + self._torch_params["policy_b"]
+                raw_values = hidden2 @ self._torch_params["value_w"] + self._torch_params["value_b"]
+                values = torch.tanh(raw_values)
+                return (
+                    hidden1_pre.detach().cpu().numpy().astype(np.float32, copy=False),
+                    hidden1.detach().cpu().numpy().astype(np.float32, copy=False),
+                    hidden2_pre.detach().cpu().numpy().astype(np.float32, copy=False),
+                    hidden2.detach().cpu().numpy().astype(np.float32, copy=False),
+                    logits.detach().cpu().numpy().astype(np.float32, copy=False),
+                    values.detach().cpu().numpy().astype(np.float32, copy=False),
+                )
         hidden1_pre = observations @ self.w1 + self.b1
         hidden1 = _relu(hidden1_pre)
         hidden2_pre = hidden1 @ self.w2 + self.b2
@@ -227,6 +318,51 @@ class PolicyValueNet:
         value_weight: float = 1.0,
         l2_weight: float = 1e-5,
     ) -> dict[str, float]:
+        if torch is not None and self._torch_params is not None:
+            params = list(self._torch_params.values())
+            for param in params:
+                if param.grad is not None:
+                    param.grad.zero_()
+
+            obs = torch.from_numpy(observations.astype(np.float32, copy=False)).to(self.device)
+            mask = torch.from_numpy(masks.astype(np.float32, copy=False)).to(self.device)
+            target_policy = torch.from_numpy(policy_targets.astype(np.float32, copy=False)).to(self.device)
+            target_value = torch.from_numpy(value_targets.astype(np.float32, copy=False).reshape(-1, 1)).to(self.device)
+
+            logits, values = self._torch_forward(obs)
+            masked_logits = logits.masked_fill(mask <= 0, -1e9)
+            probs = torch.softmax(masked_logits, dim=1)
+
+            target_policy = target_policy * mask
+            policy_denominator = target_policy.sum(dim=1, keepdim=True).clamp_min(1.0)
+            target_policy = target_policy / policy_denominator
+
+            safe_probs = probs.clamp_min(1e-8)
+            policy_loss = -(target_policy * torch.log(safe_probs)).sum(dim=1).mean()
+            value_loss_tensor = torch.mean((values - target_value) ** 2)
+            entropy_tensor = -torch.mean(torch.sum(torch.where(probs > 0, probs * torch.log(safe_probs), torch.zeros_like(probs)), dim=1))
+            l2_penalty = 0.5 * l2_weight * (
+                self._torch_params["w1"].pow(2).sum()
+                + self._torch_params["w2"].pow(2).sum()
+                + self._torch_params["policy_w"].pow(2).sum()
+                + self._torch_params["value_w"].pow(2).sum()
+            )
+            total_loss = policy_loss + value_weight * value_loss_tensor + l2_penalty
+            total_loss.backward()
+
+            with torch.no_grad():
+                for param in params:
+                    param -= learning_rate * param.grad
+
+            self._sync_numpy_from_torch()
+            return {
+                "policy_loss": float(policy_loss.detach().cpu().item()),
+                "value_loss": float(value_loss_tensor.detach().cpu().item()),
+                "entropy": float(entropy_tensor.detach().cpu().item()),
+                "mean_value_target": float(target_value.detach().mean().cpu().item()),
+                "mean_prediction": float(values.detach().mean().cpu().item()),
+            }
+
         batch_size = max(len(observations), 1)
         obs = observations.astype(np.float32, copy=False)
         mask = masks.astype(np.float32, copy=False)

@@ -271,15 +271,12 @@ class ActionCatalog:
         context: DecisionContext,
         bundles: list[ActionBundle],
     ) -> list[ActionBundle]:
-        # 先利用我们强大的启发式分数对所有方案进行排序
         bundles.sort(key=lambda item: item.score, reverse=True)
         if not bundles:
             return [ActionBundle(name="hold")]
-            
-        # 【截断式推演】：只取前 3 个最有希望的动作去克隆和模拟未来！
-        # 耗时依然极低，但拥有了防守反击和走位计算的“思考能力”
-        top_candidates = bundles[:4]
-        
+
+        top_k = min(len(bundles), 8)
+        top_candidates = bundles[:top_k]
         for bundle in top_candidates:
             if not bundle.operations:
                 continue
@@ -298,12 +295,19 @@ class ActionCatalog:
                 current_value = self.feature_extractor.evaluate(state, player, context=sim_context)
                 future_value = self.feature_extractor.evaluate(next_state, player, context=next_context)
                 bundle.score += future_value - current_value
+                enemy = 1 - player
+                # Prefer lines that immediately convert board advantage into base or tower damage.
+                my_base_delta = next_state.bases[player].hp - state.bases[player].hp
+                enemy_base_delta = state.bases[enemy].hp - next_state.bases[enemy].hp
+                enemy_tower_delta = sum(t.hp for t in state.towers_of(enemy)) - sum(t.hp for t in next_state.towers_of(enemy))
+                bundle.score += enemy_base_delta * 18.0
+                bundle.score -= max(-my_base_delta, 0) * 18.0
+                bundle.score += enemy_tower_delta * 0.9
             except Exception:
                 bundle.score = -9999.0
-                
-        # 重新根据推演后的真实分数排名
-        top_candidates.sort(key=lambda item: item.score, reverse=True)
-        return top_candidates
+
+        ranked = sorted(top_candidates, key=lambda item: item.score, reverse=True)
+        return ranked + bundles[top_k:]
 
     def _candidate_centers(
         self,

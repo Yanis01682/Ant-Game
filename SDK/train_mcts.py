@@ -3,6 +3,7 @@ from __future__ import annotations
 import argparse
 from dataclasses import asdict
 import json
+import os
 from pathlib import Path
 import shutil
 import sys
@@ -22,9 +23,10 @@ from SDK.training import (  # noqa: E402
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Train the Ant Game MCTS policy/value model with self-play.")
-    parser.add_argument("--batches", type=int, default=24)
+    parser.add_argument("--batches", type=int, default=1)
     parser.add_argument("--episodes", type=int, default=12)
     parser.add_argument("--search-iterations", type=int, default=96)
+    parser.add_argument("--iterations", type=int, dest="search_iterations")
     parser.add_argument("--max-depth", type=int, default=5)
     parser.add_argument("--max-rounds", type=int, default=192)
     parser.add_argument("--max-actions", type=int, default=96)
@@ -51,9 +53,13 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--seed", type=int, default=0)
     parser.add_argument("--resume-from", type=str, default=None)
     parser.add_argument("--checkpoint-path", type=str, default="checkpoints/ai_mcts_latest.npz")
+    parser.add_argument("--checkpoint", type=str, dest="checkpoint_path")
     parser.add_argument("--run-dir", type=str, default="checkpoints/runs")
+    parser.add_argument("--log-dir", type=str, dest="run_dir")
     parser.add_argument("--run-name", type=str, default=None)
     parser.add_argument("--export-agent-model", type=str, default="AI/ai_mcts_model.npz")
+    parser.add_argument("--progress-log-decisions", type=int, default=8)
+    parser.add_argument("--progress-log-seconds", type=float, default=5.0)
     parser.add_argument("--prefer-native-backend", action="store_true")
     return parser.parse_args()
 
@@ -89,6 +95,8 @@ def build_config(args: argparse.Namespace) -> AlphaZeroTrainerConfig:
         opponent_pool_size=args.opponent_pool_size,
         selfplay_mirror_ratio=args.selfplay_mirror_ratio,
         selfplay_heuristic_ratio=args.selfplay_heuristic_ratio,
+        progress_log_decisions=args.progress_log_decisions,
+        progress_log_seconds=args.progress_log_seconds,
     )
 
 
@@ -108,15 +116,7 @@ def main() -> None:
     args = parse_args()
     config = build_config(args)
     logger = TrainingLogger(base_dir=args.run_dir, run_name=args.run_name)
-    logger.log_config(
-        {
-            "trainer": "AlphaZeroSelfPlayTrainer",
-            "repo_root": str(REPO_ROOT),
-            "prefer_native_backend": bool(args.prefer_native_backend),
-            "export_agent_model": args.export_agent_model,
-            "config": asdict(config),
-        }
-    )
+    training_entrypoint = os.getenv("AGENT_TRADITION_TRAINING_ENTRYPOINT", "SDK/train_mcts.py")
 
     def env_factory(seed: int):
         return AntWarSequentialEnv(
@@ -130,6 +130,17 @@ def main() -> None:
         config=config,
         logger=logger,
     )
+    logger.log_config(
+        {
+            "trainer": "AlphaZeroSelfPlayTrainer",
+            "repo_root": str(REPO_ROOT),
+            "prefer_native_backend": bool(args.prefer_native_backend),
+            "export_agent_model": args.export_agent_model,
+            "model_device": getattr(trainer.model, "device", "unknown"),
+            "training_entrypoint": training_entrypoint,
+            "config": asdict(config),
+        }
+    )
 
     try:
         history, samples = trainer.train()
@@ -139,6 +150,10 @@ def main() -> None:
             "checkpoint_path": str(Path(config.checkpoint_path)),
             "champion_path": str(Path(config.champion_path)),
             "exported_agent_model": exported_model,
+            "model_device": getattr(trainer.model, "device", "unknown"),
+            "training_entrypoint": training_entrypoint,
+            "log_dir": str(logger.run_dir),
+            "update_from_episodes": int(config.episodes),
             "history": history,
             "sample_episodes": [asdict(sample) for sample in samples[: min(5, len(samples))]],
         }

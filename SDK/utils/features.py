@@ -130,6 +130,10 @@ class FeatureExtractor:
         ant_value = (ANT_MAX_HP[state.bases[player].ant_level] - base_ant_hp) / ant_hp_span
         base_arc_coverage = self._base_arc_coverage(state, player)
         tower_spacing = self._tower_spacing_score(state, player)
+        timeout_hp_edge = hp_delta
+        timeout_kill_edge = float(state.die_count[player] - state.die_count[enemy])
+        timeout_weapon_edge = float(state.super_weapon_usage[enemy] - state.super_weapon_usage[player])
+        timeout_time_edge = float(state.ai_time[enemy] - state.ai_time[player]) if hasattr(state, "ai_time") else 0.0
 
         named = {
             "round_ratio": state.round_index / MAX_ROUND,
@@ -154,6 +158,10 @@ class FeatureExtractor:
             "hostile_distance": hostile_distance,
             "base_arc_coverage": float(base_arc_coverage),
             "tower_spacing": float(tower_spacing),
+            "timeout_hp_edge": timeout_hp_edge,
+            "timeout_kill_edge": timeout_kill_edge,
+            "timeout_weapon_edge": timeout_weapon_edge,
+            "timeout_time_edge": timeout_time_edge,
         }
         values = np.array(list(named.values()), dtype=np.float32)
         return StateFeatures(values=values, named=named)
@@ -301,6 +309,11 @@ class FeatureExtractor:
         value += summary["hostile_distance"] * 0.4
         value += summary["generation_level"] * 6.0
         value += summary["ant_level"] * 8.0
+        late_game_scale = min(max(summary["round_ratio"], 0.0), 1.0)
+        value += summary["timeout_hp_edge"] * (6.0 + 14.0 * late_game_scale)
+        value += summary["timeout_kill_edge"] * (0.8 + 2.2 * late_game_scale)
+        value += summary["timeout_weapon_edge"] * (0.4 + 1.2 * late_game_scale)
+        value += summary["timeout_time_edge"] * (0.05 + 0.15 * late_game_scale)
         if state.terminal:
             if state.winner == player:
                 value += 10000.0

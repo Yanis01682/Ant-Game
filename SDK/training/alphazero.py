@@ -164,7 +164,7 @@ class AlphaZeroSelfPlayTrainer:
                 raise ValueError(
                     f"checkpoint action_dim={model.action_dim} does not match max_actions={self.config.max_actions}"
                 )
-            if model.obs_dim != expected_obs_dim:
+            if model.obs_dim != expected_obs_dim and not model.resize_observation_dim(expected_obs_dim):
                 raise ValueError(
                     f"checkpoint obs_dim={model.obs_dim} does not match current feature obs_dim={expected_obs_dim}"
                 )
@@ -185,7 +185,9 @@ class AlphaZeroSelfPlayTrainer:
         except (OSError, ValueError, KeyError):
             return None
         expected_obs_dim = infer_observation_dim(self.feature_extractor, self.config.max_actions)
-        if model.action_dim != self.config.max_actions or model.obs_dim != expected_obs_dim:
+        if model.action_dim != self.config.max_actions:
+            return None
+        if model.obs_dim != expected_obs_dim and not model.resize_observation_dim(expected_obs_dim):
             return None
         return model
 
@@ -273,6 +275,31 @@ class AlphaZeroSelfPlayTrainer:
             return 1.0 if env.state.winner == player else -1.0
         raw = self.feature_extractor.evaluate(env.state, player, context=env.decision_context)
         return float(np.tanh(raw / self.config.value_scale))
+
+    def _judge_capped_winner(self, env: AntWarSequentialEnv) -> int | None:
+        if env.state.winner is not None:
+            return env.state.winner
+        if env.state.bases[0].hp != env.state.bases[1].hp:
+            return 0 if env.state.bases[0].hp > env.state.bases[1].hp else 1
+        if env.state.die_count[0] != env.state.die_count[1]:
+            return 0 if env.state.die_count[0] > env.state.die_count[1] else 1
+        if env.state.super_weapon_usage[0] != env.state.super_weapon_usage[1]:
+            return 0 if env.state.super_weapon_usage[0] < env.state.super_weapon_usage[1] else 1
+        if getattr(env.state, "ai_time", [0, 0])[0] != getattr(env.state, "ai_time", [0, 0])[1]:
+            return 0 if env.state.ai_time[0] < env.state.ai_time[1] else 1
+        return 0
+
+    def _resolve_episode_winner(self, env: AntWarSequentialEnv) -> int | None:
+        if env.state.terminal:
+            return env.state.winner
+        if env.state.round_index >= self.config.max_rounds:
+            return self._judge_capped_winner(env)
+        return env.state.winner
+
+    def _terminal_value_from_winner(self, winner: int | None, player: int) -> float:
+        if winner is None:
+            return 0.0
+        return 1.0 if winner == player else -1.0
 
     def _sample_value_target(
         self,
@@ -391,9 +418,14 @@ class AlphaZeroSelfPlayTrainer:
                     last_progress_time = now
                 env.step(result.action_index)
 
+            resolved_winner = self._resolve_episode_winner(env)
             player_targets = {
-                "player_0": self._value_target(env, 0),
-                "player_1": self._value_target(env, 1),
+                "player_0": self._terminal_value_from_winner(resolved_winner, 0)
+                if env.state.round_index >= self.config.max_rounds or env.state.terminal
+                else self._value_target(env, 0),
+                "player_1": self._terminal_value_from_winner(resolved_winner, 1)
+                if env.state.round_index >= self.config.max_rounds or env.state.terminal
+                else self._value_target(env, 1),
             }
             observation_rows = []
             mask_rows = []
@@ -421,7 +453,7 @@ class AlphaZeroSelfPlayTrainer:
             summary = EpisodeSummary(
                 seed=seed,
                 rounds=env.state.round_index,
-                winner=env.state.winner,
+                winner=resolved_winner,
                 reward_player_0=round(total_reward["player_0"], 4),
                 reward_player_1=round(total_reward["player_1"], 4),
                 outcome_player_0=round(player_targets["player_0"], 4),
@@ -558,7 +590,7 @@ class AlphaZeroSelfPlayTrainer:
                         temperature=1e-6,
                     )
                 env.step(result.action_index)
-            return env.state.winner, env.state.round_index
+            return self._resolve_episode_winner(env), env.state.round_index
         finally:
             env.close()
 
@@ -591,7 +623,7 @@ class AlphaZeroSelfPlayTrainer:
                     temperature=1e-6,
                 )
                 env.step(result.action_index)
-            return env.state.winner, env.state.round_index
+            return self._resolve_episode_winner(env), env.state.round_index
         finally:
             env.close()
 
