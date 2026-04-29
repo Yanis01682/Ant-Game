@@ -53,12 +53,12 @@ class SearchProfile:
 class MCTSAgent(BaseAgent):
     def __init__(
         self,
-        iterations: int = 96,
-        max_depth: int = 5,
+        iterations: int = 64,
+        max_depth: int = 4,
         seed: int | None = None,
         max_actions: int = MAX_ACTIONS,
         model_path: str | os.PathLike[str] | None = None,
-        shortlist_size: int = 18,
+        shortlist_size: int = 14,
     ) -> None:
         _patch_backend_state()
         super().__init__(seed=seed, max_actions=max_actions)
@@ -122,50 +122,50 @@ class MCTSAgent(BaseAgent):
         timeout_edge = self._timeout_edge(state, player)
         if round_index < 80:
             return SearchProfile(
-                iterations=max(self.base_iterations - 24, 48),
+                iterations=max(self.base_iterations - 24, 32),
                 max_depth=max(self.base_depth - 1, 3),
-                root_action_limit=min(bundle_count, 12),
-                child_action_limit=6,
+                root_action_limit=min(bundle_count, 10),
+                child_action_limit=5,
                 c_puct=1.05,
                 prior_mix=0.82,
                 value_mix=0.60,
             )
         if round_index < 220:
             return SearchProfile(
-                iterations=self.base_iterations,
+                iterations=min(self.base_iterations, 56),
                 max_depth=self.base_depth,
-                root_action_limit=min(bundle_count, 16),
-                child_action_limit=8,
+                root_action_limit=min(bundle_count, 12),
+                child_action_limit=6,
                 c_puct=1.15,
                 prior_mix=0.76,
                 value_mix=0.70,
             )
         if timeout_edge < 0.0:
             return SearchProfile(
-                iterations=self.base_iterations + 40,
-                max_depth=self.base_depth + 1,
-                root_action_limit=min(bundle_count, 24),
-                child_action_limit=12,
-                c_puct=1.35,
+                iterations=min(self.base_iterations, 56),
+                max_depth=self.base_depth,
+                root_action_limit=min(bundle_count, 12),
+                child_action_limit=6,
+                c_puct=1.28,
                 prior_mix=0.64,
                 value_mix=0.82,
             )
         if timeout_edge > 0.0:
             return SearchProfile(
-                iterations=self.base_iterations + 8,
-                max_depth=self.base_depth,
+                iterations=max(self.base_iterations - 24, 28),
+                max_depth=max(self.base_depth - 1, 3),
                 root_action_limit=min(bundle_count, 14),
-                child_action_limit=8,
+                child_action_limit=6,
                 c_puct=1.08,
                 prior_mix=0.74,
                 value_mix=0.84,
             )
         return SearchProfile(
-            iterations=self.base_iterations + 24,
-            max_depth=self.base_depth + 1,
-            root_action_limit=min(bundle_count, 20),
-            child_action_limit=10,
-            c_puct=1.3,
+            iterations=max(self.base_iterations - 12, 40),
+            max_depth=self.base_depth,
+            root_action_limit=min(bundle_count, 12),
+            child_action_limit=6,
+            c_puct=1.2,
             prior_mix=0.68,
             value_mix=0.78,
         )
@@ -243,6 +243,18 @@ class MCTSAgent(BaseAgent):
                 score += 1.5
         return score
 
+    def _should_force_fast_finish(self, state: BackendState, player: int, bundles: list[ActionBundle]) -> bool:
+        timeout_edge = self._timeout_edge(state, player)
+        total_ants = len(state.ants)
+        total_towers = len(state.towers)
+        if state.round_index >= 220:
+            return True
+        if state.round_index >= 180 and (len(bundles) >= 12 or total_ants >= 14 or total_towers >= 8):
+            return True
+        if state.round_index >= 140 and timeout_edge > 120.0:
+            return True
+        return False
+
     def _shortlist_bundles(self, state: BackendState, player: int, bundles: list[ActionBundle]) -> list[ActionBundle]:
         if len(bundles) <= self.shortlist_size:
             return bundles
@@ -297,6 +309,8 @@ class MCTSAgent(BaseAgent):
             return ActionBundle(name="hold", score=0.0, tags=("noop",))
 
         bundles = self._shortlist_bundles(state, player, bundles)
+        if self._should_force_fast_finish(state, player, bundles):
+            return max(bundles[1:] or bundles, key=lambda bundle: self._bundle_priority_score(state, player, bundle))
         profile = self._search_profile(state, player, bundles)
         config = self.search.search_config
         config.iterations = profile.iterations

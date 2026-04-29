@@ -56,3 +56,4 @@ test_re/
 *.pdf
 train_loop.sh
 export_np.py
+failed_games_data/
