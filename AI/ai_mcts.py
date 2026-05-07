@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import os
+import sys
 from dataclasses import dataclass
 from pathlib import Path
 
@@ -102,18 +103,25 @@ class MCTSAgent(BaseAgent):
 
     def _load_model(self, model_path: str | os.PathLike[str] | None) -> PolicyValueNet | None:
         expected_obs_dim = infer_observation_dim(self.feature_extractor, self.catalog.max_actions)
+        seen_existing = False
         for candidate in self._candidate_model_paths(model_path):
             if not candidate.exists():
                 continue
+            seen_existing = True
             try:
                 model = PolicyValueNet.from_checkpoint(candidate)
-            except (OSError, ValueError, KeyError):
+            except (OSError, ValueError, KeyError) as exc:
+                print(f"[mcts] failed to load model {candidate}: {exc}", file=sys.stderr)
                 continue
             if model.action_dim != self.catalog.max_actions:
+                print(f"[mcts] skipped model {candidate}: action_dim mismatch", file=sys.stderr)
                 continue
             if model.obs_dim != expected_obs_dim and not model.resize_observation_dim(expected_obs_dim):
+                print(f"[mcts] skipped model {candidate}: observation_dim mismatch", file=sys.stderr)
                 continue
             return model
+        if model_path is not None or seen_existing:
+            print("[mcts] using heuristic policy without neural checkpoint", file=sys.stderr)
         return None
 
     def _search_profile(self, state: BackendState, player: int, bundles: list[ActionBundle]) -> SearchProfile:
@@ -321,14 +329,18 @@ class MCTSAgent(BaseAgent):
         config.prior_mix = profile.prior_mix
         config.value_mix = profile.value_mix
 
-        result = self.search.search(
-            state=state,
-            player=player,
-            bundles=bundles,
-            context=DecisionContext.for_player(player),
-            temperature=1e-6,
-            add_root_noise=False,
-        )
+        try:
+            result = self.search.search(
+                state=state,
+                player=player,
+                bundles=bundles,
+                context=DecisionContext.for_player(player),
+                temperature=1e-6,
+                add_root_noise=False,
+            )
+        except Exception as exc:
+            print(f"[mcts] search failed: {exc}", file=sys.stderr)
+            return max(bundles[1:] or bundles, key=lambda bundle: self._bundle_priority_score(state, player, bundle))
         timeout_edge = self._timeout_edge(state, player)
         if state.round_index >= 96 and timeout_edge < 0.0 and not result.bundle.operations:
             return max(bundles[1:] or bundles, key=lambda bundle: self._bundle_priority_score(state, player, bundle))
@@ -336,4 +348,25 @@ class MCTSAgent(BaseAgent):
 
 
 class AI(MCTSAgent):
-    pass
+    def create_session(self):
+        if os.getenv("AGENT_TRADITION_FORCE_MCTS") == "1":
+            try:
+                from protocol import ProtocolSession
+            except ModuleNotFoundError as exc:
+                if exc.name != "protocol":
+                    raise
+                from AI.protocol import ProtocolSession
+            return ProtocolSession(self)
+
+        try:
+            from ai_greedy import AI as GreedyAI
+            return GreedyAI().create_session()
+        except Exception as exc:
+            print(f"[mcts] greedy session unavailable, falling back to MCTS: {exc}", file=sys.stderr)
+            try:
+                from protocol import ProtocolSession
+            except ModuleNotFoundError as import_exc:
+                if import_exc.name != "protocol":
+                    raise
+                from AI.protocol import ProtocolSession
+            return ProtocolSession(self)

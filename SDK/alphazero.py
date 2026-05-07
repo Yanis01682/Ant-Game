@@ -504,10 +504,39 @@ class PriorGuidedMCTS:
         if not bundles:
             return []
         branch_limit = min(limit, len(bundles))
-        order = list(np.argsort(priors[: len(bundles)])[::-1])
-        selected = order[:branch_limit]
-        if 0 not in selected:
-            selected.append(0)
+        order = [int(index) for index in np.argsort(priors[: len(bundles)])[::-1]]
+        selected: list[int] = order[:branch_limit]
+
+        def add(index: int | None) -> None:
+            if index is not None and index not in selected:
+                selected.append(index)
+
+        add(0)
+        if bundles:
+            add(max(range(len(bundles)), key=lambda index: bundles[index].score))
+        for tag in ("weapon", "base", "upgrade", "build", "combo"):
+            tagged = [index for index, bundle in enumerate(bundles) if tag in bundle.tags]
+            if tagged:
+                add(max(tagged, key=lambda index: bundles[index].score))
+
+        if len(selected) > branch_limit:
+            protected = set(selected[branch_limit:])
+            trimmed = selected[:branch_limit]
+            for index in selected[branch_limit:]:
+                if index in trimmed:
+                    continue
+                replace_at = next(
+                    (
+                        pos
+                        for pos in range(len(trimmed) - 1, -1, -1)
+                        if trimmed[pos] not in protected and trimmed[pos] != 0
+                    ),
+                    None,
+                )
+                if replace_at is None:
+                    break
+                trimmed[replace_at] = index
+            selected = trimmed
         return sorted(set(int(index) for index in selected))
 
     def _expand(

@@ -67,11 +67,30 @@ class ActionCatalog:
             if key not in unique or bundle.score > unique[key].score:
                 unique[key] = bundle
         ordered = sorted(unique.values(), key=lambda item: item.score, reverse=True)
-        ordered = ordered[: min(len(ordered), self.max_actions * 2)]
+        ordered = self._preserve_diverse_candidates(ordered, min(len(ordered), self.max_actions * 2))
         if not rerank:
-            return ordered[: self.max_actions]
+            return self._preserve_diverse_candidates(ordered, self.max_actions)
         reranked = self._rerank_with_one_step_rollout(state, player, context, ordered)
-        return reranked[: self.max_actions]
+        return self._preserve_diverse_candidates(reranked, self.max_actions)
+
+    def _preserve_diverse_candidates(self, bundles: list[ActionBundle], limit: int) -> list[ActionBundle]:
+        if len(bundles) <= limit:
+            return bundles
+        viable = [bundle for bundle in bundles if bundle.score > -9000.0] or bundles
+        keep: list[ActionBundle] = []
+
+        def add(bundle: ActionBundle | None) -> None:
+            if bundle is not None and bundle not in keep:
+                keep.append(bundle)
+
+        add(next((bundle for bundle in viable if not bundle.operations), None))
+        for tag in ("build", "upgrade", "base", "weapon", "sell", "combo"):
+            add(next((bundle for bundle in viable if tag in bundle.tags), None))
+        for bundle in viable:
+            add(bundle)
+            if len(keep) >= limit:
+                break
+        return keep[:limit]
 
     def action_mask(self, bundles: list[ActionBundle]) -> np.ndarray:
         mask = np.zeros(self.max_actions, dtype=np.int8)
@@ -246,10 +265,8 @@ class ActionCatalog:
             if bundle.tags and bundle.tags[0] in {"sell", "build", "upgrade", "base", "weapon"}
         ]
         left = sorted(left, key=lambda item: item.score, reverse=True)[:10]
-        for first in left:
-            for second in left:
-                if first is second:
-                    continue
+        for index, first in enumerate(left):
+            for second in left[index + 1:]:
                 if "weapon" in first.tags and "weapon" in second.tags:
                     continue
                 operations = first.operations + second.operations
@@ -261,7 +278,8 @@ class ActionCatalog:
                     continue
                 score = first.score + second.score * 0.9 + self._combo_bonus(first, second)
                 name = f"{first.name}+{second.name}"
-                results.append(ActionBundle(name=name, operations=tuple(operations), score=score, tags=("combo",)))
+                tags = tuple(dict.fromkeys(("combo",) + first.tags + second.tags))
+                results.append(ActionBundle(name=name, operations=tuple(operations), score=score, tags=tags))
         return results
 
     def _rerank_with_one_step_rollout(
