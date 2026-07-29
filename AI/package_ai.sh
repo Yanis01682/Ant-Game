@@ -2,7 +2,7 @@
 set -euo pipefail
 
 if [[ $# -lt 1 || $# -gt 2 ]]; then
-  echo "usage: $0 <random|mcts|greedy|example> [output_path_or_dir]" >&2
+  echo "usage: $0 <random|mcts|mcts_force|greedy|imitation_tempo|example> [output_path_or_dir]" >&2
   exit 1
 fi
 
@@ -85,17 +85,55 @@ case "$TARGET" in
     ;;
   mcts)
     ARCHIVE_NAME="ai_mcts.zip"
+    MODEL_SOURCE=""
+    if [[ -f "${REPO_ROOT}/AI/ai_mcts_model.npz" ]]; then
+      MODEL_SOURCE="${REPO_ROOT}/AI/ai_mcts_model.npz"
+    elif [[ -f "${REPO_ROOT}/checkpoints/ai_mcts_champion.npz" ]]; then
+      MODEL_SOURCE="${REPO_ROOT}/checkpoints/ai_mcts_champion.npz"
+    elif [[ -f "${REPO_ROOT}/checkpoints/ai_mcts_latest.npz" ]]; then
+      MODEL_SOURCE="${REPO_ROOT}/checkpoints/ai_mcts_latest.npz"
+    else
+      echo "warning: no mcts checkpoint found; packaging heuristic-only ai.py" >&2
+    fi
     FILE_MAPPINGS=(
       "${REPO_ROOT}/AI/ai_mcts.py:ai.py"
       "${REPO_ROOT}/AI/ai_greedy.py:ai_greedy.py"
-      "${REPO_ROOT}/checkpoints/ai_mcts_latest.npz:ai_mcts_model.npz"
     )
+    if [[ -n "$MODEL_SOURCE" ]]; then
+      FILE_MAPPINGS+=("${MODEL_SOURCE}:ai_mcts_model.npz")
+    fi
+    TREE_MAPPINGS=("${REPO_ROOT}/AI/ai_greedy:ai_greedy")
+    ;;
+  mcts_force)
+    ARCHIVE_NAME="ai_mcts_force.zip"
+    MODEL_SOURCE=""
+    if [[ -f "${REPO_ROOT}/AI/ai_mcts_model.npz" ]]; then
+      MODEL_SOURCE="${REPO_ROOT}/AI/ai_mcts_model.npz"
+    elif [[ -f "${REPO_ROOT}/checkpoints/ai_mcts_champion.npz" ]]; then
+      MODEL_SOURCE="${REPO_ROOT}/checkpoints/ai_mcts_champion.npz"
+    elif [[ -f "${REPO_ROOT}/checkpoints/ai_mcts_latest.npz" ]]; then
+      MODEL_SOURCE="${REPO_ROOT}/checkpoints/ai_mcts_latest.npz"
+    else
+      echo "warning: no mcts checkpoint found; packaging heuristic-only ai.py" >&2
+    fi
+    FILE_MAPPINGS=(
+      "${REPO_ROOT}/AI/ai_mcts_force.py:ai.py"
+      "${REPO_ROOT}/AI/ai_mcts.py:ai_mcts.py"
+      "${REPO_ROOT}/AI/ai_greedy.py:ai_greedy.py"
+    )
+    if [[ -n "$MODEL_SOURCE" ]]; then
+      FILE_MAPPINGS+=("${MODEL_SOURCE}:ai_mcts_model.npz")
+    fi
     TREE_MAPPINGS=("${REPO_ROOT}/AI/ai_greedy:ai_greedy")
     ;;
   greedy)
     ARCHIVE_NAME="ai_greedy.zip"
     FILE_MAPPINGS=("${REPO_ROOT}/AI/ai_greedy.py:ai.py")
     TREE_MAPPINGS=("${REPO_ROOT}/AI/ai_greedy:ai_greedy")
+    ;;
+  imitation_tempo)
+    ARCHIVE_NAME="ai_imitation_tempo.zip"
+    FILE_MAPPINGS=("${REPO_ROOT}/AI/ai_imitation_tempo.py:ai.py")
     ;;
   example)
     ARCHIVE_NAME="ai_example.zip"

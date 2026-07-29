@@ -7,9 +7,14 @@ import random
 
 import numpy as np
 
-try:
-    import torch
-except ModuleNotFoundError:
+import os
+
+if os.getenv("AGENT_TRADITION_ENABLE_TORCH", "0") == "1":
+    try:
+        import torch
+    except ModuleNotFoundError:
+        torch = None
+else:
     torch = None
 
 from SDK.backend import create_python_backend_state

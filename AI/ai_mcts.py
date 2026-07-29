@@ -13,9 +13,11 @@ except ModuleNotFoundError as exc:
     from AI.common import BaseAgent
 
 from SDK.alphazero import PolicyValueNet, PriorGuidedMCTS, SearchConfig, infer_observation_dim
+from SDK.backend.model import Operation
 from SDK.backend.state import BackendState
 from SDK.utils.actions import ActionBundle
-from SDK.utils.constants import MAX_ACTIONS, OperationType
+from SDK.utils.constants import BASE_UPGRADE_COST, MAX_ACTIONS, AntKind, OperationType, PLAYER_BASES, SUPER_WEAPON_STATS, SuperWeaponType, TowerType
+from SDK.utils.geometry import hex_distance
 from SDK.utils.turns import DecisionContext
 
 
@@ -128,22 +130,25 @@ class MCTSAgent(BaseAgent):
         round_index = state.round_index
         bundle_count = len(bundles)
         timeout_edge = self._timeout_edge(state, player)
+        has_weapon = any("weapon" in bundle.tags for bundle in bundles)
+        near_storm = 72 <= state.coins[player] < 90 and state.weapon_cooldowns[player][1] == 0
+        tactical_turn = has_weapon or near_storm or abs(timeout_edge) >= 90.0
         if round_index < 80:
             return SearchProfile(
-                iterations=max(self.base_iterations - 24, 32),
+                iterations=max(self.base_iterations + 12, 32) if tactical_turn else max(self.base_iterations - 12, 12),
                 max_depth=max(self.base_depth - 1, 3),
-                root_action_limit=min(bundle_count, 10),
-                child_action_limit=5,
+                root_action_limit=min(bundle_count, 10 if tactical_turn else 8),
+                child_action_limit=5 if tactical_turn else 4,
                 c_puct=1.05,
                 prior_mix=0.82,
                 value_mix=0.60,
             )
         if round_index < 220:
             return SearchProfile(
-                iterations=min(self.base_iterations, 56),
+                iterations=min(self.base_iterations + 16, 48) if tactical_turn else max(self.base_iterations - 8, 16),
                 max_depth=self.base_depth,
-                root_action_limit=min(bundle_count, 12),
-                child_action_limit=6,
+                root_action_limit=min(bundle_count, 12 if tactical_turn else 9),
+                child_action_limit=6 if tactical_turn else 4,
                 c_puct=1.15,
                 prior_mix=0.76,
                 value_mix=0.70,
@@ -190,7 +195,16 @@ class MCTSAgent(BaseAgent):
     def _tag_bonus(self, state: BackendState, player: int, bundle: ActionBundle, round_index: int) -> float:
         tags = set(bundle.tags)
         timeout_edge = self._timeout_edge(state, player)
+        first_storm_pending = state.super_weapon_usage[player] <= 0 and round_index < 115
         if round_index < 80:
+            if first_storm_pending and "storm" in tags:
+                return 8.0
+            if first_storm_pending and "weapon" in tags:
+                return -12.0
+            if first_storm_pending and "build" in tags and state.tower_count(player) >= 2:
+                return -5.0
+            if "sell" in tags:
+                return -4.0
             if "base" in tags:
                 return 5.0
             if "build" in tags:
@@ -199,6 +213,10 @@ class MCTSAgent(BaseAgent):
                 return -2.0
             return 0.0
         if round_index < 220:
+            if first_storm_pending and "weapon" in tags and "storm" not in tags:
+                return -10.0
+            if "sell" in tags and state.super_weapon_usage[player] <= 0:
+                return -3.0
             if "upgrade" in tags:
                 return 2.5
             if "combo" in tags:
@@ -250,6 +268,401 @@ class MCTSAgent(BaseAgent):
             if "build" in tags:
                 score += 1.5
         return score
+
+    def _opening_storm_override(self, state: BackendState, player: int, bundles: list[ActionBundle]) -> ActionBundle | None:
+        storm_cost = SUPER_WEAPON_STATS[SuperWeaponType.LIGHTNING_STORM].cost
+        storm_cd = state.weapon_cooldowns[player][SuperWeaponType.LIGHTNING_STORM]
+        if state.round_index > 118 or storm_cd > 0 or state.super_weapon_usage[player] > 0:
+            return None
+        if state.coins[player] >= storm_cost:
+            weapon = max(
+                (bundle for bundle in bundles if "storm" in bundle.tags),
+                key=lambda bundle: self._bundle_priority_score(state, player, bundle),
+                default=None,
+            )
+            if weapon is not None:
+                return weapon
+            target = self._opening_storm_target(state, player)
+            return ActionBundle(
+                name="opening-storm",
+                operations=(Operation(OperationType.USE_LIGHTNING_STORM, target[1], target[2]),),
+                score=90.0,
+                tags=("weapon", "storm", "override"),
+            )
+        cashout = self._cashout_storm_override(state, player)
+        if cashout is not None:
+            return cashout
+        enemy_front = state.nearest_ant_distance(player)
+        hp_edge = state.bases[player].hp - state.bases[1 - player].hp
+        critical_defense = enemy_front <= 1 or hp_edge < -18
+        if (
+            10 <= state.round_index <= 118
+            and not critical_defense
+            and (state.coins[player] >= 35 or state.tower_count(player) >= 2)
+        ):
+            return ActionBundle(name="reserve-storm", score=5.0, tags=("noop", "reserve"))
+        return None
+
+    def _opening_storm_target(self, state: BackendState, player: int) -> tuple[int, int, int]:
+        enemy = 1 - player
+        enemy_base = PLAYER_BASES[enemy]
+        candidates: list[tuple[float, int, int]] = []
+        for ant in state.ants_of(enemy):
+            distance_to_my_base = hex_distance(ant.x, ant.y, *PLAYER_BASES[player])
+            distance_to_enemy_base = hex_distance(ant.x, ant.y, *enemy_base)
+            score = 14.0 - distance_to_my_base * 1.2 + ant.level * 4.0 + max(0.0, 6 - distance_to_enemy_base) * 0.3
+            candidates.append((score, ant.x, ant.y))
+        for tower in state.towers_of(enemy):
+            distance_to_enemy_base = hex_distance(tower.x, tower.y, *enemy_base)
+            score = 5.0 + tower.level * 5.0 + max(0.0, 8 - distance_to_enemy_base) * 0.8
+            candidates.append((score, tower.x, tower.y))
+        if not candidates:
+            return (0, enemy_base[0], enemy_base[1])
+        best = max(candidates, key=lambda item: item[0])
+        return (0, best[1], best[2])
+
+    def _cashout_storm_override(
+        self,
+        state: BackendState,
+        player: int,
+        *,
+        opening: bool = True,
+        bundles: list[ActionBundle] | None = None,
+    ) -> ActionBundle | None:
+        storm_cost = SUPER_WEAPON_STATS[SuperWeaponType.LIGHTNING_STORM].cost
+        storm_cd = state.weapon_cooldowns[player][SuperWeaponType.LIGHTNING_STORM]
+        if storm_cd > 0:
+            return None
+        if opening:
+            if not (22 <= state.round_index <= 110) or state.super_weapon_usage[player] > 0:
+                return None
+            min_cash = 42
+            max_sells = 4
+        else:
+            if not (55 <= state.round_index <= 340) or state.super_weapon_usage[player] <= 0:
+                return None
+            min_cash = 38
+            max_sells = 6
+        if state.coins[player] < min_cash:
+            return None
+        nearest = state.nearest_ant_distance(player)
+        if opening and nearest <= 2:
+            return None
+        if not opening and nearest <= 1 and state.bases[player].hp < state.bases[1 - player].hp - 10:
+            return None
+
+        towers = list(state.towers_of(player))
+        if not towers:
+            return None
+        enemy = 1 - player
+        enemy_front = state.nearest_ant_distance(player)
+        hp_edge = state.bases[player].hp - state.bases[enemy].hp
+        keep_min = 1 if enemy_front <= 4 or hp_edge < -14 else 0
+        projected_cashout = state.coins[player] + sum(state.operation_income(player, Operation(OperationType.DOWNGRADE_TOWER, tower.tower_id)) for tower in towers)
+        if not opening and hp_edge >= -8 and state.coins[player] >= 55 and projected_cashout >= storm_cost:
+            keep_min = 0
+        if len(towers) <= keep_min:
+            return None
+
+        def tower_liquidation_score(tower) -> float:
+            pressure = self.catalog._local_enemy_pressure(state, player, tower.x, tower.y)
+            slot = state.slot_priority(player, tower.x, tower.y)
+            producer_penalty = 12.0 if tower.tower_type in (TowerType.PRODUCER, TowerType.PRODUCER_FAST, TowerType.PRODUCER_SIEGE, TowerType.PRODUCER_MEDIC) else 0.0
+            if not opening and state.coins[player] >= 68:
+                producer_penalty *= 0.45
+            return pressure * 4.5 + slot * 0.7 + tower.level * 6.5 + producer_penalty
+
+        ordered = sorted(towers, key=tower_liquidation_score)
+        sell_ops: list[Operation] = []
+        trial = state.clone()
+        for tower in ordered:
+            if len(sell_ops) >= max_sells:
+                break
+            if len(list(trial.towers_of(player))) <= keep_min:
+                break
+            op = Operation(OperationType.DOWNGRADE_TOWER, tower.tower_id)
+            if not trial.can_apply_operation(player, op):
+                continue
+            invalid = trial.apply_operation_list(player, (op,))
+            if invalid:
+                continue
+            sell_ops.append(op)
+            if trial.coins[player] >= storm_cost:
+                storm_bundle = None
+                if bundles:
+                    storm_bundle = max(
+                        (bundle for bundle in bundles if "storm" in bundle.tags),
+                        key=lambda bundle: self._bundle_priority_score(state, player, bundle),
+                        default=None,
+                    )
+                if storm_bundle is not None and storm_bundle.operations:
+                    storm = storm_bundle.operations[-1]
+                else:
+                    _, x, y = self._opening_storm_target(trial, player)
+                    storm = Operation(OperationType.USE_LIGHTNING_STORM, x, y)
+                verify = state.clone()
+                operations = tuple(sell_ops + [storm])
+                if not verify.apply_operation_list(player, operations):
+                    return ActionBundle(
+                        name="cashout-opening-storm" if opening else "cashout-rolling-storm",
+                        operations=operations,
+                        score=126.0 if opening else 112.0,
+                        tags=("combo", "sell", "weapon", "storm", "cashout"),
+                    )
+        return None
+
+    def _rolling_storm_override(self, state: BackendState, player: int, bundles: list[ActionBundle]) -> ActionBundle | None:
+        if state.round_index < 55 or state.super_weapon_usage[player] <= 0:
+            return None
+        storm_type = SuperWeaponType.LIGHTNING_STORM
+        storm_cost = SUPER_WEAPON_STATS[storm_type].cost
+        if state.weapon_cooldowns[player][storm_type] > 0:
+            return None
+
+        enemy = 1 - player
+        enemy_front = state.nearest_ant_distance(player)
+        own_front = state.frontline_distance(player)
+        hp_edge = state.bases[player].hp - state.bases[enemy].hp
+        storm_window = (
+            state.round_index >= 72
+            or enemy_front <= 6
+            or own_front <= 8
+            or hp_edge < 8
+            or state.bases[enemy].hp <= 35
+        )
+        if not storm_window:
+            return None
+
+        if state.coins[player] >= storm_cost:
+            weapon = max(
+                (bundle for bundle in bundles if "storm" in bundle.tags),
+                key=lambda bundle: self._bundle_priority_score(state, player, bundle),
+                default=None,
+            )
+            if weapon is not None:
+                return weapon
+            _, x, y = self._opening_storm_target(state, player)
+            return ActionBundle(
+                name="rolling-storm",
+                operations=(Operation(OperationType.USE_LIGHTNING_STORM, x, y),),
+                score=96.0,
+                tags=("weapon", "storm", "override"),
+            )
+
+        if state.round_index >= 64 and state.coins[player] >= 45:
+            cashout = self._cashout_storm_override(state, player, opening=False, bundles=bundles)
+            if cashout is not None:
+                return cashout
+        return None
+
+    def _tower_tech_override(self, state: BackendState, player: int, bundles: list[ActionBundle]) -> ActionBundle | None:
+        if state.round_index < 55 or state.coins[player] < 60:
+            return None
+        first_storm_done = state.super_weapon_usage[player] > 0 or state.round_index >= 122
+        if not first_storm_done:
+            return None
+        storm_cd = state.weapon_cooldowns[player][SuperWeaponType.LIGHTNING_STORM]
+        if (
+            state.round_index < 260
+            and state.super_weapon_usage[player] > 0
+            and storm_cd <= 8
+            and 72 <= state.coins[player] < SUPER_WEAPON_STATS[SuperWeaponType.LIGHTNING_STORM].cost
+            and state.nearest_ant_distance(player) > 2
+        ):
+            return None
+
+        upgrades = [bundle for bundle in bundles if "upgrade" in bundle.tags]
+        if not upgrades:
+            return None
+        towers = list(state.towers_of(player))
+        producer_count = sum(1 for tower in towers if tower.tower_type in (TowerType.PRODUCER, TowerType.PRODUCER_FAST, TowerType.PRODUCER_SIEGE, TowerType.PRODUCER_MEDIC))
+        enemy_front = state.nearest_ant_distance(player)
+        storm_cashout_ready = (
+            state.super_weapon_usage[player] > 0
+            and storm_cd == 0
+            and state.coins[player] >= 55
+            and enemy_front > 1
+            and state.bases[player].hp >= state.bases[1 - player].hp - 10
+        )
+        if producer_count < 2 and enemy_front > 3 and state.coins[player] >= 60 and not storm_cashout_ready:
+            producer = max(
+                (bundle for bundle in upgrades if f"tower:{int(TowerType.PRODUCER)}" in bundle.tags),
+                key=lambda bundle: self._bundle_priority_score(state, player, bundle),
+                default=None,
+            )
+            if producer is not None:
+                return producer
+
+        if producer_count >= 1 and state.round_index >= 92 and enemy_front > 3 and state.coins[player] >= 60:
+            producer_branches = {
+                f"tower:{int(TowerType.PRODUCER_FAST)}",
+                f"tower:{int(TowerType.PRODUCER_SIEGE)}",
+                f"tower:{int(TowerType.PRODUCER_MEDIC)}",
+            }
+            producer_upgrade = max(
+                (bundle for bundle in upgrades if producer_branches & set(bundle.tags)),
+                key=lambda bundle: self._bundle_priority_score(state, player, bundle),
+                default=None,
+            )
+            if producer_upgrade is not None:
+                return producer_upgrade
+
+        if enemy_front <= 6:
+            defensive_types = {
+                f"tower:{int(TowerType.ICE)}",
+                f"tower:{int(TowerType.PULSE)}",
+                f"tower:{int(TowerType.MORTAR_PLUS)}",
+                f"tower:{int(TowerType.QUICK_PLUS)}",
+                f"tower:{int(TowerType.DOUBLE)}",
+            }
+            defensive = max(
+                (bundle for bundle in upgrades if defensive_types & set(bundle.tags)),
+                key=lambda bundle: self._bundle_priority_score(state, player, bundle),
+                default=None,
+            )
+            if defensive is not None:
+                return defensive
+
+        if state.round_index >= 145 and sum(1 for tower in towers if tower.tower_type != TowerType.BASIC) < 2:
+            return max(upgrades, key=lambda bundle: self._bundle_priority_score(state, player, bundle))
+        return None
+
+    def _tower_rebuild_override(self, state: BackendState, player: int, bundles: list[ActionBundle]) -> ActionBundle | None:
+        if state.round_index < 48 or state.coins[player] < 15:
+            return None
+        first_storm_done = state.super_weapon_usage[player] > 0 or state.round_index >= 122
+        if not first_storm_done:
+            return None
+        enemy_front = state.nearest_ant_distance(player)
+        tower_count = state.tower_count(player)
+        storm_cd = state.weapon_cooldowns[player][SuperWeaponType.LIGHTNING_STORM]
+        storm_cost = SUPER_WEAPON_STATS[SuperWeaponType.LIGHTNING_STORM].cost
+        if storm_cd <= 8 and state.coins[player] >= 72 and enemy_front > 3:
+            return None
+        if (
+            tower_count == 1
+            and state.coins[player] >= 60
+            and storm_cd >= 10
+            and enemy_front > 3
+        ):
+            return None
+        if tower_count >= 2 and not (enemy_front <= 4 and state.coins[player] >= state.build_tower_cost(tower_count)):
+            return None
+        if state.coins[player] >= storm_cost and storm_cd == 0:
+            return None
+        builds = [bundle for bundle in bundles if "build" in bundle.tags]
+        if not builds:
+            return None
+        if tower_count == 0 or enemy_front <= 5 or (storm_cd >= 14 and state.coins[player] >= state.build_tower_cost(tower_count)):
+            return max(builds, key=lambda bundle: self._bundle_priority_score(state, player, bundle))
+        return None
+
+    def _base_upgrade_override(self, state: BackendState, player: int, bundles: list[ActionBundle]) -> ActionBundle | None:
+        if state.round_index < 110 or state.round_index > 360:
+            return None
+        if state.coins[player] < BASE_UPGRADE_COST[0]:
+            return None
+
+        enemy = 1 - player
+        first_storm_done = state.super_weapon_usage[player] > 0 or state.round_index >= 155
+        safe_to_invest = state.nearest_ant_distance(player) > 4 and state.bases[player].hp >= state.bases[enemy].hp - 12
+        if not first_storm_done or not safe_to_invest:
+            return None
+        if (
+            state.round_index < 280
+            and state.weapon_cooldowns[player][SuperWeaponType.LIGHTNING_STORM] == 0
+            and state.coins[player] >= 60
+        ):
+            return None
+
+        upgrade_ant = next(
+            (
+                bundle
+                for bundle in bundles
+                if bundle.operations and bundle.operations[0].op_type == OperationType.UPGRADE_GENERATED_ANT
+            ),
+            None,
+        )
+        upgrade_gen = next(
+            (
+                bundle
+                for bundle in bundles
+                if bundle.operations and bundle.operations[0].op_type == OperationType.UPGRADE_GENERATION_SPEED
+            ),
+            None,
+        )
+        if state.bases[player].ant_level == 0 and upgrade_ant is not None:
+            return upgrade_ant
+        if state.round_index >= 170 and state.bases[player].generation_level == 0 and upgrade_gen is not None:
+            return upgrade_gen
+        if state.round_index >= 230 and upgrade_ant is not None:
+            return upgrade_ant
+        if state.round_index >= 250 and upgrade_gen is not None:
+            return upgrade_gen
+        return None
+
+    def _enemy_advanced_tower_count(self, state: BackendState, player: int) -> int:
+        return sum(1 for tower in state.towers_of(1 - player) if tower.level >= 2)
+
+    def _support_weapon_override(self, state: BackendState, player: int, bundles: list[ActionBundle]) -> ActionBundle | None:
+        if state.round_index < 55:
+            return None
+        if state.super_weapon_usage[player] <= 0:
+            return None
+
+        enemy_front = state.nearest_ant_distance(player)
+        own_front = state.frontline_distance(player)
+        timeout_edge = self._timeout_edge(state, player)
+
+        def best_with_tag(tag: str) -> ActionBundle | None:
+            tagged = [bundle for bundle in bundles if tag in bundle.tags]
+            if not tagged:
+                return None
+            return max(tagged, key=lambda bundle: self._bundle_priority_score(state, player, bundle))
+
+        storm_cd = state.weapon_cooldowns[player][SuperWeaponType.LIGHTNING_STORM]
+        storm_cost = SUPER_WEAPON_STATS[SuperWeaponType.LIGHTNING_STORM].cost
+        support_cost_floor = SUPER_WEAPON_STATS[SuperWeaponType.DEFLECTOR].cost
+        safe_support_bank = state.coins[player] >= storm_cost + support_cost_floor or (storm_cd >= 24 and state.coins[player] >= 78)
+
+        # EMP is a lane breaker: only spend it when our ants are actually trying to cross advanced towers.
+        enemy_base = PLAYER_BASES[1 - player]
+        own_forward_ants = [
+            ant
+            for ant in state.ants_of(player)
+            if hex_distance(ant.x, ant.y, *enemy_base) <= 5
+        ]
+        combat_forward = sum(1 for ant in own_forward_ants if ant.kind == AntKind.COMBAT)
+        if safe_support_bank and state.round_index >= 105 and self._enemy_advanced_tower_count(state, player) >= 1 and len(own_forward_ants) >= 2:
+            emp = best_with_tag("emp")
+            if emp is not None and self._bundle_priority_score(state, player, emp) >= 14.0:
+                return emp
+
+        # Deflector/Evasion are finish-window tools, not a replacement for the next lightning cycle.
+        if safe_support_bank and own_front <= 4 and (len(own_forward_ants) >= 2 or combat_forward >= 1):
+            shield = best_with_tag("shield")
+            panic = best_with_tag("panic")
+            support = max(
+                [bundle for bundle in (shield, panic) if bundle is not None],
+                key=lambda bundle: self._bundle_priority_score(state, player, bundle),
+                default=None,
+            )
+            if support is not None and self._bundle_priority_score(state, player, support) >= 9.0:
+                return support
+
+        if safe_support_bank and (enemy_front <= 3 or timeout_edge < -100.0):
+            defensive = max(
+                [
+                    bundle
+                    for bundle in bundles
+                    if {"emp", "shield", "panic"} & set(bundle.tags)
+                ],
+                key=lambda bundle: self._bundle_priority_score(state, player, bundle),
+                default=None,
+            )
+            if defensive is not None:
+                return defensive
+        return None
 
     def _should_force_fast_finish(self, state: BackendState, player: int, bundles: list[ActionBundle]) -> bool:
         timeout_edge = self._timeout_edge(state, player)
@@ -317,6 +730,24 @@ class MCTSAgent(BaseAgent):
             return ActionBundle(name="hold", score=0.0, tags=("noop",))
 
         bundles = self._shortlist_bundles(state, player, bundles)
+        override = self._opening_storm_override(state, player, bundles)
+        if override is not None:
+            return override
+        override = self._rolling_storm_override(state, player, bundles)
+        if override is not None:
+            return override
+        override = self._support_weapon_override(state, player, bundles)
+        if override is not None:
+            return override
+        override = self._tower_rebuild_override(state, player, bundles)
+        if override is not None:
+            return override
+        override = self._tower_tech_override(state, player, bundles)
+        if override is not None:
+            return override
+        override = self._base_upgrade_override(state, player, bundles)
+        if override is not None:
+            return override
         if self._should_force_fast_finish(state, player, bundles):
             return max(bundles[1:] or bundles, key=lambda bundle: self._bundle_priority_score(state, player, bundle))
         profile = self._search_profile(state, player, bundles)

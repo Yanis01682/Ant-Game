@@ -11,6 +11,7 @@ from SDK.utils.constants import (
     LIGHTNING_STORM_TOWER_DAMAGE,
     LIGHTNING_STORM_TOWER_INTERVAL,
     MAX_ACTIONS,
+    AntKind,
     OperationType,
     PLAYER_BASES,
     STRATEGIC_BUILD_ORDER,
@@ -108,6 +109,24 @@ class ActionCatalog:
         build_cost = state.build_tower_cost(tower_count)
         if state.coins[player] < build_cost:
             return results
+        first_weapon_pending = state.super_weapon_usage[player] <= 0 and state.round_index < 118
+        storm_ready_window = (
+            state.super_weapon_usage[player] > 0
+            and state.round_index < 260
+            and state.weapon_cooldowns[player, SuperWeaponType.LIGHTNING_STORM] <= 8
+            and 72 <= state.coins[player] < SUPER_WEAPON_STATS[SuperWeaponType.LIGHTNING_STORM].cost
+        )
+        if first_weapon_pending and tower_count >= 2:
+            return results
+        if (
+            first_weapon_pending
+            and state.coins[player] >= 35
+            and state.nearest_ant_distance(player) > 1
+            and state.bases[player].hp >= state.bases[1 - player].hp - 18
+        ):
+            return results
+        if storm_ready_window and tower_count >= 1 and state.nearest_ant_distance(player) > 2:
+            return results
         for x, y in STRATEGIC_BUILD_ORDER[player]:
             op = Operation(OperationType.BUILD_TOWER, x, y)
             if not state.can_apply_operation(player, op):
@@ -115,20 +134,61 @@ class ActionCatalog:
             pressure = self._local_enemy_pressure(state, player, x, y)
             lane_bonus = state.slot_priority(player, x, y)
             score = lane_bonus + pressure * 2.5 - build_cost * 0.03
+            if tower_count < 2:
+                score += 7.0
+            elif state.round_index >= 120:
+                score += min(pressure, 3.0) + max(0.0, 4.0 - state.nearest_ant_distance(player))
             results.append(ActionBundle(name=f"build@{x},{y}", operations=(op,), score=score, tags=("build",)))
         return results
 
     def _upgrade_candidates(self, state: BackendState, player: int) -> list[ActionBundle]:
         results: list[ActionBundle] = []
         enemy_base = PLAYER_BASES[1 - player]
+        if (
+            state.round_index < 118
+            and state.super_weapon_usage[player] <= 0
+            and state.coins[player] >= 35
+            and state.nearest_ant_distance(player) > 1
+            and state.bases[player].hp >= state.bases[1 - player].hp - 18
+        ):
+            return results
+        storm_cashout_ready = (
+            state.super_weapon_usage[player] > 0
+            and state.weapon_cooldowns[player, SuperWeaponType.LIGHTNING_STORM] == 0
+            and state.coins[player] >= 55
+            and state.nearest_ant_distance(player) > 1
+            and state.bases[player].hp >= state.bases[1 - player].hp - 10
+        )
         for tower in state.towers_of(player):
             local_density = self._local_enemy_pressure(state, player, tower.x, tower.y)
             for target in TOWER_UPGRADE_TREE.get(tower.tower_type, ()): 
+                if storm_cashout_ready and target in (TowerType.PRODUCER, TowerType.PRODUCER_FAST, TowerType.PRODUCER_SIEGE, TowerType.PRODUCER_MEDIC):
+                    continue
                 op = Operation(OperationType.UPGRADE_TOWER, tower.tower_id, int(target))
                 if not state.can_apply_operation(player, op):
                     continue
                 fit = self._tower_type_fit(target, local_density, hex_distance(tower.x, tower.y, *enemy_base))
                 score = fit + tower.level * 1.5 + state.slot_priority(player, tower.x, tower.y) * 0.15
+                if state.round_index >= 65 and state.super_weapon_usage[player] > 0:
+                    score += 3.0 + min(local_density, 3.0)
+                if state.round_index >= 120 and tower.level >= 1:
+                    score += 1.8
+                if target == TowerType.PRODUCER:
+                    producer_count = sum(
+                        1
+                        for owned in state.towers_of(player)
+                        if owned.tower_type in (TowerType.PRODUCER, TowerType.PRODUCER_FAST, TowerType.PRODUCER_SIEGE, TowerType.PRODUCER_MEDIC)
+                    )
+                    if state.super_weapon_usage[player] > 0 or state.round_index >= 122:
+                        score += 8.0 - producer_count * 3.0
+                if target in (TowerType.PRODUCER_SIEGE, TowerType.PRODUCER_MEDIC):
+                    score += 8.5 + max(0.0, 7 - state.frontline_distance(player)) * 0.8
+                if target == TowerType.PRODUCER_FAST and state.round_index < 260:
+                    score += 5.0
+                if target in (TowerType.ICE, TowerType.PULSE, TowerType.BEWITCH):
+                    score += min(local_density, 4.0) * 1.2 + max(0.0, 6 - state.nearest_ant_distance(player))
+                if target in (TowerType.MORTAR_PLUS, TowerType.MISSILE, TowerType.DOUBLE):
+                    score += min(local_density, 5.0) * 0.9
                 results.append(
                     ActionBundle(
                         name=f"upgrade#{tower.tower_id}->{int(target)}",
@@ -141,15 +201,43 @@ class ActionCatalog:
 
     def _downgrade_candidates(self, state: BackendState, player: int) -> list[ActionBundle]:
         results: list[ActionBundle] = []
+        protect_first_weapon = state.round_index < 118 and state.super_weapon_usage[player] <= 0
         for tower in state.towers_of(player):
             pressure = self._local_enemy_pressure(state, player, tower.x, tower.y)
-            if pressure > 1.5:
+            storm_cashout_window = (
+                protect_first_weapon
+                and 22 <= state.round_index <= 110
+                and 42 <= state.coins[player] < SUPER_WEAPON_STATS[SuperWeaponType.LIGHTNING_STORM].cost
+                and state.tower_count(player) >= 1
+                and pressure <= 1.0
+            )
+            rolling_storm_cashout = (
+                (not protect_first_weapon)
+                and 64 <= state.round_index <= 340
+                and state.super_weapon_usage[player] > 0
+                and state.weapon_cooldowns[player, SuperWeaponType.LIGHTNING_STORM] == 0
+                and 45 <= state.coins[player] < SUPER_WEAPON_STATS[SuperWeaponType.LIGHTNING_STORM].cost
+                and state.nearest_ant_distance(player) > 1
+                and state.bases[player].hp >= state.bases[1 - player].hp - 8
+                and pressure <= 1.5
+            )
+            if protect_first_weapon and not storm_cashout_window:
+                continue
+            if pressure > 1.5 and not rolling_storm_cashout:
+                continue
+            if (
+                tower.tower_type in (TowerType.PRODUCER, TowerType.PRODUCER_FAST, TowerType.PRODUCER_SIEGE, TowerType.PRODUCER_MEDIC)
+                and state.round_index < 300
+                and not rolling_storm_cashout
+            ):
+                continue
+            if tower.level >= 2 and state.round_index < 220 and not rolling_storm_cashout:
                 continue
             op = Operation(OperationType.DOWNGRADE_TOWER, tower.tower_id)
             if not state.can_apply_operation(player, op):
                 continue
             refund = state.operation_income(player, op)
-            score = refund * 0.04 - state.slot_priority(player, tower.x, tower.y) * 0.3 - tower.level * 3.0
+            score = refund * 0.025 - state.slot_priority(player, tower.x, tower.y) * 0.45 - tower.level * 4.5
             results.append(ActionBundle(name=f"downgrade#{tower.tower_id}", operations=(op,), score=score, tags=("sell",)))
         return results
 
@@ -162,6 +250,10 @@ class ActionCatalog:
                 op = Operation(OperationType.UPGRADE_GENERATED_ANT)
                 if state.can_apply_operation(player, op):
                     score = 8.0 + hp_gain * 1.4 + state.frontline_distance(player) * 0.22 - state.round_index * 0.01 - level * 1.2
+                    if state.round_index >= 110:
+                        score += 7.0
+                    if state.super_weapon_usage[player] > 0:
+                        score += 4.0
                     results.append(ActionBundle("upgrade-ant", (op,), score, ("base", "offense")))
         if state.bases[player].generation_level < 2:
             level = state.bases[player].generation_level
@@ -172,6 +264,10 @@ class ActionCatalog:
                 if state.can_apply_operation(player, op):
                     tempo_gain = current_cycle - next_cycle
                     score = 10.0 + tempo_gain * 14.0 + state.nearest_ant_distance(player) * 0.12 - state.round_index * 0.015
+                    if state.round_index >= 155:
+                        score += 8.0
+                    if state.super_weapon_usage[player] > 0:
+                        score += 3.0
                     results.append(ActionBundle("upgrade-gen", (op,), score, ("base", "tempo")))
         return results
 
@@ -181,8 +277,11 @@ class ActionCatalog:
         enemy_ants = state.ants_of(enemy)
         my_ants = state.ants_of(player)
         enemy_towers = state.towers_of(enemy)
+        first_weapon_pending = state.super_weapon_usage[player] <= 0 and state.round_index < 118
+        storm_cost = SUPER_WEAPON_STATS[SuperWeaponType.LIGHTNING_STORM].cost
+        storm_cd = state.weapon_cooldowns[player, SuperWeaponType.LIGHTNING_STORM]
 
-        if (enemy_ants or enemy_towers) and state.weapon_cooldowns[player, SuperWeaponType.LIGHTNING_STORM] == 0 and state.coins[player] >= SUPER_WEAPON_STATS[SuperWeaponType.LIGHTNING_STORM].cost:
+        if (enemy_ants or enemy_towers) and storm_cd == 0 and state.coins[player] >= storm_cost:
             centers = self._candidate_centers(
                 [(ant.x, ant.y) for ant in enemy_ants],
                 [(tower.x, tower.y) for tower in enemy_towers],
@@ -198,7 +297,21 @@ class ActionCatalog:
                 if state.can_apply_operation(player, op):
                     results.append(ActionBundle(f"storm@{best[0]},{best[1]}", (op,), best[2], ("weapon", "storm")))
 
-        if enemy_towers and state.weapon_cooldowns[player, SuperWeaponType.EMP_BLASTER] == 0 and state.coins[player] >= SUPER_WEAPON_STATS[SuperWeaponType.EMP_BLASTER].cost:
+        def can_spend_support(weapon_type: SuperWeaponType) -> bool:
+            weapon_cost = SUPER_WEAPON_STATS[weapon_type].cost
+            if first_weapon_pending:
+                return False
+            if state.weapon_cooldowns[player, weapon_type] > 0 or state.coins[player] < weapon_cost:
+                return False
+            if state.super_weapon_usage[player] <= 0:
+                return False
+            if state.coins[player] >= storm_cost + weapon_cost:
+                return True
+            if storm_cd >= 24 and state.coins[player] >= 78:
+                return True
+            return state.nearest_ant_distance(player) <= 3 or state.frontline_distance(player) <= 4
+
+        if can_spend_support(SuperWeaponType.EMP_BLASTER) and enemy_towers:
             centers = self._candidate_centers(
                 [(tower.x, tower.y) for tower in enemy_towers],
                 [(ant.x, ant.y) for ant in enemy_ants[:6]],
@@ -209,12 +322,12 @@ class ActionCatalog:
                 for x, y in centers
             ]
             best = max(scored, key=lambda item: item[2], default=None)
-            if best and best[2] > 2.0:
+            if best and best[2] > 1.2:
                 op = Operation(OperationType.USE_EMP_BLASTER, best[0], best[1])
                 if state.can_apply_operation(player, op):
                     results.append(ActionBundle(f"emp@{best[0]},{best[1]}", (op,), best[2], ("weapon", "emp")))
 
-        if my_ants and state.weapon_cooldowns[player, SuperWeaponType.DEFLECTOR] == 0 and state.coins[player] >= SUPER_WEAPON_STATS[SuperWeaponType.DEFLECTOR].cost:
+        if can_spend_support(SuperWeaponType.DEFLECTOR) and my_ants:
             candidate_ants = sorted(
                 my_ants,
                 key=lambda ant: (hex_distance(ant.x, ant.y, *PLAYER_BASES[enemy]), -ant.hp),
@@ -233,7 +346,7 @@ class ActionCatalog:
                 if state.can_apply_operation(player, op):
                     results.append(ActionBundle(f"deflect@{best[0]},{best[1]}", (op,), best[2], ("weapon", "shield")))
 
-        if my_ants and state.weapon_cooldowns[player, SuperWeaponType.EMERGENCY_EVASION] == 0 and state.coins[player] >= SUPER_WEAPON_STATS[SuperWeaponType.EMERGENCY_EVASION].cost:
+        if can_spend_support(SuperWeaponType.EMERGENCY_EVASION) and my_ants:
             threatened_ants = sorted(
                 my_ants,
                 key=lambda ant: (
@@ -389,13 +502,13 @@ class ActionCatalog:
         if tower_type in (TowerType.PRODUCER, TowerType.PRODUCER_FAST, TowerType.PRODUCER_SIEGE, TowerType.PRODUCER_MEDIC):
             stats = TOWER_STATS[tower_type]
             cadence = 12.0 / max(stats.spawn_interval, 1)
-            density_bonus = max(0.0, 10 - local_density) * 0.75
+            density_bonus = max(0.0, 10 - local_density) * 0.9
             forward_bonus = max(0.0, 16 - forward_distance) * 0.22
             branch_bonus = {
-                TowerType.PRODUCER: 0.0,
-                TowerType.PRODUCER_FAST: 0.5,
-                TowerType.PRODUCER_SIEGE: 1.1,
-                TowerType.PRODUCER_MEDIC: 1.0,
+                TowerType.PRODUCER: 1.0,
+                TowerType.PRODUCER_FAST: 1.4,
+                TowerType.PRODUCER_SIEGE: 2.4,
+                TowerType.PRODUCER_MEDIC: 1.8,
             }[tower_type]
             return density_bonus + forward_bonus + cadence + branch_bonus
         return 0.0
@@ -423,31 +536,45 @@ class ActionCatalog:
         
     def _emp_value(self, state: BackendState, player: int, x: int, y: int) -> float:
         total = 0.0
+        enemy_base = PLAYER_BASES[1 - player]
         for tower in state.towers_of(1 - player):
             distance = hex_distance(x, y, tower.x, tower.y)
             if distance <= SUPER_WEAPON_STATS[SuperWeaponType.EMP_BLASTER].attack_range:
-                # 【优化】：只对敌方的高级防御塔群（满级 3 级塔）给出极高的分数权重
-                # 宁可捏在手里不用，也绝不浪费在 1 级基础塔上。
+                local_attackers = sum(
+                    1
+                    for ant in state.ants_of(player)
+                    if hex_distance(ant.x, ant.y, tower.x, tower.y) <= 5
+                )
                 if tower.level == 3:
                     total += 25.0
                 elif tower.level == 2:
-                    total += 12.0
+                    total += 15.0
                 else:
-                    total += 2.0
+                    total += 3.0
+                total += min(local_attackers, 4) * 2.5
+                total += max(0.0, 8 - hex_distance(tower.x, tower.y, *enemy_base)) * 0.55
         return total - SUPER_WEAPON_STATS[SuperWeaponType.EMP_BLASTER].cost * 0.025
 
     def _deflector_value(self, state: BackendState, player: int, x: int, y: int) -> float:
         total = 0.0
+        enemy_base = PLAYER_BASES[1 - player]
         for ant in state.ants_of(player):
             if hex_distance(x, y, ant.x, ant.y) <= SUPER_WEAPON_STATS[SuperWeaponType.DEFLECTOR].attack_range:
-                total += 0.8 + ant.level * 0.8
+                total += 1.1 + ant.level * 0.8
+                total += 1.3 if ant.kind == AntKind.COMBAT else 0.0
+                total += max(0.0, 8 - hex_distance(ant.x, ant.y, *enemy_base)) * 1.35
         total += max(0.0, 7 - state.nearest_ant_distance(player)) * 0.5
+        total += max(0.0, 6 - state.frontline_distance(player)) * 1.0
         return total - SUPER_WEAPON_STATS[SuperWeaponType.DEFLECTOR].cost * 0.02
 
     def _evasion_value(self, state: BackendState, player: int, x: int, y: int) -> float:
         total = 0.0
+        enemy_base = PLAYER_BASES[1 - player]
         for ant in state.ants_of(player):
             if hex_distance(x, y, ant.x, ant.y) <= SUPER_WEAPON_STATS[SuperWeaponType.EMERGENCY_EVASION].attack_range:
-                total += 0.6 + ant.level * 0.7
+                total += 0.9 + ant.level * 0.7
+                total += 1.0 if ant.kind == AntKind.COMBAT else 0.0
+                total += max(0.0, 8 - hex_distance(ant.x, ant.y, *enemy_base)) * 1.05
         total += max(0.0, 5 - state.nearest_ant_distance(player))
+        total += max(0.0, 5 - state.frontline_distance(player)) * 0.8
         return total - SUPER_WEAPON_STATS[SuperWeaponType.EMERGENCY_EVASION].cost * 0.02

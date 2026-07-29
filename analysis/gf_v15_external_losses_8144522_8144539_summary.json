@@ -1,0 +1,6619 @@
+{
+  "summary": {
+    "count": 11,
+    "avg_rounds": 288.09090909090907,
+    "v15_avg_storm_first": 52.72727272727273,
+    "opp_avg_storm_first": 38.36363636363637,
+    "v15_avg_storm_n": 3.272727272727273,
+    "opp_avg_storm_n": 6.363636363636363,
+    "v15_avg_emp_n": 0,
+    "opp_avg_emp_n": 0,
+    "v15_avg_def_n": 0.18181818181818182,
+    "opp_avg_def_n": 0.09090909090909091,
+    "v15_avg_eva_n": 0,
+    "opp_avg_eva_n": 0.09090909090909091,
+    "v15_avg_prod_up_n": 0.5454545454545454,
+    "opp_avg_prod_up_n": 8.090909090909092,
+    "v15_avg_max_prod": 0.45454545454545453,
+    "opp_avg_max_prod": 1.0909090909090908,
+    "v15_avg_build_n": 27.363636363636363,
+    "opp_avg_build_n": 19.454545454545453,
+    "v15_avg_upgrade_n": 3.5454545454545454,
+    "opp_avg_upgrade_n": 8.545454545454545,
+    "v15_avg_downgrade_n": 12.272727272727273,
+    "opp_avg_downgrade_n": 15.545454545454545,
+    "v15_avg_churn": 39.63636363636363,
+    "opp_avg_churn": 35,
+    "v15_avg_max_live": 10,
+    "opp_avg_max_live": 11.454545454545455,
+    "v15_avg_avg_live": 5.877463912496702,
+    "opp_avg_avg_live": 6.844673609756436,
+    "v15_avg_max_worker": 7.636363636363637,
+    "opp_avg_max_worker": 8.909090909090908,
+    "v15_avg_max_combat": 4.545454545454546,
+    "opp_avg_max_combat": 4.363636363636363,
+    "v15_avg_max_towers": 2.727272727272727,
+    "opp_avg_max_towers": 2.1818181818181817,
+    "v15_avg_max_adv": 2.272727272727273,
+    "opp_avg_max_adv": 2,
+    "v15_avg_first_hp_loss": 36.09090909090909,
+    "opp_avg_first_hp_loss": 36.90909090909091,
+    "v15_avg_first_enemy_near": 20.454545454545453,
+    "opp_avg_first_enemy_near": 25.272727272727273,
+    "v15_avg_first_push_near": 25.272727272727273,
+    "opp_avg_first_push_near": 20.454545454545453,
+    "v15_avg_hostile_le4_rounds": 200.0909090909091,
+    "opp_avg_hostile_le4_rounds": 165.36363636363637,
+    "v15_avg_push_le4_rounds": 165.36363636363637,
+    "opp_avg_push_le4_rounds": 200.0909090909091,
+    "v15_avg_hostile_le2_rounds": 138.27272727272728,
+    "opp_avg_hostile_le2_rounds": 107.45454545454545,
+    "v15_avg_push_le2_rounds": 107.45454545454545,
+    "opp_avg_push_le2_rounds": 138.27272727272728,
+    "v15_avg_coins_avg": 52.6508637470122,
+    "opp_avg_coins_avg": 81.32793205296136,
+    "v15_avg_coins_max": 141.45454545454547,
+    "opp_avg_coins_max": 217.27272727272728,
+    "v15_avg_coins_ge60": 87.81818181818181,
+    "opp_avg_coins_ge60": 152.8181818181818,
+    "v15_avg_coins_ge90": 35.27272727272727,
+    "opp_avg_coins_ge90": 89,
+    "v15_avg_coins_ge135": 12.545454545454545,
+    "opp_avg_coins_ge135": 52.63636363636363,
+    "v15_avg_enemy_base_damage_total": 32.54545454545455,
+    "opp_avg_enemy_base_damage_total": 50,
+    "v15_avg_own_damage_total": 50,
+    "opp_avg_own_damage_total": 32.54545454545455,
+    "v15_avg_speed_n": 0,
+    "opp_avg_speed_n": 0,
+    "v15_avg_antup_n": 0.09090909090909091,
+    "opp_avg_antup_n": 0,
+    "v15_up_targets_sum": {
+      "MORTAR": 10,
+      "PRODUCER": 6,
+      "HEAVY": 22,
+      "QUICK": 1
+    },
+    "v15_final_towers_sum": {
+      "HEAVY": 1,
+      "BASIC": 6,
+      "-1": 1
+    },
+    "v15_max_tower_types_sum": {
+      "BASIC": 20,
+      "-1": 23,
+      "MORTAR": 7,
+      "PRODUCER": 5,
+      "HEAVY": 10,
+      "QUICK": 1
+    },
+    "v15_prod_sites_sum": {
+      "19": 1
+    },
+    "opp_up_targets_sum": {
+      "HEAVY": 4,
+      "MORTAR": 1,
+      "PRODUCER": 89
+    },
+    "opp_final_towers_sum": {
+      "-1": 1,
+      "BASIC": 1
+    },
+    "opp_max_tower_types_sum": {
+      "BASIC": 19,
+      "-1": 19,
+      "HEAVY": 1,
+      "MORTAR": 1,
+      "PRODUCER": 12
+    },
+    "opp_prod_sites_sum": {
+      "27": 15,
+      "10": 5,
+      "32": 4,
+      "14": 3,
+      "16": 9,
+      "23": 8,
+      "24": 15,
+      "28": 3,
+      "7": 1,
+      "31": 3,
+      "26": 1,
+      "21": 1
+    }
+  },
+  "rows": [
+    {
+      "file": "8144522.json",
+      "rounds": 315,
+      "winner": 1,
+      "v15_side": 0,
+      "v15": {
+        "hp_final": 0,
+        "enemy_hp_final": 14,
+        "coins_final": 49,
+        "coins_avg": 43.221518987341774,
+        "coins_max": 132,
+        "coins_ge60": 76,
+        "coins_ge90": 23,
+        "coins_ge135": 0,
+        "build_n": 24,
+        "upgrade_n": 7,
+        "downgrade_n": 15,
+        "churn": 39,
+        "storm_n": 5,
+        "storm_first": 29,
+        "storm_rounds": [
+          29,
+          145,
+          217,
+          252,
+          305
+        ],
+        "emp_n": 0,
+        "emp_first": null,
+        "def_n": 0,
+        "def_first": null,
+        "eva_n": 0,
+        "eva_first": null,
+        "speed_n": 0,
+        "speed_first": null,
+        "antup_n": 0,
+        "antup_first": null,
+        "up_targets": {
+          "3": 2,
+          "4": 1,
+          "1": 4
+        },
+        "up_sites": {
+          "(4, 1)": 2
+        },
+        "build_sites": {
+          "1": 1,
+          "19": 5,
+          "18": 5,
+          "20": 5,
+          "21": 6,
+          "4": 1,
+          "24": 1
+        },
+        "down_sites": {
+          "(19, 0)": 1,
+          "(18, 1)": 2
+        },
+        "prod_up_n": 1,
+        "prod_up_first": 162,
+        "prod_sites": {},
+        "max_prod": 1,
+        "max_towers": 2,
+        "max_adv": 2,
+        "final_towers": {},
+        "max_tower_types": {
+          "0": 1,
+          "-1": 2,
+          "3": 1,
+          "4": 1,
+          "1": 1
+        },
+        "max_live": 11,
+        "avg_live": 6.041139240506329,
+        "max_worker": 9,
+        "max_combat": 2,
+        "max_combat_live": 2,
+        "first_hp_loss": 30,
+        "first_enemy_near": 25,
+        "first_push_near": 28,
+        "hostile_le4_rounds": 197,
+        "push_le4_rounds": 180,
+        "hostile_le2_rounds": 134,
+        "push_le2_rounds": 116,
+        "avg_close_enemy_ants": 1.1455696202531647,
+        "avg_close_my_ants": 0.9367088607594937,
+        "enemy_base_damage_events": [
+          [
+            29,
+            1,
+            49
+          ],
+          [
+            42,
+            2,
+            47
+          ],
+          [
+            66,
+            1,
+            46
+          ],
+          [
+            68,
+            1,
+            45
+          ],
+          [
+            69,
+            1,
+            44
+          ],
+          [
+            71,
+            1,
+            43
+          ],
+          [
+            72,
+            1,
+            42
+          ],
+          [
+            73,
+            1,
+            41
+          ],
+          [
+            78,
+            1,
+            40
+          ],
+          [
+            81,
+            1,
+            39
+          ],
+          [
+            87,
+            1,
+            38
+          ],
+          [
+            88,
+            1,
+            37
+          ],
+          [
+            93,
+            1,
+            36
+          ],
+          [
+            94,
+            1,
+            35
+          ],
+          [
+            130,
+            1,
+            34
+          ],
+          [
+            140,
+            1,
+            33
+          ],
+          [
+            144,
+            1,
+            32
+          ],
+          [
+            145,
+            1,
+            31
+          ],
+          [
+            157,
+            1,
+            30
+          ],
+          [
+            167,
+            1,
+            29
+          ]
+        ],
+        "own_hp_loss_events": [
+          [
+            30,
+            1,
+            49
+          ],
+          [
+            48,
+            2,
+            47
+          ],
+          [
+            49,
+            1,
+            46
+          ],
+          [
+            51,
+            1,
+            45
+          ],
+          [
+            66,
+            1,
+            44
+          ],
+          [
+            70,
+            1,
+            43
+          ],
+          [
+            75,
+            1,
+            42
+          ],
+          [
+            80,
+            1,
+            41
+          ],
+          [
+            81,
+            1,
+            40
+          ],
+          [
+            93,
+            1,
+            39
+          ],
+          [
+            97,
+            1,
+            38
+          ],
+          [
+            98,
+            1,
+            37
+          ],
+          [
+            99,
+            2,
+            35
+          ],
+          [
+            101,
+            1,
+            34
+          ],
+          [
+            105,
+            1,
+            33
+          ],
+          [
+            106,
+            1,
+            32
+          ],
+          [
+            113,
+            1,
+            31
+          ],
+          [
+            118,
+            1,
+            30
+          ],
+          [
+            120,
+            1,
+            29
+          ],
+          [
+            127,
+            2,
+            27
+          ]
+        ],
+        "enemy_base_damage_total": 36,
+        "own_damage_total": 50
+      },
+      "opp": {
+        "hp_final": 14,
+        "enemy_hp_final": 0,
+        "coins_final": 52,
+        "coins_avg": 39.82911392405063,
+        "coins_max": 122,
+        "coins_ge60": 61,
+        "coins_ge90": 7,
+        "coins_ge135": 0,
+        "build_n": 13,
+        "upgrade_n": 5,
+        "downgrade_n": 2,
+        "churn": 15,
+        "storm_n": 5,
+        "storm_first": 84,
+        "storm_rounds": [
+          84,
+          137,
+          192,
+          228,
+          279
+        ],
+        "emp_n": 0,
+        "emp_first": null,
+        "def_n": 0,
+        "def_first": null,
+        "eva_n": 0,
+        "eva_first": null,
+        "speed_n": 0,
+        "speed_first": null,
+        "antup_n": 0,
+        "antup_first": null,
+        "up_targets": {
+          "1": 4,
+          "3": 1
+        },
+        "up_sites": {},
+        "build_sites": {
+          "1": 2,
+          "2": 6,
+          "3": 2,
+          "11": 1,
+          "10": 1,
+          "8": 1
+        },
+        "down_sites": {},
+        "prod_up_n": 0,
+        "prod_up_first": null,
+        "prod_sites": {},
+        "max_prod": 0,
+        "max_towers": 2,
+        "max_adv": 2,
+        "final_towers": {},
+        "max_tower_types": {
+          "0": 2,
+          "-1": 2,
+          "1": 1,
+          "3": 1
+        },
+        "max_live": 10,
+        "avg_live": 5.60126582278481,
+        "max_worker": 7,
+        "max_combat": 3,
+        "max_combat_live": 3,
+        "first_hp_loss": 29,
+        "first_enemy_near": 28,
+        "first_push_near": 25,
+        "hostile_le4_rounds": 180,
+        "push_le4_rounds": 197,
+        "hostile_le2_rounds": 116,
+        "push_le2_rounds": 134,
+        "avg_close_enemy_ants": 0.9367088607594937,
+        "avg_close_my_ants": 1.1455696202531647,
+        "enemy_base_damage_events": [
+          [
+            30,
+            1,
+            49
+          ],
+          [
+            48,
+            2,
+            47
+          ],
+          [
+            49,
+            1,
+            46
+          ],
+          [
+            51,
+            1,
+            45
+          ],
+          [
+            66,
+            1,
+            44
+          ],
+          [
+            70,
+            1,
+            43
+          ],
+          [
+            75,
+            1,
+            42
+          ],
+          [
+            80,
+            1,
+            41
+          ],
+          [
+            81,
+            1,
+            40
+          ],
+          [
+            93,
+            1,
+            39
+          ],
+          [
+            97,
+            1,
+            38
+          ],
+          [
+            98,
+            1,
+            37
+          ],
+          [
+            99,
+            2,
+            35
+          ],
+          [
+            101,
+            1,
+            34
+          ],
+          [
+            105,
+            1,
+            33
+          ],
+          [
+            106,
+            1,
+            32
+          ],
+          [
+            113,
+            1,
+            31
+          ],
+          [
+            118,
+            1,
+            30
+          ],
+          [
+            120,
+            1,
+            29
+          ],
+          [
+            127,
+            2,
+            27
+          ]
+        ],
+        "own_hp_loss_events": [
+          [
+            29,
+            1,
+            49
+          ],
+          [
+            42,
+            2,
+            47
+          ],
+          [
+            66,
+            1,
+            46
+          ],
+          [
+            68,
+            1,
+            45
+          ],
+          [
+            69,
+            1,
+            44
+          ],
+          [
+            71,
+            1,
+            43
+          ],
+          [
+            72,
+            1,
+            42
+          ],
+          [
+            73,
+            1,
+            41
+          ],
+          [
+            78,
+            1,
+            40
+          ],
+          [
+            81,
+            1,
+            39
+          ],
+          [
+            87,
+            1,
+            38
+          ],
+          [
+            88,
+            1,
+            37
+          ],
+          [
+            93,
+            1,
+            36
+          ],
+          [
+            94,
+            1,
+            35
+          ],
+          [
+            130,
+            1,
+            34
+          ],
+          [
+            140,
+            1,
+            33
+          ],
+          [
+            144,
+            1,
+            32
+          ],
+          [
+            145,
+            1,
+            31
+          ],
+          [
+            157,
+            1,
+            30
+          ],
+          [
+            167,
+            1,
+            29
+          ]
+        ],
+        "enemy_base_damage_total": 50,
+        "own_damage_total": 36
+      }
+    },
+    {
+      "file": "8144524.json",
+      "rounds": 273,
+      "winner": 1,
+      "v15_side": 0,
+      "v15": {
+        "hp_final": 0,
+        "enemy_hp_final": 8,
+        "coins_final": 96,
+        "coins_avg": 102.34306569343066,
+        "coins_max": 287,
+        "coins_ge60": 164,
+        "coins_ge90": 122,
+        "coins_ge135": 92,
+        "build_n": 17,
+        "upgrade_n": 3,
+        "downgrade_n": 4,
+        "churn": 21,
+        "storm_n": 2,
+        "storm_first": 34,
+        "storm_rounds": [
+          34,
+          239
+        ],
+        "emp_n": 0,
+        "emp_first": null,
+        "def_n": 0,
+        "def_first": null,
+        "eva_n": 0,
+        "eva_first": null,
+        "speed_n": 0,
+        "speed_first": null,
+        "antup_n": 1,
+        "antup_first": 240,
+        "up_targets": {
+          "4": 1,
+          "1": 2
+        },
+        "up_sites": {
+          "(18, 1)": 1
+        },
+        "build_sites": {
+          "1": 3,
+          "8": 1,
+          "10": 1,
+          "21": 1,
+          "20": 2,
+          "18": 6,
+          "2": 1,
+          "16": 1,
+          "19": 1
+        },
+        "down_sites": {},
+        "prod_up_n": 1,
+        "prod_up_first": 60,
+        "prod_sites": {},
+        "max_prod": 1,
+        "max_towers": 2,
+        "max_adv": 2,
+        "final_towers": {
+          "1": 1
+        },
+        "max_tower_types": {
+          "0": 1,
+          "-1": 2,
+          "4": 1,
+          "1": 1
+        },
+        "max_live": 11,
+        "avg_live": 6.0510948905109485,
+        "max_worker": 8,
+        "max_combat": 7,
+        "max_combat_live": 7,
+        "first_hp_loss": 26,
+        "first_enemy_near": 21,
+        "first_push_near": 37,
+        "hostile_le4_rounds": 193,
+        "push_le4_rounds": 186,
+        "hostile_le2_rounds": 144,
+        "push_le2_rounds": 136,
+        "avg_close_enemy_ants": 1.354014598540146,
+        "avg_close_my_ants": 1.281021897810219,
+        "enemy_base_damage_events": [
+          [
+            42,
+            1,
+            49
+          ],
+          [
+            47,
+            1,
+            48
+          ],
+          [
+            50,
+            1,
+            47
+          ],
+          [
+            51,
+            1,
+            46
+          ],
+          [
+            52,
+            1,
+            45
+          ],
+          [
+            54,
+            1,
+            44
+          ],
+          [
+            59,
+            1,
+            43
+          ],
+          [
+            66,
+            1,
+            42
+          ],
+          [
+            72,
+            1,
+            41
+          ],
+          [
+            76,
+            1,
+            40
+          ],
+          [
+            80,
+            2,
+            38
+          ],
+          [
+            85,
+            1,
+            37
+          ],
+          [
+            91,
+            1,
+            36
+          ],
+          [
+            92,
+            1,
+            35
+          ],
+          [
+            93,
+            1,
+            34
+          ],
+          [
+            117,
+            1,
+            33
+          ],
+          [
+            123,
+            1,
+            32
+          ],
+          [
+            148,
+            1,
+            31
+          ],
+          [
+            159,
+            1,
+            30
+          ],
+          [
+            175,
+            1,
+            29
+          ]
+        ],
+        "own_hp_loss_events": [
+          [
+            26,
+            2,
+            48
+          ],
+          [
+            30,
+            1,
+            47
+          ],
+          [
+            31,
+            1,
+            46
+          ],
+          [
+            43,
+            1,
+            45
+          ],
+          [
+            69,
+            1,
+            44
+          ],
+          [
+            70,
+            1,
+            43
+          ],
+          [
+            86,
+            1,
+            42
+          ],
+          [
+            92,
+            1,
+            41
+          ],
+          [
+            96,
+            1,
+            40
+          ],
+          [
+            102,
+            1,
+            39
+          ],
+          [
+            110,
+            1,
+            38
+          ],
+          [
+            116,
+            2,
+            36
+          ],
+          [
+            117,
+            1,
+            35
+          ],
+          [
+            118,
+            1,
+            34
+          ],
+          [
+            125,
+            1,
+            33
+          ],
+          [
+            127,
+            1,
+            32
+          ],
+          [
+            133,
+            1,
+            31
+          ],
+          [
+            134,
+            1,
+            30
+          ],
+          [
+            135,
+            1,
+            29
+          ],
+          [
+            137,
+            1,
+            28
+          ]
+        ],
+        "enemy_base_damage_total": 42,
+        "own_damage_total": 50
+      },
+      "opp": {
+        "hp_final": 8,
+        "enemy_hp_final": 0,
+        "coins_final": 32,
+        "coins_avg": 26.978102189781023,
+        "coins_max": 115,
+        "coins_ge60": 26,
+        "coins_ge90": 6,
+        "coins_ge135": 0,
+        "build_n": 36,
+        "upgrade_n": 1,
+        "downgrade_n": 6,
+        "churn": 42,
+        "storm_n": 3,
+        "storm_first": 81,
+        "storm_rounds": [
+          81,
+          116,
+          151
+        ],
+        "emp_n": 0,
+        "emp_first": null,
+        "def_n": 0,
+        "def_first": null,
+        "eva_n": 0,
+        "eva_first": null,
+        "speed_n": 0,
+        "speed_first": null,
+        "antup_n": 0,
+        "antup_first": null,
+        "up_targets": {
+          "4": 1
+        },
+        "up_sites": {
+          "(27, 4)": 1
+        },
+        "build_sites": {
+          "20": 12,
+          "19": 3,
+          "1": 17,
+          "2": 3,
+          "27": 1
+        },
+        "down_sites": {
+          "(1, 0)": 1,
+          "(19, 0)": 1
+        },
+        "prod_up_n": 1,
+        "prod_up_first": 135,
+        "prod_sites": {
+          "27": 1
+        },
+        "max_prod": 1,
+        "max_towers": 3,
+        "max_adv": 3,
+        "final_towers": {},
+        "max_tower_types": {
+          "0": 2,
+          "-1": 3,
+          "4": 1
+        },
+        "max_live": 10,
+        "avg_live": 6.131386861313868,
+        "max_worker": 7,
+        "max_combat": 5,
+        "max_combat_live": 5,
+        "first_hp_loss": 42,
+        "first_enemy_near": 37,
+        "first_push_near": 21,
+        "hostile_le4_rounds": 186,
+        "push_le4_rounds": 193,
+        "hostile_le2_rounds": 136,
+        "push_le2_rounds": 144,
+        "avg_close_enemy_ants": 1.281021897810219,
+        "avg_close_my_ants": 1.354014598540146,
+        "enemy_base_damage_events": [
+          [
+            26,
+            2,
+            48
+          ],
+          [
+            30,
+            1,
+            47
+          ],
+          [
+            31,
+            1,
+            46
+          ],
+          [
+            43,
+            1,
+            45
+          ],
+          [
+            69,
+            1,
+            44
+          ],
+          [
+            70,
+            1,
+            43
+          ],
+          [
+            86,
+            1,
+            42
+          ],
+          [
+            92,
+            1,
+            41
+          ],
+          [
+            96,
+            1,
+            40
+          ],
+          [
+            102,
+            1,
+            39
+          ],
+          [
+            110,
+            1,
+            38
+          ],
+          [
+            116,
+            2,
+            36
+          ],
+          [
+            117,
+            1,
+            35
+          ],
+          [
+            118,
+            1,
+            34
+          ],
+          [
+            125,
+            1,
+            33
+          ],
+          [
+            127,
+            1,
+            32
+          ],
+          [
+            133,
+            1,
+            31
+          ],
+          [
+            134,
+            1,
+            30
+          ],
+          [
+            135,
+            1,
+            29
+          ],
+          [
+            137,
+            1,
+            28
+          ]
+        ],
+        "own_hp_loss_events": [
+          [
+            42,
+            1,
+            49
+          ],
+          [
+            47,
+            1,
+            48
+          ],
+          [
+            50,
+            1,
+            47
+          ],
+          [
+            51,
+            1,
+            46
+          ],
+          [
+            52,
+            1,
+            45
+          ],
+          [
+            54,
+            1,
+            44
+          ],
+          [
+            59,
+            1,
+            43
+          ],
+          [
+            66,
+            1,
+            42
+          ],
+          [
+            72,
+            1,
+            41
+          ],
+          [
+            76,
+            1,
+            40
+          ],
+          [
+            80,
+            2,
+            38
+          ],
+          [
+            85,
+            1,
+            37
+          ],
+          [
+            91,
+            1,
+            36
+          ],
+          [
+            92,
+            1,
+            35
+          ],
+          [
+            93,
+            1,
+            34
+          ],
+          [
+            117,
+            1,
+            33
+          ],
+          [
+            123,
+            1,
+            32
+          ],
+          [
+            148,
+            1,
+            31
+          ],
+          [
+            159,
+            1,
+            30
+          ],
+          [
+            175,
+            1,
+            29
+          ]
+        ],
+        "enemy_base_damage_total": 50,
+        "own_damage_total": 42
+      }
+    },
+    {
+      "file": "8144527.json",
+      "rounds": 324,
+      "winner": 0,
+      "v15_side": 1,
+      "v15": {
+        "hp_final": 0,
+        "enemy_hp_final": 14,
+        "coins_final": 1,
+        "coins_avg": 46.94769230769231,
+        "coins_max": 116,
+        "coins_ge60": 107,
+        "coins_ge90": 26,
+        "coins_ge135": 0,
+        "build_n": 32,
+        "upgrade_n": 6,
+        "downgrade_n": 18,
+        "churn": 50,
+        "storm_n": 3,
+        "storm_first": 150,
+        "storm_rounds": [
+          150,
+          257,
+          292
+        ],
+        "emp_n": 0,
+        "emp_first": null,
+        "def_n": 1,
+        "def_first": 316,
+        "eva_n": 0,
+        "eva_first": null,
+        "speed_n": 0,
+        "speed_first": null,
+        "antup_n": 0,
+        "antup_first": null,
+        "up_targets": {
+          "3": 2,
+          "4": 1,
+          "1": 3
+        },
+        "up_sites": {
+          "(1, 1)": 2
+        },
+        "build_sites": {
+          "1": 6,
+          "12": 1,
+          "4": 1,
+          "25": 6,
+          "20": 3,
+          "17": 4,
+          "7": 1,
+          "3": 2,
+          "26": 2,
+          "19": 4,
+          "8": 1,
+          "22": 1
+        },
+        "down_sites": {
+          "(12, 0)": 1,
+          "(7, 0)": 1,
+          "(3, 3)": 1,
+          "(17, 0)": 1,
+          "(1, 1)": 1,
+          "(19, 3)": 1
+        },
+        "prod_up_n": 1,
+        "prod_up_first": 177,
+        "prod_sites": {},
+        "max_prod": 1,
+        "max_towers": 3,
+        "max_adv": 2,
+        "final_towers": {
+          "0": 1
+        },
+        "max_tower_types": {
+          "0": 2,
+          "-1": 1,
+          "3": 1,
+          "4": 1,
+          "1": 1
+        },
+        "max_live": 11,
+        "avg_live": 6.707692307692308,
+        "max_worker": 7,
+        "max_combat": 5,
+        "max_combat_live": 5,
+        "first_hp_loss": 44,
+        "first_enemy_near": 16,
+        "first_push_near": 33,
+        "hostile_le4_rounds": 224,
+        "push_le4_rounds": 171,
+        "hostile_le2_rounds": 148,
+        "push_le2_rounds": 101,
+        "avg_close_enemy_ants": 1.0646153846153845,
+        "avg_close_my_ants": 0.9815384615384616,
+        "enemy_base_damage_events": [
+          [
+            62,
+            1,
+            49
+          ],
+          [
+            72,
+            1,
+            48
+          ],
+          [
+            76,
+            1,
+            47
+          ],
+          [
+            78,
+            2,
+            45
+          ],
+          [
+            91,
+            1,
+            44
+          ],
+          [
+            93,
+            1,
+            43
+          ],
+          [
+            120,
+            1,
+            42
+          ],
+          [
+            122,
+            1,
+            41
+          ],
+          [
+            123,
+            1,
+            40
+          ],
+          [
+            134,
+            1,
+            39
+          ],
+          [
+            135,
+            1,
+            38
+          ],
+          [
+            154,
+            1,
+            37
+          ],
+          [
+            157,
+            1,
+            36
+          ],
+          [
+            168,
+            1,
+            35
+          ],
+          [
+            169,
+            1,
+            34
+          ],
+          [
+            176,
+            2,
+            32
+          ],
+          [
+            179,
+            1,
+            31
+          ],
+          [
+            193,
+            1,
+            30
+          ],
+          [
+            194,
+            1,
+            29
+          ],
+          [
+            195,
+            1,
+            28
+          ]
+        ],
+        "own_hp_loss_events": [
+          [
+            44,
+            1,
+            49
+          ],
+          [
+            48,
+            2,
+            47
+          ],
+          [
+            55,
+            2,
+            45
+          ],
+          [
+            59,
+            1,
+            44
+          ],
+          [
+            68,
+            1,
+            43
+          ],
+          [
+            74,
+            1,
+            42
+          ],
+          [
+            77,
+            1,
+            41
+          ],
+          [
+            78,
+            1,
+            40
+          ],
+          [
+            85,
+            2,
+            38
+          ],
+          [
+            89,
+            1,
+            37
+          ],
+          [
+            95,
+            1,
+            36
+          ],
+          [
+            97,
+            1,
+            35
+          ],
+          [
+            108,
+            1,
+            34
+          ],
+          [
+            111,
+            1,
+            33
+          ],
+          [
+            115,
+            1,
+            32
+          ],
+          [
+            118,
+            1,
+            31
+          ],
+          [
+            128,
+            1,
+            30
+          ],
+          [
+            129,
+            1,
+            29
+          ],
+          [
+            132,
+            1,
+            28
+          ],
+          [
+            135,
+            1,
+            27
+          ]
+        ],
+        "enemy_base_damage_total": 36,
+        "own_damage_total": 50
+      },
+      "opp": {
+        "hp_final": 14,
+        "enemy_hp_final": 0,
+        "coins_final": 47,
+        "coins_avg": 47.59384615384615,
+        "coins_max": 104,
+        "coins_ge60": 115,
+        "coins_ge90": 12,
+        "coins_ge135": 0,
+        "build_n": 38,
+        "upgrade_n": 0,
+        "downgrade_n": 7,
+        "churn": 45,
+        "storm_n": 5,
+        "storm_first": 36,
+        "storm_rounds": [
+          36,
+          95,
+          137,
+          212,
+          291
+        ],
+        "emp_n": 0,
+        "emp_first": null,
+        "def_n": 0,
+        "def_first": null,
+        "eva_n": 0,
+        "eva_first": null,
+        "speed_n": 0,
+        "speed_first": null,
+        "antup_n": 0,
+        "antup_first": null,
+        "up_targets": {},
+        "up_sites": {},
+        "build_sites": {
+          "19": 9,
+          "8": 2,
+          "21": 7,
+          "18": 9,
+          "2": 1,
+          "13": 2,
+          "4": 1,
+          "9": 1,
+          "20": 3,
+          "1": 2,
+          "7": 1
+        },
+        "down_sites": {
+          "(8, 0)": 1,
+          "(21, 0)": 1
+        },
+        "prod_up_n": 0,
+        "prod_up_first": null,
+        "prod_sites": {},
+        "max_prod": 0,
+        "max_towers": 3,
+        "max_adv": 2,
+        "final_towers": {},
+        "max_tower_types": {
+          "0": 2,
+          "-1": 2
+        },
+        "max_live": 9,
+        "avg_live": 6.064615384615385,
+        "max_worker": 8,
+        "max_combat": 4,
+        "max_combat_live": 4,
+        "first_hp_loss": 62,
+        "first_enemy_near": 33,
+        "first_push_near": 16,
+        "hostile_le4_rounds": 171,
+        "push_le4_rounds": 224,
+        "hostile_le2_rounds": 101,
+        "push_le2_rounds": 148,
+        "avg_close_enemy_ants": 0.9815384615384616,
+        "avg_close_my_ants": 1.0646153846153845,
+        "enemy_base_damage_events": [
+          [
+            44,
+            1,
+            49
+          ],
+          [
+            48,
+            2,
+            47
+          ],
+          [
+            55,
+            2,
+            45
+          ],
+          [
+            59,
+            1,
+            44
+          ],
+          [
+            68,
+            1,
+            43
+          ],
+          [
+            74,
+            1,
+            42
+          ],
+          [
+            77,
+            1,
+            41
+          ],
+          [
+            78,
+            1,
+            40
+          ],
+          [
+            85,
+            2,
+            38
+          ],
+          [
+            89,
+            1,
+            37
+          ],
+          [
+            95,
+            1,
+            36
+          ],
+          [
+            97,
+            1,
+            35
+          ],
+          [
+            108,
+            1,
+            34
+          ],
+          [
+            111,
+            1,
+            33
+          ],
+          [
+            115,
+            1,
+            32
+          ],
+          [
+            118,
+            1,
+            31
+          ],
+          [
+            128,
+            1,
+            30
+          ],
+          [
+            129,
+            1,
+            29
+          ],
+          [
+            132,
+            1,
+            28
+          ],
+          [
+            135,
+            1,
+            27
+          ]
+        ],
+        "own_hp_loss_events": [
+          [
+            62,
+            1,
+            49
+          ],
+          [
+            72,
+            1,
+            48
+          ],
+          [
+            76,
+            1,
+            47
+          ],
+          [
+            78,
+            2,
+            45
+          ],
+          [
+            91,
+            1,
+            44
+          ],
+          [
+            93,
+            1,
+            43
+          ],
+          [
+            120,
+            1,
+            42
+          ],
+          [
+            122,
+            1,
+            41
+          ],
+          [
+            123,
+            1,
+            40
+          ],
+          [
+            134,
+            1,
+            39
+          ],
+          [
+            135,
+            1,
+            38
+          ],
+          [
+            154,
+            1,
+            37
+          ],
+          [
+            157,
+            1,
+            36
+          ],
+          [
+            168,
+            1,
+            35
+          ],
+          [
+            169,
+            1,
+            34
+          ],
+          [
+            176,
+            2,
+            32
+          ],
+          [
+            179,
+            1,
+            31
+          ],
+          [
+            193,
+            1,
+            30
+          ],
+          [
+            194,
+            1,
+            29
+          ],
+          [
+            195,
+            1,
+            28
+          ]
+        ],
+        "enemy_base_damage_total": 50,
+        "own_damage_total": 36
+      }
+    },
+    {
+      "file": "8144528.json",
+      "rounds": 306,
+      "winner": 1,
+      "v15_side": 0,
+      "v15": {
+        "hp_final": 0,
+        "enemy_hp_final": 15,
+        "coins_final": 59,
+        "coins_avg": 40.071661237785015,
+        "coins_max": 117,
+        "coins_ge60": 54,
+        "coins_ge90": 22,
+        "coins_ge135": 0,
+        "build_n": 33,
+        "upgrade_n": 2,
+        "downgrade_n": 15,
+        "churn": 48,
+        "storm_n": 4,
+        "storm_first": 34,
+        "storm_rounds": [
+          34,
+          74,
+          231,
+          288
+        ],
+        "emp_n": 0,
+        "emp_first": null,
+        "def_n": 0,
+        "def_first": null,
+        "eva_n": 0,
+        "eva_first": null,
+        "speed_n": 0,
+        "speed_first": null,
+        "antup_n": 0,
+        "antup_first": null,
+        "up_targets": {
+          "3": 1,
+          "1": 1
+        },
+        "up_sites": {},
+        "build_sites": {
+          "1": 2,
+          "12": 1,
+          "19": 5,
+          "7": 1,
+          "20": 7,
+          "18": 5,
+          "4": 2,
+          "21": 3,
+          "24": 6,
+          "11": 1
+        },
+        "down_sites": {
+          "(12, 0)": 1,
+          "(19, 0)": 2,
+          "(1, 0)": 1,
+          "(20, 3)": 1,
+          "(20, 0)": 1,
+          "(18, 0)": 1
+        },
+        "prod_up_n": 0,
+        "prod_up_first": null,
+        "prod_sites": {},
+        "max_prod": 0,
+        "max_towers": 3,
+        "max_adv": 2,
+        "final_towers": {
+          "0": 1
+        },
+        "max_tower_types": {
+          "0": 2,
+          "-1": 2,
+          "3": 1,
+          "1": 1
+        },
+        "max_live": 8,
+        "avg_live": 4.866449511400652,
+        "max_worker": 7,
+        "max_combat": 5,
+        "max_combat_live": 5,
+        "first_hp_loss": 30,
+        "first_enemy_near": 25,
+        "first_push_near": 15,
+        "hostile_le4_rounds": 212,
+        "push_le4_rounds": 156,
+        "hostile_le2_rounds": 152,
+        "push_le2_rounds": 98,
+        "avg_close_enemy_ants": 1.1954397394136809,
+        "avg_close_my_ants": 0.739413680781759,
+        "enemy_base_damage_events": [
+          [
+            19,
+            1,
+            49
+          ],
+          [
+            33,
+            1,
+            48
+          ],
+          [
+            47,
+            2,
+            46
+          ],
+          [
+            52,
+            1,
+            45
+          ],
+          [
+            54,
+            1,
+            44
+          ],
+          [
+            59,
+            1,
+            43
+          ],
+          [
+            63,
+            1,
+            42
+          ],
+          [
+            67,
+            1,
+            41
+          ],
+          [
+            68,
+            1,
+            40
+          ],
+          [
+            73,
+            1,
+            39
+          ],
+          [
+            86,
+            1,
+            38
+          ],
+          [
+            90,
+            1,
+            37
+          ],
+          [
+            96,
+            1,
+            36
+          ],
+          [
+            103,
+            1,
+            35
+          ],
+          [
+            105,
+            1,
+            34
+          ],
+          [
+            130,
+            1,
+            33
+          ],
+          [
+            140,
+            1,
+            32
+          ],
+          [
+            157,
+            1,
+            31
+          ],
+          [
+            166,
+            1,
+            30
+          ],
+          [
+            170,
+            1,
+            29
+          ]
+        ],
+        "own_hp_loss_events": [
+          [
+            30,
+            1,
+            49
+          ],
+          [
+            67,
+            1,
+            48
+          ],
+          [
+            94,
+            1,
+            47
+          ],
+          [
+            97,
+            1,
+            46
+          ],
+          [
+            104,
+            1,
+            45
+          ],
+          [
+            112,
+            1,
+            44
+          ],
+          [
+            116,
+            2,
+            42
+          ],
+          [
+            121,
+            1,
+            41
+          ],
+          [
+            122,
+            1,
+            40
+          ],
+          [
+            126,
+            1,
+            39
+          ],
+          [
+            129,
+            1,
+            38
+          ],
+          [
+            132,
+            1,
+            37
+          ],
+          [
+            134,
+            1,
+            36
+          ],
+          [
+            143,
+            1,
+            35
+          ],
+          [
+            144,
+            1,
+            34
+          ],
+          [
+            157,
+            1,
+            33
+          ],
+          [
+            159,
+            1,
+            32
+          ],
+          [
+            161,
+            1,
+            31
+          ],
+          [
+            166,
+            1,
+            30
+          ],
+          [
+            176,
+            1,
+            29
+          ]
+        ],
+        "enemy_base_damage_total": 35,
+        "own_damage_total": 50
+      },
+      "opp": {
+        "hp_final": 15,
+        "enemy_hp_final": 0,
+        "coins_final": 253,
+        "coins_avg": 128.09446254071662,
+        "coins_max": 369,
+        "coins_ge60": 238,
+        "coins_ge90": 186,
+        "coins_ge135": 149,
+        "build_n": 8,
+        "upgrade_n": 8,
+        "downgrade_n": 12,
+        "churn": 20,
+        "storm_n": 8,
+        "storm_first": 28,
+        "storm_rounds": [
+          28,
+          70,
+          105,
+          140,
+          175,
+          210,
+          245,
+          280
+        ],
+        "emp_n": 0,
+        "emp_first": null,
+        "def_n": 0,
+        "def_first": null,
+        "eva_n": 0,
+        "eva_first": null,
+        "speed_n": 0,
+        "speed_first": null,
+        "antup_n": 0,
+        "antup_first": null,
+        "up_targets": {
+          "4": 8
+        },
+        "up_sites": {
+          "(10, 4)": 2,
+          "(27, 4)": 2,
+          "(32, 4)": 1,
+          "(14, 4)": 1,
+          "(16, 4)": 1
+        },
+        "build_sites": {
+          "10": 2,
+          "14": 2,
+          "27": 2,
+          "32": 1,
+          "16": 1
+        },
+        "down_sites": {
+          "(10, 0)": 1,
+          "(14, 0)": 1,
+          "(27, 0)": 2,
+          "(32, 0)": 1
+        },
+        "prod_up_n": 8,
+        "prod_up_first": 178,
+        "prod_sites": {
+          "10": 2,
+          "27": 2,
+          "32": 1,
+          "14": 1,
+          "16": 1
+        },
+        "max_prod": 1,
+        "max_towers": 2,
+        "max_adv": 2,
+        "final_towers": {},
+        "max_tower_types": {
+          "0": 2,
+          "4": 1,
+          "-1": 2
+        },
+        "max_live": 12,
+        "avg_live": 7.5537459283387625,
+        "max_worker": 10,
+        "max_combat": 5,
+        "max_combat_live": 5,
+        "first_hp_loss": 19,
+        "first_enemy_near": 15,
+        "first_push_near": 25,
+        "hostile_le4_rounds": 156,
+        "push_le4_rounds": 212,
+        "hostile_le2_rounds": 98,
+        "push_le2_rounds": 152,
+        "avg_close_enemy_ants": 0.739413680781759,
+        "avg_close_my_ants": 1.1954397394136809,
+        "enemy_base_damage_events": [
+          [
+            30,
+            1,
+            49
+          ],
+          [
+            67,
+            1,
+            48
+          ],
+          [
+            94,
+            1,
+            47
+          ],
+          [
+            97,
+            1,
+            46
+          ],
+          [
+            104,
+            1,
+            45
+          ],
+          [
+            112,
+            1,
+            44
+          ],
+          [
+            116,
+            2,
+            42
+          ],
+          [
+            121,
+            1,
+            41
+          ],
+          [
+            122,
+            1,
+            40
+          ],
+          [
+            126,
+            1,
+            39
+          ],
+          [
+            129,
+            1,
+            38
+          ],
+          [
+            132,
+            1,
+            37
+          ],
+          [
+            134,
+            1,
+            36
+          ],
+          [
+            143,
+            1,
+            35
+          ],
+          [
+            144,
+            1,
+            34
+          ],
+          [
+            157,
+            1,
+            33
+          ],
+          [
+            159,
+            1,
+            32
+          ],
+          [
+            161,
+            1,
+            31
+          ],
+          [
+            166,
+            1,
+            30
+          ],
+          [
+            176,
+            1,
+            29
+          ]
+        ],
+        "own_hp_loss_events": [
+          [
+            19,
+            1,
+            49
+          ],
+          [
+            33,
+            1,
+            48
+          ],
+          [
+            47,
+            2,
+            46
+          ],
+          [
+            52,
+            1,
+            45
+          ],
+          [
+            54,
+            1,
+            44
+          ],
+          [
+            59,
+            1,
+            43
+          ],
+          [
+            63,
+            1,
+            42
+          ],
+          [
+            67,
+            1,
+            41
+          ],
+          [
+            68,
+            1,
+            40
+          ],
+          [
+            73,
+            1,
+            39
+          ],
+          [
+            86,
+            1,
+            38
+          ],
+          [
+            90,
+            1,
+            37
+          ],
+          [
+            96,
+            1,
+            36
+          ],
+          [
+            103,
+            1,
+            35
+          ],
+          [
+            105,
+            1,
+            34
+          ],
+          [
+            130,
+            1,
+            33
+          ],
+          [
+            140,
+            1,
+            32
+          ],
+          [
+            157,
+            1,
+            31
+          ],
+          [
+            166,
+            1,
+            30
+          ],
+          [
+            170,
+            1,
+            29
+          ]
+        ],
+        "enemy_base_damage_total": 50,
+        "own_damage_total": 35
+      }
+    },
+    {
+      "file": "8144529.json",
+      "rounds": 287,
+      "winner": 0,
+      "v15_side": 1,
+      "v15": {
+        "hp_final": 0,
+        "enemy_hp_final": 19,
+        "coins_final": 59,
+        "coins_avg": 61.479166666666664,
+        "coins_max": 194,
+        "coins_ge60": 98,
+        "coins_ge90": 56,
+        "coins_ge135": 37,
+        "build_n": 21,
+        "upgrade_n": 5,
+        "downgrade_n": 10,
+        "churn": 31,
+        "storm_n": 4,
+        "storm_first": 29,
+        "storm_rounds": [
+          29,
+          110,
+          218,
+          262
+        ],
+        "emp_n": 0,
+        "emp_first": null,
+        "def_n": 0,
+        "def_first": null,
+        "eva_n": 0,
+        "eva_first": null,
+        "speed_n": 0,
+        "speed_first": null,
+        "antup_n": 0,
+        "antup_first": null,
+        "up_targets": {
+          "3": 1,
+          "1": 3,
+          "4": 1
+        },
+        "up_sites": {
+          "(1, 1)": 2
+        },
+        "build_sites": {
+          "1": 4,
+          "12": 2,
+          "3": 1,
+          "20": 3,
+          "17": 4,
+          "24": 1,
+          "19": 1,
+          "26": 1,
+          "22": 1,
+          "9": 1,
+          "28": 1,
+          "25": 1
+        },
+        "down_sites": {
+          "(12, 0)": 2,
+          "(1, 0)": 2
+        },
+        "prod_up_n": 1,
+        "prod_up_first": 124,
+        "prod_sites": {},
+        "max_prod": 1,
+        "max_towers": 3,
+        "max_adv": 3,
+        "final_towers": {},
+        "max_tower_types": {
+          "0": 2,
+          "-1": 3,
+          "3": 1,
+          "1": 1,
+          "4": 1
+        },
+        "max_live": 10,
+        "avg_live": 6.069444444444445,
+        "max_worker": 8,
+        "max_combat": 5,
+        "max_combat_live": 5,
+        "first_hp_loss": 49,
+        "first_enemy_near": 15,
+        "first_push_near": 21,
+        "hostile_le4_rounds": 208,
+        "push_le4_rounds": 180,
+        "hostile_le2_rounds": 135,
+        "push_le2_rounds": 111,
+        "avg_close_enemy_ants": 1.1909722222222223,
+        "avg_close_my_ants": 1.0972222222222223,
+        "enemy_base_damage_events": [
+          [
+            26,
+            3,
+            47
+          ],
+          [
+            35,
+            1,
+            46
+          ],
+          [
+            57,
+            1,
+            45
+          ],
+          [
+            83,
+            1,
+            44
+          ],
+          [
+            90,
+            1,
+            43
+          ],
+          [
+            113,
+            1,
+            42
+          ],
+          [
+            124,
+            1,
+            41
+          ],
+          [
+            129,
+            2,
+            39
+          ],
+          [
+            135,
+            1,
+            38
+          ],
+          [
+            141,
+            1,
+            37
+          ],
+          [
+            152,
+            1,
+            36
+          ],
+          [
+            163,
+            1,
+            35
+          ],
+          [
+            170,
+            1,
+            34
+          ],
+          [
+            177,
+            1,
+            33
+          ],
+          [
+            180,
+            1,
+            32
+          ],
+          [
+            186,
+            1,
+            31
+          ],
+          [
+            188,
+            1,
+            30
+          ],
+          [
+            196,
+            1,
+            29
+          ],
+          [
+            197,
+            1,
+            28
+          ],
+          [
+            222,
+            1,
+            27
+          ]
+        ],
+        "own_hp_loss_events": [
+          [
+            49,
+            1,
+            49
+          ],
+          [
+            55,
+            1,
+            48
+          ],
+          [
+            58,
+            1,
+            47
+          ],
+          [
+            71,
+            2,
+            45
+          ],
+          [
+            78,
+            1,
+            44
+          ],
+          [
+            79,
+            1,
+            43
+          ],
+          [
+            80,
+            2,
+            41
+          ],
+          [
+            81,
+            1,
+            40
+          ],
+          [
+            82,
+            1,
+            39
+          ],
+          [
+            86,
+            1,
+            38
+          ],
+          [
+            87,
+            1,
+            37
+          ],
+          [
+            92,
+            1,
+            36
+          ],
+          [
+            99,
+            1,
+            35
+          ],
+          [
+            103,
+            1,
+            34
+          ],
+          [
+            116,
+            1,
+            33
+          ],
+          [
+            134,
+            1,
+            32
+          ],
+          [
+            142,
+            1,
+            31
+          ],
+          [
+            147,
+            1,
+            30
+          ],
+          [
+            148,
+            2,
+            28
+          ],
+          [
+            154,
+            1,
+            27
+          ]
+        ],
+        "enemy_base_damage_total": 31,
+        "own_damage_total": 50
+      },
+      "opp": {
+        "hp_final": 19,
+        "enemy_hp_final": 0,
+        "coins_final": 150,
+        "coins_avg": 142.16666666666666,
+        "coins_max": 363,
+        "coins_ge60": 245,
+        "coins_ge90": 192,
+        "coins_ge135": 126,
+        "build_n": 24,
+        "upgrade_n": 18,
+        "downgrade_n": 38,
+        "churn": 62,
+        "storm_n": 8,
+        "storm_first": 28,
+        "storm_rounds": [
+          28,
+          63,
+          98,
+          133,
+          168,
+          203,
+          238,
+          273
+        ],
+        "emp_n": 0,
+        "emp_first": null,
+        "def_n": 0,
+        "def_first": null,
+        "eva_n": 0,
+        "eva_first": null,
+        "speed_n": 0,
+        "speed_first": null,
+        "antup_n": 0,
+        "antup_first": null,
+        "up_targets": {
+          "4": 18
+        },
+        "up_sites": {
+          "(10, 4)": 3,
+          "(27, 4)": 5,
+          "(23, 4)": 1,
+          "(16, 4)": 2,
+          "(24, 4)": 2,
+          "(32, 4)": 2
+        },
+        "build_sites": {
+          "14": 2,
+          "10": 5,
+          "27": 7,
+          "33": 1,
+          "24": 3,
+          "23": 1,
+          "16": 3,
+          "32": 2
+        },
+        "down_sites": {
+          "(14, 0)": 1,
+          "(10, 0)": 3,
+          "(27, 0)": 7,
+          "(24, 0)": 3,
+          "(23, 0)": 1,
+          "(16, 0)": 2,
+          "(32, 0)": 2
+        },
+        "prod_up_n": 18,
+        "prod_up_first": 96,
+        "prod_sites": {
+          "10": 3,
+          "27": 5,
+          "23": 1,
+          "16": 2,
+          "24": 2,
+          "32": 2
+        },
+        "max_prod": 1,
+        "max_towers": 2,
+        "max_adv": 2,
+        "final_towers": {},
+        "max_tower_types": {
+          "0": 2,
+          "4": 1,
+          "-1": 2
+        },
+        "max_live": 11,
+        "avg_live": 6.75,
+        "max_worker": 9,
+        "max_combat": 4,
+        "max_combat_live": 4,
+        "first_hp_loss": 26,
+        "first_enemy_near": 21,
+        "first_push_near": 15,
+        "hostile_le4_rounds": 180,
+        "push_le4_rounds": 208,
+        "hostile_le2_rounds": 111,
+        "push_le2_rounds": 135,
+        "avg_close_enemy_ants": 1.0972222222222223,
+        "avg_close_my_ants": 1.1909722222222223,
+        "enemy_base_damage_events": [
+          [
+            49,
+            1,
+            49
+          ],
+          [
+            55,
+            1,
+            48
+          ],
+          [
+            58,
+            1,
+            47
+          ],
+          [
+            71,
+            2,
+            45
+          ],
+          [
+            78,
+            1,
+            44
+          ],
+          [
+            79,
+            1,
+            43
+          ],
+          [
+            80,
+            2,
+            41
+          ],
+          [
+            81,
+            1,
+            40
+          ],
+          [
+            82,
+            1,
+            39
+          ],
+          [
+            86,
+            1,
+            38
+          ],
+          [
+            87,
+            1,
+            37
+          ],
+          [
+            92,
+            1,
+            36
+          ],
+          [
+            99,
+            1,
+            35
+          ],
+          [
+            103,
+            1,
+            34
+          ],
+          [
+            116,
+            1,
+            33
+          ],
+          [
+            134,
+            1,
+            32
+          ],
+          [
+            142,
+            1,
+            31
+          ],
+          [
+            147,
+            1,
+            30
+          ],
+          [
+            148,
+            2,
+            28
+          ],
+          [
+            154,
+            1,
+            27
+          ]
+        ],
+        "own_hp_loss_events": [
+          [
+            26,
+            3,
+            47
+          ],
+          [
+            35,
+            1,
+            46
+          ],
+          [
+            57,
+            1,
+            45
+          ],
+          [
+            83,
+            1,
+            44
+          ],
+          [
+            90,
+            1,
+            43
+          ],
+          [
+            113,
+            1,
+            42
+          ],
+          [
+            124,
+            1,
+            41
+          ],
+          [
+            129,
+            2,
+            39
+          ],
+          [
+            135,
+            1,
+            38
+          ],
+          [
+            141,
+            1,
+            37
+          ],
+          [
+            152,
+            1,
+            36
+          ],
+          [
+            163,
+            1,
+            35
+          ],
+          [
+            170,
+            1,
+            34
+          ],
+          [
+            177,
+            1,
+            33
+          ],
+          [
+            180,
+            1,
+            32
+          ],
+          [
+            186,
+            1,
+            31
+          ],
+          [
+            188,
+            1,
+            30
+          ],
+          [
+            196,
+            1,
+            29
+          ],
+          [
+            197,
+            1,
+            28
+          ],
+          [
+            222,
+            1,
+            27
+          ]
+        ],
+        "enemy_base_damage_total": 50,
+        "own_damage_total": 31
+      }
+    },
+    {
+      "file": "8144530.json",
+      "rounds": 237,
+      "winner": 1,
+      "v15_side": 0,
+      "v15": {
+        "hp_final": 0,
+        "enemy_hp_final": 30,
+        "coins_final": 54,
+        "coins_avg": 70.38655462184875,
+        "coins_max": 129,
+        "coins_ge60": 158,
+        "coins_ge90": 78,
+        "coins_ge135": 0,
+        "build_n": 22,
+        "upgrade_n": 0,
+        "downgrade_n": 4,
+        "churn": 26,
+        "storm_n": 2,
+        "storm_first": 35,
+        "storm_rounds": [
+          35,
+          208
+        ],
+        "emp_n": 0,
+        "emp_first": null,
+        "def_n": 0,
+        "def_first": null,
+        "eva_n": 0,
+        "eva_first": null,
+        "speed_n": 0,
+        "speed_first": null,
+        "antup_n": 0,
+        "antup_first": null,
+        "up_targets": {},
+        "up_sites": {},
+        "build_sites": {
+          "1": 3,
+          "18": 8,
+          "25": 1,
+          "20": 3,
+          "16": 1,
+          "21": 5,
+          "19": 1
+        },
+        "down_sites": {
+          "(18, 0)": 1,
+          "(20, 0)": 1
+        },
+        "prod_up_n": 0,
+        "prod_up_first": null,
+        "prod_sites": {},
+        "max_prod": 0,
+        "max_towers": 3,
+        "max_adv": 3,
+        "final_towers": {
+          "0": 2
+        },
+        "max_tower_types": {
+          "0": 2,
+          "-1": 3
+        },
+        "max_live": 10,
+        "avg_live": 5.3277310924369745,
+        "max_worker": 7,
+        "max_combat": 6,
+        "max_combat_live": 6,
+        "first_hp_loss": 51,
+        "first_enemy_near": 30,
+        "first_push_near": 13,
+        "hostile_le4_rounds": 169,
+        "push_le4_rounds": 127,
+        "hostile_le2_rounds": 125,
+        "push_le2_rounds": 74,
+        "avg_close_enemy_ants": 1.411764705882353,
+        "avg_close_my_ants": 0.773109243697479,
+        "enemy_base_damage_events": [
+          [
+            26,
+            1,
+            49
+          ],
+          [
+            32,
+            1,
+            48
+          ],
+          [
+            38,
+            1,
+            47
+          ],
+          [
+            84,
+            1,
+            46
+          ],
+          [
+            94,
+            1,
+            45
+          ],
+          [
+            97,
+            1,
+            44
+          ],
+          [
+            104,
+            2,
+            42
+          ],
+          [
+            120,
+            1,
+            41
+          ],
+          [
+            121,
+            1,
+            40
+          ],
+          [
+            140,
+            1,
+            39
+          ],
+          [
+            152,
+            1,
+            38
+          ],
+          [
+            169,
+            1,
+            37
+          ],
+          [
+            173,
+            1,
+            36
+          ],
+          [
+            186,
+            1,
+            35
+          ],
+          [
+            198,
+            1,
+            34
+          ],
+          [
+            202,
+            1,
+            33
+          ],
+          [
+            218,
+            1,
+            32
+          ],
+          [
+            227,
+            1,
+            31
+          ],
+          [
+            230,
+            1,
+            30
+          ]
+        ],
+        "own_hp_loss_events": [
+          [
+            51,
+            1,
+            49
+          ],
+          [
+            56,
+            1,
+            48
+          ],
+          [
+            57,
+            1,
+            47
+          ],
+          [
+            58,
+            1,
+            46
+          ],
+          [
+            61,
+            1,
+            45
+          ],
+          [
+            65,
+            1,
+            44
+          ],
+          [
+            66,
+            1,
+            43
+          ],
+          [
+            78,
+            1,
+            42
+          ],
+          [
+            79,
+            1,
+            41
+          ],
+          [
+            82,
+            1,
+            40
+          ],
+          [
+            85,
+            1,
+            39
+          ],
+          [
+            91,
+            2,
+            37
+          ],
+          [
+            94,
+            1,
+            36
+          ],
+          [
+            96,
+            1,
+            35
+          ],
+          [
+            101,
+            1,
+            34
+          ],
+          [
+            105,
+            2,
+            32
+          ],
+          [
+            112,
+            1,
+            31
+          ],
+          [
+            117,
+            2,
+            29
+          ],
+          [
+            120,
+            1,
+            28
+          ],
+          [
+            121,
+            1,
+            27
+          ]
+        ],
+        "enemy_base_damage_total": 20,
+        "own_damage_total": 50
+      },
+      "opp": {
+        "hp_final": 30,
+        "enemy_hp_final": 0,
+        "coins_final": 65,
+        "coins_avg": 45.07983193277311,
+        "coins_max": 168,
+        "coins_ge60": 54,
+        "coins_ge90": 19,
+        "coins_ge135": 4,
+        "build_n": 12,
+        "upgrade_n": 17,
+        "downgrade_n": 18,
+        "churn": 30,
+        "storm_n": 5,
+        "storm_first": 28,
+        "storm_rounds": [
+          28,
+          67,
+          106,
+          156,
+          196
+        ],
+        "emp_n": 0,
+        "emp_first": null,
+        "def_n": 0,
+        "def_first": null,
+        "eva_n": 0,
+        "eva_first": null,
+        "speed_n": 0,
+        "speed_first": null,
+        "antup_n": 0,
+        "antup_first": null,
+        "up_targets": {
+          "4": 17
+        },
+        "up_sites": {
+          "(23, 4)": 5,
+          "(16, 4)": 1,
+          "(24, 4)": 4
+        },
+        "build_sites": {
+          "1": 1,
+          "4": 1,
+          "24": 3,
+          "16": 3,
+          "23": 2,
+          "27": 2
+        },
+        "down_sites": {
+          "(1, 0)": 1,
+          "(23, 4)": 4,
+          "(16, 4)": 1,
+          "(24, 4)": 3,
+          "(24, 0)": 1,
+          "(27, 4)": 1
+        },
+        "prod_up_n": 17,
+        "prod_up_first": 52,
+        "prod_sites": {
+          "23": 5,
+          "16": 1,
+          "24": 4
+        },
+        "max_prod": 2,
+        "max_towers": 2,
+        "max_adv": 2,
+        "final_towers": {
+          "-1": 1
+        },
+        "max_tower_types": {
+          "0": 2,
+          "-1": 2,
+          "4": 2
+        },
+        "max_live": 13,
+        "avg_live": 7.722689075630252,
+        "max_worker": 9,
+        "max_combat": 5,
+        "max_combat_live": 5,
+        "first_hp_loss": 26,
+        "first_enemy_near": 13,
+        "first_push_near": 30,
+        "hostile_le4_rounds": 127,
+        "push_le4_rounds": 169,
+        "hostile_le2_rounds": 74,
+        "push_le2_rounds": 125,
+        "avg_close_enemy_ants": 0.773109243697479,
+        "avg_close_my_ants": 1.411764705882353,
+        "enemy_base_damage_events": [
+          [
+            51,
+            1,
+            49
+          ],
+          [
+            56,
+            1,
+            48
+          ],
+          [
+            57,
+            1,
+            47
+          ],
+          [
+            58,
+            1,
+            46
+          ],
+          [
+            61,
+            1,
+            45
+          ],
+          [
+            65,
+            1,
+            44
+          ],
+          [
+            66,
+            1,
+            43
+          ],
+          [
+            78,
+            1,
+            42
+          ],
+          [
+            79,
+            1,
+            41
+          ],
+          [
+            82,
+            1,
+            40
+          ],
+          [
+            85,
+            1,
+            39
+          ],
+          [
+            91,
+            2,
+            37
+          ],
+          [
+            94,
+            1,
+            36
+          ],
+          [
+            96,
+            1,
+            35
+          ],
+          [
+            101,
+            1,
+            34
+          ],
+          [
+            105,
+            2,
+            32
+          ],
+          [
+            112,
+            1,
+            31
+          ],
+          [
+            117,
+            2,
+            29
+          ],
+          [
+            120,
+            1,
+            28
+          ],
+          [
+            121,
+            1,
+            27
+          ]
+        ],
+        "own_hp_loss_events": [
+          [
+            26,
+            1,
+            49
+          ],
+          [
+            32,
+            1,
+            48
+          ],
+          [
+            38,
+            1,
+            47
+          ],
+          [
+            84,
+            1,
+            46
+          ],
+          [
+            94,
+            1,
+            45
+          ],
+          [
+            97,
+            1,
+            44
+          ],
+          [
+            104,
+            2,
+            42
+          ],
+          [
+            120,
+            1,
+            41
+          ],
+          [
+            121,
+            1,
+            40
+          ],
+          [
+            140,
+            1,
+            39
+          ],
+          [
+            152,
+            1,
+            38
+          ],
+          [
+            169,
+            1,
+            37
+          ],
+          [
+            173,
+            1,
+            36
+          ],
+          [
+            186,
+            1,
+            35
+          ],
+          [
+            198,
+            1,
+            34
+          ],
+          [
+            202,
+            1,
+            33
+          ],
+          [
+            218,
+            1,
+            32
+          ],
+          [
+            227,
+            1,
+            31
+          ],
+          [
+            230,
+            1,
+            30
+          ]
+        ],
+        "enemy_base_damage_total": 50,
+        "own_damage_total": 20
+      }
+    },
+    {
+      "file": "8144531.json",
+      "rounds": 301,
+      "winner": 0,
+      "v15_side": 1,
+      "v15": {
+        "hp_final": 0,
+        "enemy_hp_final": 5,
+        "coins_final": 26,
+        "coins_avg": 46.20860927152318,
+        "coins_max": 188,
+        "coins_ge60": 66,
+        "coins_ge90": 37,
+        "coins_ge135": 9,
+        "build_n": 34,
+        "upgrade_n": 5,
+        "downgrade_n": 17,
+        "churn": 51,
+        "storm_n": 3,
+        "storm_first": 83,
+        "storm_rounds": [
+          83,
+          142,
+          244
+        ],
+        "emp_n": 0,
+        "emp_first": null,
+        "def_n": 0,
+        "def_first": null,
+        "eva_n": 0,
+        "eva_first": null,
+        "speed_n": 0,
+        "speed_first": null,
+        "antup_n": 0,
+        "antup_first": null,
+        "up_targets": {
+          "1": 2,
+          "4": 2,
+          "3": 1
+        },
+        "up_sites": {
+          "(31, 3)": 1,
+          "(17, 1)": 1,
+          "(19, 4)": 1
+        },
+        "build_sites": {
+          "1": 2,
+          "13": 1,
+          "4": 2,
+          "8": 2,
+          "19": 9,
+          "26": 3,
+          "25": 3,
+          "17": 3,
+          "20": 4,
+          "31": 1,
+          "5": 1,
+          "24": 1,
+          "27": 1,
+          "16": 1
+        },
+        "down_sites": {
+          "(4, 0)": 1,
+          "(8, 0)": 2,
+          "(19, 0)": 4,
+          "(5, 0)": 1,
+          "(24, 0)": 1,
+          "(17, 0)": 1
+        },
+        "prod_up_n": 2,
+        "prod_up_first": 98,
+        "prod_sites": {
+          "19": 1
+        },
+        "max_prod": 1,
+        "max_towers": 3,
+        "max_adv": 3,
+        "final_towers": {},
+        "max_tower_types": {
+          "0": 2,
+          "-1": 3,
+          "1": 1,
+          "4": 1,
+          "3": 1
+        },
+        "max_live": 11,
+        "avg_live": 6.132450331125828,
+        "max_worker": 9,
+        "max_combat": 4,
+        "max_combat_live": 4,
+        "first_hp_loss": 24,
+        "first_enemy_near": 13,
+        "first_push_near": 52,
+        "hostile_le4_rounds": 202,
+        "push_le4_rounds": 178,
+        "hostile_le2_rounds": 145,
+        "push_le2_rounds": 132,
+        "avg_close_enemy_ants": 1.3079470198675496,
+        "avg_close_my_ants": 1.2748344370860927,
+        "enemy_base_damage_events": [
+          [
+            63,
+            1,
+            49
+          ],
+          [
+            65,
+            1,
+            48
+          ],
+          [
+            74,
+            1,
+            47
+          ],
+          [
+            75,
+            1,
+            46
+          ],
+          [
+            76,
+            2,
+            44
+          ],
+          [
+            77,
+            1,
+            43
+          ],
+          [
+            82,
+            1,
+            42
+          ],
+          [
+            84,
+            1,
+            41
+          ],
+          [
+            90,
+            1,
+            40
+          ],
+          [
+            97,
+            2,
+            38
+          ],
+          [
+            98,
+            1,
+            37
+          ],
+          [
+            100,
+            1,
+            36
+          ],
+          [
+            108,
+            1,
+            35
+          ],
+          [
+            117,
+            1,
+            34
+          ],
+          [
+            126,
+            2,
+            32
+          ],
+          [
+            133,
+            2,
+            30
+          ],
+          [
+            137,
+            1,
+            29
+          ],
+          [
+            141,
+            1,
+            28
+          ],
+          [
+            142,
+            1,
+            27
+          ],
+          [
+            143,
+            1,
+            26
+          ]
+        ],
+        "own_hp_loss_events": [
+          [
+            24,
+            1,
+            49
+          ],
+          [
+            36,
+            1,
+            48
+          ],
+          [
+            52,
+            1,
+            47
+          ],
+          [
+            54,
+            1,
+            46
+          ],
+          [
+            62,
+            1,
+            45
+          ],
+          [
+            63,
+            1,
+            44
+          ],
+          [
+            64,
+            2,
+            42
+          ],
+          [
+            71,
+            2,
+            40
+          ],
+          [
+            80,
+            1,
+            39
+          ],
+          [
+            86,
+            1,
+            38
+          ],
+          [
+            112,
+            1,
+            37
+          ],
+          [
+            125,
+            1,
+            36
+          ],
+          [
+            135,
+            1,
+            35
+          ],
+          [
+            137,
+            1,
+            34
+          ],
+          [
+            152,
+            1,
+            33
+          ],
+          [
+            165,
+            1,
+            32
+          ],
+          [
+            168,
+            2,
+            30
+          ],
+          [
+            171,
+            1,
+            29
+          ],
+          [
+            179,
+            1,
+            28
+          ],
+          [
+            181,
+            1,
+            27
+          ]
+        ],
+        "enemy_base_damage_total": 45,
+        "own_damage_total": 50
+      },
+      "opp": {
+        "hp_final": 5,
+        "enemy_hp_final": 0,
+        "coins_final": 60,
+        "coins_avg": 36.109271523178805,
+        "coins_max": 137,
+        "coins_ge60": 42,
+        "coins_ge90": 3,
+        "coins_ge135": 1,
+        "build_n": 27,
+        "upgrade_n": 6,
+        "downgrade_n": 9,
+        "churn": 36,
+        "storm_n": 5,
+        "storm_first": 25,
+        "storm_rounds": [
+          25,
+          172,
+          216,
+          260,
+          297
+        ],
+        "emp_n": 0,
+        "emp_first": null,
+        "def_n": 1,
+        "def_first": 48,
+        "eva_n": 0,
+        "eva_first": null,
+        "speed_n": 0,
+        "speed_first": null,
+        "antup_n": 0,
+        "antup_first": null,
+        "up_targets": {
+          "4": 6
+        },
+        "up_sites": {
+          "(24, 4)": 2,
+          "(16, 4)": 1
+        },
+        "build_sites": {
+          "23": 3,
+          "1": 17,
+          "4": 3,
+          "24": 2,
+          "16": 2
+        },
+        "down_sites": {},
+        "prod_up_n": 6,
+        "prod_up_first": 188,
+        "prod_sites": {
+          "24": 2,
+          "16": 1
+        },
+        "max_prod": 2,
+        "max_towers": 3,
+        "max_adv": 2,
+        "final_towers": {},
+        "max_tower_types": {
+          "0": 2,
+          "-1": 1,
+          "4": 2
+        },
+        "max_live": 15,
+        "avg_live": 7.990066225165563,
+        "max_worker": 11,
+        "max_combat": 8,
+        "max_combat_live": 8,
+        "first_hp_loss": 63,
+        "first_enemy_near": 52,
+        "first_push_near": 13,
+        "hostile_le4_rounds": 178,
+        "push_le4_rounds": 202,
+        "hostile_le2_rounds": 132,
+        "push_le2_rounds": 145,
+        "avg_close_enemy_ants": 1.2748344370860927,
+        "avg_close_my_ants": 1.3079470198675496,
+        "enemy_base_damage_events": [
+          [
+            24,
+            1,
+            49
+          ],
+          [
+            36,
+            1,
+            48
+          ],
+          [
+            52,
+            1,
+            47
+          ],
+          [
+            54,
+            1,
+            46
+          ],
+          [
+            62,
+            1,
+            45
+          ],
+          [
+            63,
+            1,
+            44
+          ],
+          [
+            64,
+            2,
+            42
+          ],
+          [
+            71,
+            2,
+            40
+          ],
+          [
+            80,
+            1,
+            39
+          ],
+          [
+            86,
+            1,
+            38
+          ],
+          [
+            112,
+            1,
+            37
+          ],
+          [
+            125,
+            1,
+            36
+          ],
+          [
+            135,
+            1,
+            35
+          ],
+          [
+            137,
+            1,
+            34
+          ],
+          [
+            152,
+            1,
+            33
+          ],
+          [
+            165,
+            1,
+            32
+          ],
+          [
+            168,
+            2,
+            30
+          ],
+          [
+            171,
+            1,
+            29
+          ],
+          [
+            179,
+            1,
+            28
+          ],
+          [
+            181,
+            1,
+            27
+          ]
+        ],
+        "own_hp_loss_events": [
+          [
+            63,
+            1,
+            49
+          ],
+          [
+            65,
+            1,
+            48
+          ],
+          [
+            74,
+            1,
+            47
+          ],
+          [
+            75,
+            1,
+            46
+          ],
+          [
+            76,
+            2,
+            44
+          ],
+          [
+            77,
+            1,
+            43
+          ],
+          [
+            82,
+            1,
+            42
+          ],
+          [
+            84,
+            1,
+            41
+          ],
+          [
+            90,
+            1,
+            40
+          ],
+          [
+            97,
+            2,
+            38
+          ],
+          [
+            98,
+            1,
+            37
+          ],
+          [
+            100,
+            1,
+            36
+          ],
+          [
+            108,
+            1,
+            35
+          ],
+          [
+            117,
+            1,
+            34
+          ],
+          [
+            126,
+            2,
+            32
+          ],
+          [
+            133,
+            2,
+            30
+          ],
+          [
+            137,
+            1,
+            29
+          ],
+          [
+            141,
+            1,
+            28
+          ],
+          [
+            142,
+            1,
+            27
+          ],
+          [
+            143,
+            1,
+            26
+          ]
+        ],
+        "enemy_base_damage_total": 50,
+        "own_damage_total": 45
+      }
+    },
+    {
+      "file": "8144532.json",
+      "rounds": 276,
+      "winner": 1,
+      "v15_side": 0,
+      "v15": {
+        "hp_final": 0,
+        "enemy_hp_final": 16,
+        "coins_final": 15,
+        "coins_avg": 37.44765342960289,
+        "coins_max": 89,
+        "coins_ge60": 34,
+        "coins_ge90": 0,
+        "coins_ge135": 0,
+        "build_n": 30,
+        "upgrade_n": 4,
+        "downgrade_n": 11,
+        "churn": 41,
+        "storm_n": 2,
+        "storm_first": 28,
+        "storm_rounds": [
+          28,
+          65
+        ],
+        "emp_n": 0,
+        "emp_first": null,
+        "def_n": 0,
+        "def_first": null,
+        "eva_n": 0,
+        "eva_first": null,
+        "speed_n": 0,
+        "speed_first": null,
+        "antup_n": 0,
+        "antup_first": null,
+        "up_targets": {
+          "1": 2,
+          "3": 2
+        },
+        "up_sites": {
+          "(1, 1)": 1,
+          "(19, 3)": 1,
+          "(21, 3)": 1
+        },
+        "build_sites": {
+          "1": 3,
+          "12": 1,
+          "21": 5,
+          "5": 1,
+          "4": 1,
+          "23": 1,
+          "24": 2,
+          "3": 1,
+          "6": 1,
+          "13": 2,
+          "20": 2,
+          "18": 5,
+          "19": 4,
+          "16": 1
+        },
+        "down_sites": {
+          "(5, 0)": 1,
+          "(4, 0)": 1,
+          "(3, 0)": 1,
+          "(13, 0)": 1,
+          "(18, 0)": 1,
+          "(1, 0)": 1
+        },
+        "prod_up_n": 0,
+        "prod_up_first": null,
+        "prod_sites": {},
+        "max_prod": 0,
+        "max_towers": 3,
+        "max_adv": 2,
+        "final_towers": {
+          "-1": 1
+        },
+        "max_tower_types": {
+          "0": 2,
+          "-1": 1,
+          "1": 1,
+          "3": 1
+        },
+        "max_live": 8,
+        "avg_live": 5.628158844765343,
+        "max_worker": 7,
+        "max_combat": 4,
+        "max_combat_live": 4,
+        "first_hp_loss": 48,
+        "first_enemy_near": 22,
+        "first_push_near": 15,
+        "hostile_le4_rounds": 200,
+        "push_le4_rounds": 208,
+        "hostile_le2_rounds": 138,
+        "push_le2_rounds": 144,
+        "avg_close_enemy_ants": 1.3285198555956679,
+        "avg_close_my_ants": 1.1985559566787003,
+        "enemy_base_damage_events": [
+          [
+            34,
+            1,
+            49
+          ],
+          [
+            42,
+            1,
+            48
+          ],
+          [
+            46,
+            1,
+            47
+          ],
+          [
+            48,
+            1,
+            46
+          ],
+          [
+            53,
+            1,
+            45
+          ],
+          [
+            55,
+            1,
+            44
+          ],
+          [
+            58,
+            1,
+            43
+          ],
+          [
+            62,
+            1,
+            42
+          ],
+          [
+            65,
+            1,
+            41
+          ],
+          [
+            68,
+            1,
+            40
+          ],
+          [
+            71,
+            1,
+            39
+          ],
+          [
+            76,
+            1,
+            38
+          ],
+          [
+            86,
+            1,
+            37
+          ],
+          [
+            89,
+            1,
+            36
+          ],
+          [
+            94,
+            1,
+            35
+          ],
+          [
+            125,
+            1,
+            34
+          ],
+          [
+            130,
+            1,
+            33
+          ],
+          [
+            137,
+            1,
+            32
+          ],
+          [
+            147,
+            1,
+            31
+          ],
+          [
+            151,
+            1,
+            30
+          ]
+        ],
+        "own_hp_loss_events": [
+          [
+            48,
+            1,
+            49
+          ],
+          [
+            58,
+            1,
+            48
+          ],
+          [
+            86,
+            1,
+            47
+          ],
+          [
+            93,
+            1,
+            46
+          ],
+          [
+            94,
+            2,
+            44
+          ],
+          [
+            96,
+            1,
+            43
+          ],
+          [
+            105,
+            1,
+            42
+          ],
+          [
+            112,
+            1,
+            41
+          ],
+          [
+            114,
+            1,
+            40
+          ],
+          [
+            115,
+            1,
+            39
+          ],
+          [
+            117,
+            1,
+            38
+          ],
+          [
+            121,
+            1,
+            37
+          ],
+          [
+            122,
+            1,
+            36
+          ],
+          [
+            127,
+            1,
+            35
+          ],
+          [
+            128,
+            1,
+            34
+          ],
+          [
+            135,
+            2,
+            32
+          ],
+          [
+            139,
+            1,
+            31
+          ],
+          [
+            144,
+            1,
+            30
+          ],
+          [
+            156,
+            1,
+            29
+          ],
+          [
+            165,
+            1,
+            28
+          ]
+        ],
+        "enemy_base_damage_total": 34,
+        "own_damage_total": 50
+      },
+      "opp": {
+        "hp_final": 16,
+        "enemy_hp_final": 0,
+        "coins_final": 198,
+        "coins_avg": 112.49097472924188,
+        "coins_max": 292,
+        "coins_ge60": 193,
+        "coins_ge90": 145,
+        "coins_ge135": 95,
+        "build_n": 7,
+        "upgrade_n": 7,
+        "downgrade_n": 10,
+        "churn": 17,
+        "storm_n": 7,
+        "storm_first": 28,
+        "storm_rounds": [
+          28,
+          92,
+          127,
+          162,
+          197,
+          232,
+          267
+        ],
+        "emp_n": 0,
+        "emp_first": null,
+        "def_n": 0,
+        "def_first": null,
+        "eva_n": 0,
+        "eva_first": null,
+        "speed_n": 0,
+        "speed_first": null,
+        "antup_n": 0,
+        "antup_first": null,
+        "up_targets": {
+          "4": 7
+        },
+        "up_sites": {
+          "(24, 4)": 2,
+          "(27, 4)": 2,
+          "(28, 4)": 1,
+          "(32, 4)": 1,
+          "(23, 4)": 1
+        },
+        "build_sites": {
+          "24": 2,
+          "27": 2,
+          "28": 1,
+          "32": 1,
+          "23": 1
+        },
+        "down_sites": {
+          "(24, 4)": 2,
+          "(24, 0)": 2,
+          "(27, 4)": 1,
+          "(27, 0)": 1,
+          "(28, 4)": 1,
+          "(28, 0)": 1,
+          "(32, 4)": 1,
+          "(32, 0)": 1
+        },
+        "prod_up_n": 7,
+        "prod_up_first": 60,
+        "prod_sites": {
+          "24": 2,
+          "27": 2,
+          "28": 1,
+          "32": 1,
+          "23": 1
+        },
+        "max_prod": 1,
+        "max_towers": 1,
+        "max_adv": 1,
+        "final_towers": {},
+        "max_tower_types": {
+          "0": 1,
+          "4": 1,
+          "-1": 1
+        },
+        "max_live": 10,
+        "avg_live": 6.617328519855596,
+        "max_worker": 8,
+        "max_combat": 3,
+        "max_combat_live": 3,
+        "first_hp_loss": 34,
+        "first_enemy_near": 15,
+        "first_push_near": 22,
+        "hostile_le4_rounds": 208,
+        "push_le4_rounds": 200,
+        "hostile_le2_rounds": 144,
+        "push_le2_rounds": 138,
+        "avg_close_enemy_ants": 1.1985559566787003,
+        "avg_close_my_ants": 1.3285198555956679,
+        "enemy_base_damage_events": [
+          [
+            48,
+            1,
+            49
+          ],
+          [
+            58,
+            1,
+            48
+          ],
+          [
+            86,
+            1,
+            47
+          ],
+          [
+            93,
+            1,
+            46
+          ],
+          [
+            94,
+            2,
+            44
+          ],
+          [
+            96,
+            1,
+            43
+          ],
+          [
+            105,
+            1,
+            42
+          ],
+          [
+            112,
+            1,
+            41
+          ],
+          [
+            114,
+            1,
+            40
+          ],
+          [
+            115,
+            1,
+            39
+          ],
+          [
+            117,
+            1,
+            38
+          ],
+          [
+            121,
+            1,
+            37
+          ],
+          [
+            122,
+            1,
+            36
+          ],
+          [
+            127,
+            1,
+            35
+          ],
+          [
+            128,
+            1,
+            34
+          ],
+          [
+            135,
+            2,
+            32
+          ],
+          [
+            139,
+            1,
+            31
+          ],
+          [
+            144,
+            1,
+            30
+          ],
+          [
+            156,
+            1,
+            29
+          ],
+          [
+            165,
+            1,
+            28
+          ]
+        ],
+        "own_hp_loss_events": [
+          [
+            34,
+            1,
+            49
+          ],
+          [
+            42,
+            1,
+            48
+          ],
+          [
+            46,
+            1,
+            47
+          ],
+          [
+            48,
+            1,
+            46
+          ],
+          [
+            53,
+            1,
+            45
+          ],
+          [
+            55,
+            1,
+            44
+          ],
+          [
+            58,
+            1,
+            43
+          ],
+          [
+            62,
+            1,
+            42
+          ],
+          [
+            65,
+            1,
+            41
+          ],
+          [
+            68,
+            1,
+            40
+          ],
+          [
+            71,
+            1,
+            39
+          ],
+          [
+            76,
+            1,
+            38
+          ],
+          [
+            86,
+            1,
+            37
+          ],
+          [
+            89,
+            1,
+            36
+          ],
+          [
+            94,
+            1,
+            35
+          ],
+          [
+            125,
+            1,
+            34
+          ],
+          [
+            130,
+            1,
+            33
+          ],
+          [
+            137,
+            1,
+            32
+          ],
+          [
+            147,
+            1,
+            31
+          ],
+          [
+            151,
+            1,
+            30
+          ]
+        ],
+        "enemy_base_damage_total": 50,
+        "own_damage_total": 34
+      }
+    },
+    {
+      "file": "8144533.json",
+      "rounds": 290,
+      "winner": 0,
+      "v15_side": 1,
+      "v15": {
+        "hp_final": 0,
+        "enemy_hp_final": 22,
+        "coins_final": 55,
+        "coins_avg": 39.29896907216495,
+        "coins_max": 94,
+        "coins_ge60": 63,
+        "coins_ge90": 1,
+        "coins_ge135": 0,
+        "build_n": 29,
+        "upgrade_n": 2,
+        "downgrade_n": 14,
+        "churn": 43,
+        "storm_n": 4,
+        "storm_first": 30,
+        "storm_rounds": [
+          30,
+          65,
+          193,
+          229
+        ],
+        "emp_n": 0,
+        "emp_first": null,
+        "def_n": 0,
+        "def_first": null,
+        "eva_n": 0,
+        "eva_first": null,
+        "speed_n": 0,
+        "speed_first": null,
+        "antup_n": 0,
+        "antup_first": null,
+        "up_targets": {
+          "1": 2
+        },
+        "up_sites": {
+          "(1, 1)": 1
+        },
+        "build_sites": {
+          "1": 3,
+          "19": 8,
+          "26": 3,
+          "22": 1,
+          "17": 4,
+          "5": 3,
+          "13": 2,
+          "25": 2,
+          "4": 1,
+          "23": 1,
+          "20": 1
+        },
+        "down_sites": {
+          "(1, 0)": 1,
+          "(13, 0)": 1
+        },
+        "prod_up_n": 0,
+        "prod_up_first": null,
+        "prod_sites": {},
+        "max_prod": 0,
+        "max_towers": 3,
+        "max_adv": 2,
+        "final_towers": {
+          "0": 1
+        },
+        "max_tower_types": {
+          "0": 2,
+          "-1": 2,
+          "1": 1
+        },
+        "max_live": 10,
+        "avg_live": 4.831615120274914,
+        "max_worker": 7,
+        "max_combat": 4,
+        "max_combat_live": 4,
+        "first_hp_loss": 39,
+        "first_enemy_near": 15,
+        "first_push_near": 24,
+        "hostile_le4_rounds": 208,
+        "push_le4_rounds": 123,
+        "hostile_le2_rounds": 139,
+        "push_le2_rounds": 81,
+        "avg_close_enemy_ants": 1.2817869415807561,
+        "avg_close_my_ants": 0.6357388316151202,
+        "enemy_base_damage_events": [
+          [
+            31,
+            1,
+            49
+          ],
+          [
+            38,
+            1,
+            48
+          ],
+          [
+            62,
+            1,
+            47
+          ],
+          [
+            69,
+            1,
+            46
+          ],
+          [
+            99,
+            1,
+            45
+          ],
+          [
+            120,
+            1,
+            44
+          ],
+          [
+            123,
+            1,
+            43
+          ],
+          [
+            130,
+            1,
+            42
+          ],
+          [
+            143,
+            1,
+            41
+          ],
+          [
+            165,
+            1,
+            40
+          ],
+          [
+            166,
+            1,
+            39
+          ],
+          [
+            170,
+            1,
+            38
+          ],
+          [
+            195,
+            1,
+            37
+          ],
+          [
+            196,
+            1,
+            36
+          ],
+          [
+            197,
+            2,
+            34
+          ],
+          [
+            199,
+            1,
+            33
+          ],
+          [
+            203,
+            1,
+            32
+          ],
+          [
+            205,
+            1,
+            31
+          ],
+          [
+            209,
+            1,
+            30
+          ],
+          [
+            212,
+            1,
+            29
+          ]
+        ],
+        "own_hp_loss_events": [
+          [
+            39,
+            1,
+            49
+          ],
+          [
+            43,
+            1,
+            48
+          ],
+          [
+            49,
+            1,
+            47
+          ],
+          [
+            59,
+            1,
+            46
+          ],
+          [
+            60,
+            1,
+            45
+          ],
+          [
+            61,
+            1,
+            44
+          ],
+          [
+            82,
+            1,
+            43
+          ],
+          [
+            83,
+            1,
+            42
+          ],
+          [
+            86,
+            1,
+            41
+          ],
+          [
+            90,
+            1,
+            40
+          ],
+          [
+            98,
+            1,
+            39
+          ],
+          [
+            100,
+            1,
+            38
+          ],
+          [
+            102,
+            1,
+            37
+          ],
+          [
+            104,
+            1,
+            36
+          ],
+          [
+            115,
+            1,
+            35
+          ],
+          [
+            117,
+            1,
+            34
+          ],
+          [
+            120,
+            1,
+            33
+          ],
+          [
+            123,
+            1,
+            32
+          ],
+          [
+            124,
+            1,
+            31
+          ],
+          [
+            125,
+            1,
+            30
+          ]
+        ],
+        "enemy_base_damage_total": 28,
+        "own_damage_total": 50
+      },
+      "opp": {
+        "hp_final": 22,
+        "enemy_hp_final": 0,
+        "coins_final": 277,
+        "coins_avg": 140.8591065292096,
+        "coins_max": 301,
+        "coins_ge60": 243,
+        "coins_ge90": 193,
+        "coins_ge135": 151,
+        "build_n": 8,
+        "upgrade_n": 8,
+        "downgrade_n": 15,
+        "churn": 23,
+        "storm_n": 8,
+        "storm_first": 28,
+        "storm_rounds": [
+          28,
+          66,
+          101,
+          136,
+          171,
+          206,
+          241,
+          276
+        ],
+        "emp_n": 0,
+        "emp_first": null,
+        "def_n": 0,
+        "def_first": null,
+        "eva_n": 0,
+        "eva_first": null,
+        "speed_n": 0,
+        "speed_first": null,
+        "antup_n": 0,
+        "antup_first": null,
+        "up_targets": {
+          "4": 8
+        },
+        "up_sites": {
+          "(16, 4)": 2,
+          "(27, 4)": 4,
+          "(24, 4)": 2
+        },
+        "build_sites": {
+          "16": 2,
+          "27": 4,
+          "24": 2
+        },
+        "down_sites": {
+          "(16, 4)": 2,
+          "(16, 0)": 2,
+          "(27, 4)": 4,
+          "(27, 0)": 3,
+          "(24, 4)": 2,
+          "(24, 0)": 2
+        },
+        "prod_up_n": 8,
+        "prod_up_first": 41,
+        "prod_sites": {
+          "16": 2,
+          "27": 4,
+          "24": 2
+        },
+        "max_prod": 1,
+        "max_towers": 2,
+        "max_adv": 2,
+        "final_towers": {
+          "0": 1
+        },
+        "max_tower_types": {
+          "0": 2,
+          "4": 1,
+          "-1": 1
+        },
+        "max_live": 12,
+        "avg_live": 6.780068728522337,
+        "max_worker": 10,
+        "max_combat": 3,
+        "max_combat_live": 3,
+        "first_hp_loss": 31,
+        "first_enemy_near": 24,
+        "first_push_near": 15,
+        "hostile_le4_rounds": 123,
+        "push_le4_rounds": 208,
+        "hostile_le2_rounds": 81,
+        "push_le2_rounds": 139,
+        "avg_close_enemy_ants": 0.6357388316151202,
+        "avg_close_my_ants": 1.2817869415807561,
+        "enemy_base_damage_events": [
+          [
+            39,
+            1,
+            49
+          ],
+          [
+            43,
+            1,
+            48
+          ],
+          [
+            49,
+            1,
+            47
+          ],
+          [
+            59,
+            1,
+            46
+          ],
+          [
+            60,
+            1,
+            45
+          ],
+          [
+            61,
+            1,
+            44
+          ],
+          [
+            82,
+            1,
+            43
+          ],
+          [
+            83,
+            1,
+            42
+          ],
+          [
+            86,
+            1,
+            41
+          ],
+          [
+            90,
+            1,
+            40
+          ],
+          [
+            98,
+            1,
+            39
+          ],
+          [
+            100,
+            1,
+            38
+          ],
+          [
+            102,
+            1,
+            37
+          ],
+          [
+            104,
+            1,
+            36
+          ],
+          [
+            115,
+            1,
+            35
+          ],
+          [
+            117,
+            1,
+            34
+          ],
+          [
+            120,
+            1,
+            33
+          ],
+          [
+            123,
+            1,
+            32
+          ],
+          [
+            124,
+            1,
+            31
+          ],
+          [
+            125,
+            1,
+            30
+          ]
+        ],
+        "own_hp_loss_events": [
+          [
+            31,
+            1,
+            49
+          ],
+          [
+            38,
+            1,
+            48
+          ],
+          [
+            62,
+            1,
+            47
+          ],
+          [
+            69,
+            1,
+            46
+          ],
+          [
+            99,
+            1,
+            45
+          ],
+          [
+            120,
+            1,
+            44
+          ],
+          [
+            123,
+            1,
+            43
+          ],
+          [
+            130,
+            1,
+            42
+          ],
+          [
+            143,
+            1,
+            41
+          ],
+          [
+            165,
+            1,
+            40
+          ],
+          [
+            166,
+            1,
+            39
+          ],
+          [
+            170,
+            1,
+            38
+          ],
+          [
+            195,
+            1,
+            37
+          ],
+          [
+            196,
+            1,
+            36
+          ],
+          [
+            197,
+            2,
+            34
+          ],
+          [
+            199,
+            1,
+            33
+          ],
+          [
+            203,
+            1,
+            32
+          ],
+          [
+            205,
+            1,
+            31
+          ],
+          [
+            209,
+            1,
+            30
+          ],
+          [
+            212,
+            1,
+            29
+          ]
+        ],
+        "enemy_base_damage_total": 50,
+        "own_damage_total": 28
+      }
+    },
+    {
+      "file": "8144538.json",
+      "rounds": 279,
+      "winner": 1,
+      "v15_side": 0,
+      "v15": {
+        "hp_final": 0,
+        "enemy_hp_final": 21,
+        "coins_final": 58,
+        "coins_avg": 49.4,
+        "coins_max": 106,
+        "coins_ge60": 92,
+        "coins_ge90": 16,
+        "coins_ge135": 0,
+        "build_n": 31,
+        "upgrade_n": 1,
+        "downgrade_n": 11,
+        "churn": 42,
+        "storm_n": 4,
+        "storm_first": 39,
+        "storm_rounds": [
+          39,
+          123,
+          184,
+          259
+        ],
+        "emp_n": 0,
+        "emp_first": null,
+        "def_n": 0,
+        "def_first": null,
+        "eva_n": 0,
+        "eva_first": null,
+        "speed_n": 0,
+        "speed_first": null,
+        "antup_n": 0,
+        "antup_first": null,
+        "up_targets": {
+          "1": 1
+        },
+        "up_sites": {},
+        "build_sites": {
+          "1": 2,
+          "19": 5,
+          "5": 1,
+          "21": 4,
+          "18": 8,
+          "2": 1,
+          "20": 5,
+          "24": 4,
+          "16": 1
+        },
+        "down_sites": {
+          "(5, 0)": 1,
+          "(21, 0)": 1,
+          "(24, 0)": 1
+        },
+        "prod_up_n": 0,
+        "prod_up_first": null,
+        "prod_sites": {},
+        "max_prod": 0,
+        "max_towers": 3,
+        "max_adv": 2,
+        "final_towers": {
+          "0": 1
+        },
+        "max_tower_types": {
+          "0": 2,
+          "-1": 2,
+          "1": 1
+        },
+        "max_live": 10,
+        "avg_live": 6.482142857142857,
+        "max_worker": 7,
+        "max_combat": 4,
+        "max_combat_live": 4,
+        "first_hp_loss": 29,
+        "first_enemy_near": 25,
+        "first_push_near": 18,
+        "hostile_le4_rounds": 178,
+        "push_le4_rounds": 156,
+        "hostile_le2_rounds": 119,
+        "push_le2_rounds": 101,
+        "avg_close_enemy_ants": 1.2678571428571428,
+        "avg_close_my_ants": 0.925,
+        "enemy_base_damage_events": [
+          [
+            27,
+            1,
+            49
+          ],
+          [
+            30,
+            1,
+            48
+          ],
+          [
+            54,
+            1,
+            47
+          ],
+          [
+            60,
+            2,
+            45
+          ],
+          [
+            89,
+            1,
+            44
+          ],
+          [
+            93,
+            1,
+            43
+          ],
+          [
+            96,
+            1,
+            42
+          ],
+          [
+            114,
+            1,
+            41
+          ],
+          [
+            118,
+            1,
+            40
+          ],
+          [
+            127,
+            1,
+            39
+          ],
+          [
+            132,
+            1,
+            38
+          ],
+          [
+            149,
+            1,
+            37
+          ],
+          [
+            164,
+            1,
+            36
+          ],
+          [
+            168,
+            1,
+            35
+          ],
+          [
+            173,
+            1,
+            34
+          ],
+          [
+            198,
+            1,
+            33
+          ],
+          [
+            199,
+            1,
+            32
+          ],
+          [
+            206,
+            1,
+            31
+          ],
+          [
+            216,
+            1,
+            30
+          ],
+          [
+            222,
+            1,
+            29
+          ]
+        ],
+        "own_hp_loss_events": [
+          [
+            29,
+            1,
+            49
+          ],
+          [
+            38,
+            1,
+            48
+          ],
+          [
+            60,
+            1,
+            47
+          ],
+          [
+            75,
+            1,
+            46
+          ],
+          [
+            77,
+            1,
+            45
+          ],
+          [
+            79,
+            1,
+            44
+          ],
+          [
+            91,
+            1,
+            43
+          ],
+          [
+            95,
+            1,
+            42
+          ],
+          [
+            103,
+            1,
+            41
+          ],
+          [
+            104,
+            1,
+            40
+          ],
+          [
+            107,
+            2,
+            38
+          ],
+          [
+            110,
+            1,
+            37
+          ],
+          [
+            118,
+            1,
+            36
+          ],
+          [
+            119,
+            1,
+            35
+          ],
+          [
+            120,
+            1,
+            34
+          ],
+          [
+            140,
+            1,
+            33
+          ],
+          [
+            142,
+            1,
+            32
+          ],
+          [
+            148,
+            1,
+            31
+          ],
+          [
+            151,
+            1,
+            30
+          ],
+          [
+            152,
+            1,
+            29
+          ]
+        ],
+        "enemy_base_damage_total": 29,
+        "own_damage_total": 50
+      },
+      "opp": {
+        "hp_final": 21,
+        "enemy_hp_final": 0,
+        "coins_final": 55,
+        "coins_avg": 86.22857142857143,
+        "coins_max": 221,
+        "coins_ge60": 219,
+        "coins_ge90": 103,
+        "coins_ge135": 29,
+        "build_n": 19,
+        "upgrade_n": 12,
+        "downgrade_n": 28,
+        "churn": 47,
+        "storm_n": 8,
+        "storm_first": 28,
+        "storm_rounds": [
+          28,
+          63,
+          98,
+          136,
+          171,
+          207,
+          242,
+          277
+        ],
+        "emp_n": 0,
+        "emp_first": null,
+        "def_n": 0,
+        "def_first": null,
+        "eva_n": 0,
+        "eva_first": null,
+        "speed_n": 0,
+        "speed_first": null,
+        "antup_n": 0,
+        "antup_first": null,
+        "up_targets": {
+          "4": 12
+        },
+        "up_sites": {
+          "(7, 4)": 1,
+          "(31, 4)": 2,
+          "(28, 4)": 1,
+          "(24, 4)": 1,
+          "(27, 4)": 1,
+          "(26, 4)": 1,
+          "(16, 4)": 1
+        },
+        "build_sites": {
+          "28": 4,
+          "10": 1,
+          "27": 2,
+          "16": 2,
+          "14": 1,
+          "24": 2,
+          "7": 1,
+          "3": 1,
+          "31": 2,
+          "23": 2,
+          "26": 1
+        },
+        "down_sites": {
+          "(27, 0)": 2,
+          "(24, 0)": 2,
+          "(7, 0)": 1,
+          "(31, 0)": 2,
+          "(23, 0)": 1,
+          "(28, 0)": 2,
+          "(27, 4)": 1,
+          "(26, 0)": 1
+        },
+        "prod_up_n": 12,
+        "prod_up_first": 121,
+        "prod_sites": {
+          "7": 1,
+          "31": 2,
+          "28": 1,
+          "24": 1,
+          "27": 1,
+          "26": 1,
+          "16": 1
+        },
+        "max_prod": 2,
+        "max_towers": 2,
+        "max_adv": 2,
+        "final_towers": {},
+        "max_tower_types": {
+          "0": 1,
+          "-1": 1,
+          "4": 2
+        },
+        "max_live": 11,
+        "avg_live": 6.814285714285714,
+        "max_worker": 8,
+        "max_combat": 4,
+        "max_combat_live": 4,
+        "first_hp_loss": 27,
+        "first_enemy_near": 18,
+        "first_push_near": 25,
+        "hostile_le4_rounds": 156,
+        "push_le4_rounds": 178,
+        "hostile_le2_rounds": 101,
+        "push_le2_rounds": 119,
+        "avg_close_enemy_ants": 0.925,
+        "avg_close_my_ants": 1.2678571428571428,
+        "enemy_base_damage_events": [
+          [
+            29,
+            1,
+            49
+          ],
+          [
+            38,
+            1,
+            48
+          ],
+          [
+            60,
+            1,
+            47
+          ],
+          [
+            75,
+            1,
+            46
+          ],
+          [
+            77,
+            1,
+            45
+          ],
+          [
+            79,
+            1,
+            44
+          ],
+          [
+            91,
+            1,
+            43
+          ],
+          [
+            95,
+            1,
+            42
+          ],
+          [
+            103,
+            1,
+            41
+          ],
+          [
+            104,
+            1,
+            40
+          ],
+          [
+            107,
+            2,
+            38
+          ],
+          [
+            110,
+            1,
+            37
+          ],
+          [
+            118,
+            1,
+            36
+          ],
+          [
+            119,
+            1,
+            35
+          ],
+          [
+            120,
+            1,
+            34
+          ],
+          [
+            140,
+            1,
+            33
+          ],
+          [
+            142,
+            1,
+            32
+          ],
+          [
+            148,
+            1,
+            31
+          ],
+          [
+            151,
+            1,
+            30
+          ],
+          [
+            152,
+            1,
+            29
+          ]
+        ],
+        "own_hp_loss_events": [
+          [
+            27,
+            1,
+            49
+          ],
+          [
+            30,
+            1,
+            48
+          ],
+          [
+            54,
+            1,
+            47
+          ],
+          [
+            60,
+            2,
+            45
+          ],
+          [
+            89,
+            1,
+            44
+          ],
+          [
+            93,
+            1,
+            43
+          ],
+          [
+            96,
+            1,
+            42
+          ],
+          [
+            114,
+            1,
+            41
+          ],
+          [
+            118,
+            1,
+            40
+          ],
+          [
+            127,
+            1,
+            39
+          ],
+          [
+            132,
+            1,
+            38
+          ],
+          [
+            149,
+            1,
+            37
+          ],
+          [
+            164,
+            1,
+            36
+          ],
+          [
+            168,
+            1,
+            35
+          ],
+          [
+            173,
+            1,
+            34
+          ],
+          [
+            198,
+            1,
+            33
+          ],
+          [
+            199,
+            1,
+            32
+          ],
+          [
+            206,
+            1,
+            31
+          ],
+          [
+            216,
+            1,
+            30
+          ],
+          [
+            222,
+            1,
+            29
+          ]
+        ],
+        "enemy_base_damage_total": 50,
+        "own_damage_total": 29
+      }
+    },
+    {
+      "file": "8144539.json",
+      "rounds": 281,
+      "winner": 0,
+      "v15_side": 1,
+      "v15": {
+        "hp_final": 0,
+        "enemy_hp_final": 28,
+        "coins_final": 49,
+        "coins_avg": 42.354609929078016,
+        "coins_max": 104,
+        "coins_ge60": 54,
+        "coins_ge90": 7,
+        "coins_ge135": 0,
+        "build_n": 28,
+        "upgrade_n": 4,
+        "downgrade_n": 16,
+        "churn": 44,
+        "storm_n": 3,
+        "storm_first": 89,
+        "storm_rounds": [
+          89,
+          175,
+          210
+        ],
+        "emp_n": 0,
+        "emp_first": null,
+        "def_n": 1,
+        "def_first": 119,
+        "eva_n": 0,
+        "eva_first": null,
+        "speed_n": 0,
+        "speed_first": null,
+        "antup_n": 0,
+        "antup_first": null,
+        "up_targets": {
+          "2": 1,
+          "1": 2,
+          "3": 1
+        },
+        "up_sites": {
+          "(1, 2)": 1,
+          "(4, 1)": 1,
+          "(1, 1)": 1
+        },
+        "build_sites": {
+          "1": 3,
+          "3": 1,
+          "25": 2,
+          "17": 5,
+          "20": 2,
+          "22": 4,
+          "19": 5,
+          "4": 2,
+          "26": 4
+        },
+        "down_sites": {
+          "(20, 0)": 1,
+          "(4, 0)": 2,
+          "(26, 0)": 1,
+          "(1, 0)": 1
+        },
+        "prod_up_n": 0,
+        "prod_up_first": null,
+        "prod_sites": {},
+        "max_prod": 0,
+        "max_towers": 2,
+        "max_adv": 2,
+        "final_towers": {},
+        "max_tower_types": {
+          "0": 2,
+          "-1": 2,
+          "2": 1,
+          "1": 1,
+          "3": 1
+        },
+        "max_live": 10,
+        "avg_live": 6.51418439716312,
+        "max_worker": 8,
+        "max_combat": 4,
+        "max_combat_live": 4,
+        "first_hp_loss": 27,
+        "first_enemy_near": 18,
+        "first_push_near": 22,
+        "hostile_le4_rounds": 210,
+        "push_le4_rounds": 154,
+        "hostile_le2_rounds": 142,
+        "push_le2_rounds": 88,
+        "avg_close_enemy_ants": 1.3900709219858156,
+        "avg_close_my_ants": 0.9858156028368794,
+        "enemy_base_damage_events": [
+          [
+            47,
+            1,
+            49
+          ],
+          [
+            61,
+            1,
+            48
+          ],
+          [
+            85,
+            1,
+            47
+          ],
+          [
+            88,
+            1,
+            46
+          ],
+          [
+            127,
+            1,
+            45
+          ],
+          [
+            132,
+            1,
+            44
+          ],
+          [
+            149,
+            1,
+            43
+          ],
+          [
+            161,
+            1,
+            42
+          ],
+          [
+            164,
+            1,
+            41
+          ],
+          [
+            165,
+            1,
+            40
+          ],
+          [
+            189,
+            1,
+            39
+          ],
+          [
+            193,
+            1,
+            38
+          ],
+          [
+            227,
+            1,
+            37
+          ],
+          [
+            230,
+            1,
+            36
+          ],
+          [
+            237,
+            1,
+            35
+          ],
+          [
+            257,
+            1,
+            34
+          ],
+          [
+            261,
+            1,
+            33
+          ],
+          [
+            262,
+            1,
+            32
+          ],
+          [
+            264,
+            1,
+            31
+          ],
+          [
+            266,
+            2,
+            29
+          ]
+        ],
+        "own_hp_loss_events": [
+          [
+            27,
+            1,
+            49
+          ],
+          [
+            32,
+            1,
+            48
+          ],
+          [
+            38,
+            1,
+            47
+          ],
+          [
+            47,
+            1,
+            46
+          ],
+          [
+            53,
+            1,
+            45
+          ],
+          [
+            62,
+            1,
+            44
+          ],
+          [
+            63,
+            1,
+            43
+          ],
+          [
+            67,
+            1,
+            42
+          ],
+          [
+            71,
+            1,
+            41
+          ],
+          [
+            75,
+            1,
+            40
+          ],
+          [
+            79,
+            1,
+            39
+          ],
+          [
+            80,
+            1,
+            38
+          ],
+          [
+            86,
+            1,
+            37
+          ],
+          [
+            89,
+            1,
+            36
+          ],
+          [
+            99,
+            1,
+            35
+          ],
+          [
+            125,
+            2,
+            33
+          ],
+          [
+            126,
+            1,
+            32
+          ],
+          [
+            135,
+            1,
+            31
+          ],
+          [
+            137,
+            1,
+            30
+          ],
+          [
+            138,
+            1,
+            29
+          ]
+        ],
+        "enemy_base_damage_total": 22,
+        "own_damage_total": 50
+      },
+      "opp": {
+        "hp_final": 28,
+        "enemy_hp_final": 0,
+        "coins_final": 79,
+        "coins_avg": 89.177304964539,
+        "coins_max": 198,
+        "coins_ge60": 245,
+        "coins_ge90": 113,
+        "coins_ge135": 24,
+        "build_n": 22,
+        "upgrade_n": 12,
+        "downgrade_n": 26,
+        "churn": 48,
+        "storm_n": 8,
+        "storm_first": 28,
+        "storm_rounds": [
+          28,
+          63,
+          98,
+          133,
+          168,
+          203,
+          238,
+          273
+        ],
+        "emp_n": 0,
+        "emp_first": null,
+        "def_n": 0,
+        "def_first": null,
+        "eva_n": 1,
+        "eva_first": 280,
+        "speed_n": 0,
+        "speed_first": null,
+        "antup_n": 0,
+        "antup_first": null,
+        "up_targets": {
+          "4": 12
+        },
+        "up_sites": {
+          "(28, 4)": 1,
+          "(24, 4)": 2,
+          "(14, 4)": 2,
+          "(23, 4)": 1,
+          "(16, 4)": 1,
+          "(21, 4)": 1,
+          "(31, 4)": 1
+        },
+        "build_sites": {
+          "27": 4,
+          "24": 3,
+          "16": 2,
+          "31": 3,
+          "28": 2,
+          "14": 3,
+          "23": 3,
+          "25": 1,
+          "21": 1
+        },
+        "down_sites": {
+          "(31, 4)": 1,
+          "(31, 0)": 1,
+          "(23, 0)": 2,
+          "(27, 4)": 1,
+          "(27, 0)": 1,
+          "(24, 0)": 1,
+          "(16, 0)": 1,
+          "(21, 0)": 1
+        },
+        "prod_up_n": 12,
+        "prod_up_first": 89,
+        "prod_sites": {
+          "28": 1,
+          "24": 2,
+          "14": 2,
+          "23": 1,
+          "16": 1,
+          "21": 1,
+          "31": 1
+        },
+        "max_prod": 1,
+        "max_towers": 2,
+        "max_adv": 2,
+        "final_towers": {},
+        "max_tower_types": {
+          "0": 1,
+          "-1": 2,
+          "4": 1
+        },
+        "max_live": 13,
+        "avg_live": 7.26595744680851,
+        "max_worker": 11,
+        "max_combat": 4,
+        "max_combat_live": 4,
+        "first_hp_loss": 47,
+        "first_enemy_near": 22,
+        "first_push_near": 18,
+        "hostile_le4_rounds": 154,
+        "push_le4_rounds": 210,
+        "hostile_le2_rounds": 88,
+        "push_le2_rounds": 142,
+        "avg_close_enemy_ants": 0.9858156028368794,
+        "avg_close_my_ants": 1.3900709219858156,
+        "enemy_base_damage_events": [
+          [
+            27,
+            1,
+            49
+          ],
+          [
+            32,
+            1,
+            48
+          ],
+          [
+            38,
+            1,
+            47
+          ],
+          [
+            47,
+            1,
+            46
+          ],
+          [
+            53,
+            1,
+            45
+          ],
+          [
+            62,
+            1,
+            44
+          ],
+          [
+            63,
+            1,
+            43
+          ],
+          [
+            67,
+            1,
+            42
+          ],
+          [
+            71,
+            1,
+            41
+          ],
+          [
+            75,
+            1,
+            40
+          ],
+          [
+            79,
+            1,
+            39
+          ],
+          [
+            80,
+            1,
+            38
+          ],
+          [
+            86,
+            1,
+            37
+          ],
+          [
+            89,
+            1,
+            36
+          ],
+          [
+            99,
+            1,
+            35
+          ],
+          [
+            125,
+            2,
+            33
+          ],
+          [
+            126,
+            1,
+            32
+          ],
+          [
+            135,
+            1,
+            31
+          ],
+          [
+            137,
+            1,
+            30
+          ],
+          [
+            138,
+            1,
+            29
+          ]
+        ],
+        "own_hp_loss_events": [
+          [
+            47,
+            1,
+            49
+          ],
+          [
+            61,
+            1,
+            48
+          ],
+          [
+            85,
+            1,
+            47
+          ],
+          [
+            88,
+            1,
+            46
+          ],
+          [
+            127,
+            1,
+            45
+          ],
+          [
+            132,
+            1,
+            44
+          ],
+          [
+            149,
+            1,
+            43
+          ],
+          [
+            161,
+            1,
+            42
+          ],
+          [
+            164,
+            1,
+            41
+          ],
+          [
+            165,
+            1,
+            40
+          ],
+          [
+            189,
+            1,
+            39
+          ],
+          [
+            193,
+            1,
+            38
+          ],
+          [
+            227,
+            1,
+            37
+          ],
+          [
+            230,
+            1,
+            36
+          ],
+          [
+            237,
+            1,
+            35
+          ],
+          [
+            257,
+            1,
+            34
+          ],
+          [
+            261,
+            1,
+            33
+          ],
+          [
+            262,
+            1,
+            32
+          ],
+          [
+            264,
+            1,
+            31
+          ],
+          [
+            266,
+            2,
+            29
+          ]
+        ],
+        "enemy_base_damage_total": 50,
+        "own_damage_total": 22
+      }
+    }
+  ]
+}

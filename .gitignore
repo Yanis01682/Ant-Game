@@ -57,3 +57,21 @@ test_re/
 train_loop.sh
 export_np.py
 failed_games_data/
+# Local experiment outputs and duplicate competition packages
+analysis/local_*/
+analysis/platform_*/
+analysis/replays/
+analysis/tmp_*/
+backups/
+tmp/
+sample.json
+
+# Keep only explicitly selected final submission archives
+submissions/*.zip
+!submissions/gf-v16.zip
+!submissions/imitation-tempo-v8.zip
+
+# Historical model/export variants; the runtime model remains tracked
+AI/ai_mcts_model_*.npz
+AI/*_ai_mcts_model.npz
+AI/*.zip

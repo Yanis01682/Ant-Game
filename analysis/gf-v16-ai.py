@@ -56,21 +56,14 @@ PRODUCER_TYPES = (
 )
 PRODUCER_SAFE_HOSTILE_STEP = 3
 PRODUCER_MAX_TOWERS = 1
-PRODUCER_STORM_GUARD_UNTIL = 85
-PRODUCER_SAFE_SITES = (24, 27, 23, 32, 31, 28, 16, 10, 14, 26, 25, 33, 11)
-PRODUCER_PIVOT_SITES = (24, 27, 23, 32, 31, 28, 16, 10, 14, 26, 25, 33, 11, 1, 2, 4, 12, 13, 3, 5)
-PRODUCER_SETUP_SCORE = 10.0
+PRODUCER_STORM_GUARD_UNTIL = 105
+PRODUCER_SAFE_SITES = (24, 27, 28, 31, 23, 16, 10, 11, 14, 19, 26, 32, 33)
+PRODUCER_SETUP_SCORE = 8.0
 PRODUCER_SETUP_ROUND = 45
-PRODUCER_FORCE_ROUND = 48
+PRODUCER_FORCE_ROUND = 55
 PRODUCER_FORCE_MAX_HP_DEFICIT = 18
-PRODUCER_BUILD_MAX_TOWERS = 5
-PRODUCER_PROTECT_UNTIL = 165
-PRODUCER_SECOND_ROUND = 88
-PRODUCER_SECOND_MAX_HP_DEFICIT = 12
-PRODUCER_SPECIALIZE_ROUND = 92
-PRODUCER_SPECIALIZE_MAX_HP_DEFICIT = 14
-PRODUCER_STORM_DEADLOCK_ROUND = 115
-PRODUCER_DEADLOCK_SITES = (18, 20)
+PRODUCER_BUILD_MAX_TOWERS = 3
+PRODUCER_PROTECT_UNTIL = 280
 BASE_ARC_TARGET_DEGREES = (-30.0, 0.0, 30.0)
 BASE_ARC_TOLERANCE_DEGREES = 20.0
 BASE_ARC_MISSING_PENALTY = 8.0
@@ -91,16 +84,9 @@ EARLY_EMP_DELTA = 70
 ROLLING_STORM_ROUND = 28
 ROLLING_STORM_HORIZON = 24
 ROLLING_STORM_MIN_VALUE = 39.0
-CYCLE_STORM_MIN_VALUE = 35.0
-CYCLE_STORM_SELL_COIN = STORM_COST - 24
-CYCLE_STORM_CLOSE_COIN = STORM_COST - 8
-CYCLE_STORM_LONG_GAP = 52
-CYCLE_STORM_FALLBACK_GAP = 45
 EARLY_STORM_RESERVE_ROUND = 18
-EARLY_STORM_RESERVE_UNTIL = 78
-EARLY_STORM_RESERVE_MIN_COIN = STORM_COST - 8
-PRODUCER_CATCHUP_ROUND = 70
-PRODUCER_CATCHUP_MAX_HP_DEFICIT = 16
+EARLY_STORM_RESERVE_UNTIL = 120
+EARLY_STORM_RESERVE_MIN_COIN = STORM_COST + 1
 
 
 def _total_build_investment(tower_count: int) -> int:
@@ -424,7 +410,7 @@ class ForecastNode:
         ):
             return 0.0
 
-        safe_positions = {SITE_LAYOUT[brain.side][site] for site in PRODUCER_PIVOT_SITES}
+        safe_positions = {SITE_LAYOUT[brain.side][site] for site in PRODUCER_SAFE_SITES}
         setup_count = sum(
             1
             for tower in towers
@@ -748,41 +734,6 @@ class AI:
             return True
         return False
 
-    def _should_cycle_storm(self, info: GameInfo) -> bool:
-        if self.current_round < ROLLING_STORM_ROUND:
-            return False
-        if info.super_weapon_cd[self.side][int(SuperWeaponType.LIGHTNING_STORM)] > 0:
-            return False
-        if self._nearest_hostile_step(info) <= 2 and info.bases[self.side].hp <= 12:
-            return False
-        if self.front_state <= 0:
-            return True
-
-        wallet = info.coins[self.side]
-        if wallet >= STORM_COST:
-            return True
-        if wallet < CYCLE_STORM_SELL_COIN:
-            return False
-
-        enemy = 1 - self.side
-        hostile_step = self._nearest_hostile_step(info)
-        push_step = self._nearest_push_distance(info)
-        enemy_towers, enemy_advanced = self._enemy_tower_snapshot(info)
-        long_gap = (
-            self.last_superweapon_type == SuperWeaponType.LIGHTNING_STORM
-            and self.current_round - self.last_superweapon_round >= CYCLE_STORM_LONG_GAP
-        )
-        no_storm_yet = self.last_superweapon_type is None and self.current_round >= 34
-        close_to_cost = wallet >= CYCLE_STORM_CLOSE_COIN
-        pressure_need = (
-            info.bases[self.side].hp <= info.bases[enemy].hp
-            or hostile_step <= 4
-            or push_step <= 5
-            or enemy_towers >= 2
-            or enemy_advanced >= 1
-        )
-        return (close_to_cost or long_gap or no_storm_yet) and pressure_need
-
     def _should_reserve_early_storm(self, info: GameInfo) -> bool:
         if self.current_round < EARLY_STORM_RESERVE_ROUND or self.current_round > EARLY_STORM_RESERVE_UNTIL:
             return False
@@ -827,8 +778,7 @@ class AI:
     def _try_producer_pivot(self, info: GameInfo) -> List[Operation]:
         if self.current_round < PRODUCER_FORCE_ROUND:
             return []
-        producer_count = self._producer_count(info)
-        if producer_count >= PRODUCER_MAX_TOWERS:
+        if self._producer_count(info) >= PRODUCER_MAX_TOWERS:
             return []
         if self._nearest_hostile_step(info) < PRODUCER_SAFE_HOSTILE_STEP:
             return []
@@ -837,12 +787,10 @@ class AI:
 
         wallet = info.coins[self.side]
         storm_ready = info.super_weapon_cd[self.side][int(SuperWeaponType.LIGHTNING_STORM)] == 0
-        if storm_ready and wallet >= STORM_COST and self.current_round < PRODUCER_STORM_DEADLOCK_ROUND:
-            return []
         if self.current_round < PRODUCER_STORM_GUARD_UNTIL and storm_ready and wallet < STORM_COST + LEVEL2_TOWER_UPGRADE_COST:
             return []
 
-        for site in PRODUCER_PIVOT_SITES:
+        for site in PRODUCER_SAFE_SITES:
             x, y = SITE_LAYOUT[self.side][site]
             tower = self._tower_at(x, y, info)
             if tower is None or tower.type != TowerType.BASIC:
@@ -851,11 +799,11 @@ class AI:
             if wallet >= cost:
                 return [Operation(OperationType.UPGRADE_TOWER, tower.id, int(TowerType.PRODUCER))]
 
-        if info.tower_num_of_player(self.side) >= PRODUCER_BUILD_MAX_TOWERS and wallet < STORM_COST + 20:
+        if info.tower_num_of_player(self.side) >= PRODUCER_BUILD_MAX_TOWERS:
             return []
         if self.current_round < PRODUCER_STORM_GUARD_UNTIL and storm_ready and wallet < STORM_COST:
             return []
-        for site in PRODUCER_PIVOT_SITES:
+        for site in PRODUCER_SAFE_SITES:
             x, y = SITE_LAYOUT[self.side][site]
             if info.building_tag[x][y] != BuildingType.EMPTY:
                 continue
@@ -873,83 +821,6 @@ class AI:
                         continue
                 return [op]
         return []
-
-    def _try_catchup_producer(self, info: GameInfo) -> List[Operation]:
-        if self.current_round < PRODUCER_CATCHUP_ROUND:
-            return []
-        producer_count = self._producer_count(info)
-        if producer_count >= PRODUCER_MAX_TOWERS:
-            return []
-        if self._nearest_hostile_step(info) < PRODUCER_SAFE_HOSTILE_STEP:
-            return []
-        if producer_count >= 1 and self.current_round < PRODUCER_SECOND_ROUND:
-            return []
-        deficit_limit = PRODUCER_CATCHUP_MAX_HP_DEFICIT if producer_count == 0 else PRODUCER_SECOND_MAX_HP_DEFICIT
-        if info.bases[self.side].hp <= info.bases[1 - self.side].hp - deficit_limit:
-            return []
-        if info.coins[self.side] < LEVEL2_TOWER_UPGRADE_COST:
-            return []
-
-        storm_ready = info.super_weapon_cd[self.side][int(SuperWeaponType.LIGHTNING_STORM)] == 0
-        if (
-            producer_count == 0
-            and storm_ready
-            and info.coins[self.side] >= STORM_COST
-            and self.current_round < PRODUCER_STORM_DEADLOCK_ROUND
-        ):
-            return []
-        for site in PRODUCER_PIVOT_SITES:
-            x, y = SITE_LAYOUT[self.side][site]
-            tower = self._tower_at(x, y, info)
-            if tower is None or tower.type != TowerType.BASIC:
-                continue
-            cost = info.upgrade_tower_cost(int(TowerType.PRODUCER))
-            if info.coins[self.side] >= cost:
-                return [Operation(OperationType.UPGRADE_TOWER, tower.id, int(TowerType.PRODUCER))]
-        if self.current_round >= PRODUCER_STORM_DEADLOCK_ROUND:
-            for site in PRODUCER_DEADLOCK_SITES:
-                x, y = SITE_LAYOUT[self.side][site]
-                tower = self._tower_at(x, y, info)
-                if tower is None or tower.type != TowerType.BASIC:
-                    continue
-                cost = info.upgrade_tower_cost(int(TowerType.PRODUCER))
-                if info.coins[self.side] >= cost:
-                    return [Operation(OperationType.UPGRADE_TOWER, tower.id, int(TowerType.PRODUCER))]
-        return []
-
-    def _try_specialize_producer(self, info: GameInfo) -> List[Operation]:
-        if self.current_round < PRODUCER_SPECIALIZE_ROUND:
-            return []
-        if self._nearest_hostile_step(info) < PRODUCER_SAFE_HOSTILE_STEP:
-            return []
-        if info.bases[self.side].hp <= info.bases[1 - self.side].hp - PRODUCER_SPECIALIZE_MAX_HP_DEFICIT:
-            return []
-        if (
-            info.super_weapon_cd[self.side][int(SuperWeaponType.LIGHTNING_STORM)] == 0
-            and STORM_COST - 12 <= info.coins[self.side] < STORM_COST + LEVEL3_TOWER_UPGRADE_COST
-        ):
-            return []
-
-        producer_sites: List[Tuple[int, Tower]] = []
-        for site in PRODUCER_PIVOT_SITES:
-            x, y = SITE_LAYOUT[self.side][site]
-            tower = self._tower_at(x, y, info)
-            if tower is not None and tower.player == self.side and tower.type == TowerType.PRODUCER:
-                producer_sites.append((site, tower))
-        if not producer_sites:
-            return []
-
-        target = TowerType.PRODUCER_SIEGE if self.front_state <= 0 else TowerType.PRODUCER_FAST
-        if self.current_round >= 250 and len(producer_sites) >= 2:
-            target = TowerType.PRODUCER_MEDIC
-        cost = info.upgrade_tower_cost(int(target))
-        if info.coins[self.side] < cost:
-            return []
-
-        site, tower = producer_sites[0]
-        if target == TowerType.PRODUCER_MEDIC:
-            site, tower = producer_sites[-1]
-        return [Operation(OperationType.UPGRADE_TOWER, tower.id, int(target))]
 
     def _site_operation(
         self,
@@ -996,7 +867,7 @@ class AI:
             if upgrade_branch >= len(targets):
                 return None, coins, towers
             target = targets[upgrade_branch]
-            if target == TowerType.PRODUCER and site not in PRODUCER_PIVOT_SITES:
+            if target == TowerType.PRODUCER and site not in PRODUCER_SAFE_SITES:
                 return None, coins, towers
             if target is None:
                 return None, coins, towers
@@ -1339,8 +1210,7 @@ class AI:
                     if trial.info.bases[self.side].hp < info.bases[self.side].hp:
                         fail_round = tick
                         break
-                safe_round = 16 if self.current_round >= PRODUCER_STORM_DEADLOCK_ROUND else 24
-                if not pressure and fail_round < safe_round:
+                if not pressure and fail_round < 24:
                     continue
                 if pressure:
                     enemy_base_x, enemy_base_y = SITE_LAYOUT[enemy][HOME_SLOT]
@@ -1370,7 +1240,7 @@ class AI:
 
         if best_point is None:
             return []
-        if pressure and best_value < CYCLE_STORM_MIN_VALUE:
+        if pressure and best_value < ROLLING_STORM_MIN_VALUE:
             return []
         self._mark_super(SuperWeaponType.LIGHTNING_STORM)
         return [*prefix, Operation(OperationType.USE_LIGHTNING_STORM, best_point[0], best_point[1])]
@@ -1755,7 +1625,11 @@ class AI:
             if ops:
                 return ops
 
-        if not self.reserve_depth and self._should_cycle_storm(game_info):
+        if (
+            not self.reserve_depth
+            and self.current_round >= ROLLING_STORM_ROUND
+            and self.front_state <= 0
+        ):
             try:
                 ops = self._try_use_storm(game_info, False, pressure=True)
             except Exception as exc:
@@ -1763,38 +1637,12 @@ class AI:
                 ops = []
             if ops:
                 return ops
-            if (
-                game_info.coins[self.side] >= STORM_COST
-                and self._nearest_hostile_step(game_info) > 2
-                and (
-                    self.last_superweapon_type != SuperWeaponType.LIGHTNING_STORM
-                    or self.current_round - self.last_superweapon_round >= CYCLE_STORM_FALLBACK_GAP
-                )
-            ):
-                ops = self._try_use_storm(game_info, False)
-                if ops:
-                    return ops
 
         if not self.reserve_depth and self._should_push_storm(game_info):
             ops = self._try_use_storm(
                 game_info,
                 self.current_round >= 260 or game_info.bases[1 - self.side].hp <= 8,
             )
-            if ops:
-                return ops
-
-        if not self.reserve_depth and attack:
-            ops = self._try_catchup_producer(game_info)
-            if ops:
-                return ops
-
-        if not self.reserve_depth:
-            ops = self._try_specialize_producer(game_info)
-            if ops:
-                return ops
-
-        if not self.reserve_depth:
-            ops = self._try_producer_pivot(game_info)
             if ops:
                 return ops
 
@@ -1806,6 +1654,11 @@ class AI:
 
         if not self.reserve_depth and self._should_reserve_early_storm(game_info):
             return []
+
+        if not self.reserve_depth:
+            ops = self._try_producer_pivot(game_info)
+            if ops:
+                return ops
 
         if self.front_state == 1 and self.current_round >= 488:
             ops = self._try_end_storm(game_info)

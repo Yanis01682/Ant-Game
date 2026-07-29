@@ -1,0 +1,80 @@
+[
+  {
+    "seed": 11,
+    "p0": "v10",
+    "p1": "v7",
+    "winner": "v7",
+    "rounds": 342,
+    "v7_prod": 0,
+    "v10_prod": 0,
+    "v7_hpq": 0,
+    "v10_hpq": 0,
+    "v7_max_prod": 0,
+    "v10_max_prod": 0
+  },
+  {
+    "seed": 19,
+    "p0": "v10",
+    "p1": "v7",
+    "winner": "v10",
+    "rounds": 383,
+    "v7_prod": 0,
+    "v10_prod": 0,
+    "v7_hpq": 0,
+    "v10_hpq": 0,
+    "v7_max_prod": 0,
+    "v10_max_prod": 0
+  },
+  {
+    "seed": 7,
+    "p0": "v10",
+    "p1": "v7",
+    "winner": "v7",
+    "rounds": 408,
+    "v7_prod": 0,
+    "v10_prod": 0,
+    "v7_hpq": 0,
+    "v10_hpq": 0,
+    "v7_max_prod": 0,
+    "v10_max_prod": 0
+  },
+  {
+    "seed": 11,
+    "p0": "v7",
+    "p1": "v10",
+    "winner": "v10",
+    "rounds": 419,
+    "v7_prod": 0,
+    "v10_prod": 0,
+    "v7_hpq": 0,
+    "v10_hpq": 0,
+    "v7_max_prod": 0,
+    "v10_max_prod": 0
+  },
+  {
+    "seed": 19,
+    "p0": "v7",
+    "p1": "v10",
+    "winner": "v10",
+    "rounds": 320,
+    "v7_prod": 0,
+    "v10_prod": 0,
+    "v7_hpq": 0,
+    "v10_hpq": 0,
+    "v7_max_prod": 0,
+    "v10_max_prod": 0
+  },
+  {
+    "seed": 7,
+    "p0": "v7",
+    "p1": "v10",
+    "winner": "v7",
+    "rounds": 329,
+    "v7_prod": 0,
+    "v10_prod": 0,
+    "v7_hpq": 0,
+    "v10_hpq": 0,
+    "v7_max_prod": 0,
+    "v10_max_prod": 0
+  }
+]

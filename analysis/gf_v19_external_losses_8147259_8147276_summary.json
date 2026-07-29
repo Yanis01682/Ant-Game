@@ -1,0 +1,3414 @@
+{
+  "label_counts": {
+    "storm_count_gap": 9,
+    "late_first_storm": 6,
+    "coin_window_gap": 6,
+    "weak_base_pressure": 5,
+    "churn_without_economy": 5,
+    "no_producer": 5,
+    "defense_or_teleport_leak": 2,
+    "late_producer": 1
+  },
+  "games": [
+    {
+      "file": "8147259.json",
+      "rounds": 315,
+      "gf_side": 0,
+      "winner": 1,
+      "labels": [],
+      "gf": {
+        "first_storm": 45,
+        "storm_count": 4,
+        "storm_gaps": [
+          52,
+          82,
+          79
+        ],
+        "first_prod": 107,
+        "prod_count": 2,
+        "builds": 34,
+        "downs": 20,
+        "ups": 4,
+        "base_speed": [],
+        "base_ant": [],
+        "emp": 0,
+        "def": 0,
+        "eva": 0,
+        "coins_avg": 42.25,
+        "enemy_coins_avg": 32.5,
+        "coins_ge90": 16,
+        "enemy_coins_ge90": 5,
+        "coins_ge135": 0,
+        "enemy_coins_ge135": 0,
+        "live_avg": 6.22,
+        "enemy_live_avg": 5.77,
+        "combat_avg": 1.11,
+        "enemy_combat_avg": 1.34,
+        "tower_avg": 0.41,
+        "enemy_tower_avg": 0.33,
+        "adv_avg": 0.16,
+        "enemy_adv_avg": 0.14,
+        "prod_live_rounds": 10,
+        "enemy_prod_live_rounds": 0,
+        "prod_avg": 0.03,
+        "enemy_prod_avg": 0.0,
+        "push2": 137,
+        "push4": 205,
+        "push6": 272,
+        "enemy_push2": 136,
+        "enemy_push4": 213,
+        "enemy_push6": 268,
+        "minpush_avg": 3.72,
+        "enemy_minpush_avg": 3.47,
+        "final_hp": 0,
+        "enemy_final_hp": 8,
+        "hp_loss_events": [
+          [
+            38,
+            1,
+            49
+          ],
+          [
+            69,
+            1,
+            48
+          ],
+          [
+            75,
+            1,
+            47
+          ],
+          [
+            77,
+            2,
+            45
+          ],
+          [
+            78,
+            1,
+            44
+          ],
+          [
+            80,
+            1,
+            43
+          ],
+          [
+            88,
+            1,
+            42
+          ],
+          [
+            89,
+            1,
+            41
+          ],
+          [
+            96,
+            1,
+            40
+          ],
+          [
+            118,
+            1,
+            39
+          ],
+          [
+            120,
+            1,
+            38
+          ],
+          [
+            129,
+            1,
+            37
+          ],
+          [
+            131,
+            1,
+            36
+          ],
+          [
+            138,
+            1,
+            35
+          ],
+          [
+            146,
+            1,
+            34
+          ],
+          [
+            147,
+            1,
+            33
+          ],
+          [
+            150,
+            1,
+            32
+          ],
+          [
+            157,
+            1,
+            31
+          ],
+          [
+            161,
+            1,
+            30
+          ],
+          [
+            163,
+            1,
+            29
+          ],
+          [
+            166,
+            1,
+            28
+          ],
+          [
+            167,
+            2,
+            26
+          ],
+          [
+            176,
+            1,
+            25
+          ],
+          [
+            185,
+            1,
+            24
+          ],
+          [
+            191,
+            1,
+            23
+          ]
+        ]
+      },
+      "opp": {
+        "first_storm": 50,
+        "storm_count": 5,
+        "storm_gaps": [
+          49,
+          53,
+          73,
+          66
+        ],
+        "first_prod": null,
+        "prod_count": 0,
+        "builds": 21,
+        "downs": 4,
+        "ups": 3,
+        "base_speed": [],
+        "base_ant": [],
+        "emp": 0,
+        "def": 0,
+        "eva": 1,
+        "coins_avg": 32.5,
+        "enemy_coins_avg": 42.25,
+        "coins_ge90": 5,
+        "enemy_coins_ge90": 16,
+        "coins_ge135": 0,
+        "enemy_coins_ge135": 0,
+        "live_avg": 5.77,
+        "enemy_live_avg": 6.22,
+        "combat_avg": 1.34,
+        "enemy_combat_avg": 1.11,
+        "tower_avg": 0.33,
+        "enemy_tower_avg": 0.41,
+        "adv_avg": 0.14,
+        "enemy_adv_avg": 0.16,
+        "prod_live_rounds": 0,
+        "enemy_prod_live_rounds": 10,
+        "prod_avg": 0.0,
+        "enemy_prod_avg": 0.03,
+        "push2": 136,
+        "push4": 213,
+        "push6": 268,
+        "enemy_push2": 137,
+        "enemy_push4": 205,
+        "enemy_push6": 272,
+        "minpush_avg": 3.47,
+        "enemy_minpush_avg": 3.72,
+        "final_hp": 8,
+        "enemy_final_hp": 0,
+        "hp_loss_events": [
+          [
+            24,
+            1,
+            49
+          ],
+          [
+            32,
+            1,
+            48
+          ],
+          [
+            40,
+            2,
+            46
+          ],
+          [
+            41,
+            1,
+            45
+          ],
+          [
+            43,
+            1,
+            44
+          ],
+          [
+            85,
+            2,
+            42
+          ],
+          [
+            94,
+            1,
+            41
+          ],
+          [
+            96,
+            2,
+            39
+          ],
+          [
+            100,
+            1,
+            38
+          ],
+          [
+            104,
+            1,
+            37
+          ],
+          [
+            107,
+            1,
+            36
+          ],
+          [
+            114,
+            1,
+            35
+          ],
+          [
+            130,
+            1,
+            34
+          ],
+          [
+            139,
+            1,
+            33
+          ],
+          [
+            149,
+            1,
+            32
+          ],
+          [
+            156,
+            1,
+            31
+          ],
+          [
+            165,
+            1,
+            30
+          ],
+          [
+            166,
+            1,
+            29
+          ],
+          [
+            178,
+            1,
+            28
+          ],
+          [
+            188,
+            1,
+            27
+          ],
+          [
+            191,
+            1,
+            26
+          ],
+          [
+            193,
+            1,
+            25
+          ],
+          [
+            199,
+            1,
+            24
+          ],
+          [
+            203,
+            1,
+            23
+          ],
+          [
+            208,
+            1,
+            22
+          ]
+        ]
+      }
+    },
+    {
+      "file": "8147260.json",
+      "rounds": 358,
+      "gf_side": 1,
+      "winner": 0,
+      "labels": [
+        "storm_count_gap"
+      ],
+      "gf": {
+        "first_storm": 34,
+        "storm_count": 4,
+        "storm_gaps": [
+          73,
+          35,
+          96
+        ],
+        "first_prod": 168,
+        "prod_count": 2,
+        "builds": 39,
+        "downs": 14,
+        "ups": 3,
+        "base_speed": [],
+        "base_ant": [],
+        "emp": 0,
+        "def": 0,
+        "eva": 0,
+        "coins_avg": 36.54,
+        "enemy_coins_avg": 36.65,
+        "coins_ge90": 0,
+        "enemy_coins_ge90": 6,
+        "coins_ge135": 0,
+        "enemy_coins_ge135": 0,
+        "live_avg": 6.16,
+        "enemy_live_avg": 6.74,
+        "combat_avg": 1.0,
+        "enemy_combat_avg": 2.75,
+        "tower_avg": 0.39,
+        "enemy_tower_avg": 0.4,
+        "adv_avg": 0.13,
+        "enemy_adv_avg": 0.14,
+        "prod_live_rounds": 6,
+        "enemy_prod_live_rounds": 0,
+        "prod_avg": 0.02,
+        "enemy_prod_avg": 0.0,
+        "push2": 146,
+        "push4": 225,
+        "push6": 293,
+        "enemy_push2": 157,
+        "enemy_push4": 247,
+        "enemy_push6": 315,
+        "minpush_avg": 3.98,
+        "enemy_minpush_avg": 3.38,
+        "final_hp": 0,
+        "enemy_final_hp": 2,
+        "hp_loss_events": [
+          [
+            22,
+            1,
+            49
+          ],
+          [
+            53,
+            1,
+            48
+          ],
+          [
+            62,
+            1,
+            47
+          ],
+          [
+            66,
+            1,
+            46
+          ],
+          [
+            76,
+            1,
+            45
+          ],
+          [
+            78,
+            1,
+            44
+          ],
+          [
+            81,
+            1,
+            43
+          ],
+          [
+            83,
+            1,
+            42
+          ],
+          [
+            88,
+            1,
+            41
+          ],
+          [
+            90,
+            1,
+            40
+          ],
+          [
+            97,
+            1,
+            39
+          ],
+          [
+            98,
+            1,
+            38
+          ],
+          [
+            100,
+            1,
+            37
+          ],
+          [
+            125,
+            1,
+            36
+          ],
+          [
+            131,
+            1,
+            35
+          ],
+          [
+            133,
+            1,
+            34
+          ],
+          [
+            137,
+            1,
+            33
+          ],
+          [
+            139,
+            1,
+            32
+          ],
+          [
+            181,
+            1,
+            31
+          ],
+          [
+            183,
+            2,
+            29
+          ],
+          [
+            184,
+            1,
+            28
+          ],
+          [
+            193,
+            1,
+            27
+          ],
+          [
+            203,
+            2,
+            25
+          ],
+          [
+            212,
+            1,
+            24
+          ],
+          [
+            215,
+            1,
+            23
+          ]
+        ]
+      },
+      "opp": {
+        "first_storm": 64,
+        "storm_count": 6,
+        "storm_gaps": [
+          43,
+          59,
+          42,
+          59,
+          51
+        ],
+        "first_prod": null,
+        "prod_count": 0,
+        "builds": 16,
+        "downs": 3,
+        "ups": 6,
+        "base_speed": [],
+        "base_ant": [],
+        "emp": 0,
+        "def": 0,
+        "eva": 1,
+        "coins_avg": 36.65,
+        "enemy_coins_avg": 36.54,
+        "coins_ge90": 6,
+        "enemy_coins_ge90": 0,
+        "coins_ge135": 0,
+        "enemy_coins_ge135": 0,
+        "live_avg": 6.74,
+        "enemy_live_avg": 6.16,
+        "combat_avg": 2.75,
+        "enemy_combat_avg": 1.0,
+        "tower_avg": 0.4,
+        "enemy_tower_avg": 0.39,
+        "adv_avg": 0.14,
+        "enemy_adv_avg": 0.13,
+        "prod_live_rounds": 0,
+        "enemy_prod_live_rounds": 6,
+        "prod_avg": 0.0,
+        "enemy_prod_avg": 0.02,
+        "push2": 157,
+        "push4": 247,
+        "push6": 315,
+        "enemy_push2": 146,
+        "enemy_push4": 225,
+        "enemy_push6": 293,
+        "minpush_avg": 3.38,
+        "enemy_minpush_avg": 3.98,
+        "final_hp": 2,
+        "enemy_final_hp": 0,
+        "hp_loss_events": [
+          [
+            21,
+            1,
+            49
+          ],
+          [
+            24,
+            1,
+            48
+          ],
+          [
+            35,
+            1,
+            47
+          ],
+          [
+            46,
+            1,
+            46
+          ],
+          [
+            49,
+            1,
+            45
+          ],
+          [
+            51,
+            1,
+            44
+          ],
+          [
+            52,
+            1,
+            43
+          ],
+          [
+            56,
+            1,
+            42
+          ],
+          [
+            63,
+            1,
+            41
+          ],
+          [
+            69,
+            1,
+            40
+          ],
+          [
+            72,
+            1,
+            39
+          ],
+          [
+            97,
+            1,
+            38
+          ],
+          [
+            104,
+            1,
+            37
+          ],
+          [
+            108,
+            1,
+            36
+          ],
+          [
+            116,
+            1,
+            35
+          ],
+          [
+            117,
+            1,
+            34
+          ],
+          [
+            145,
+            1,
+            33
+          ],
+          [
+            147,
+            1,
+            32
+          ],
+          [
+            159,
+            1,
+            31
+          ],
+          [
+            182,
+            1,
+            30
+          ],
+          [
+            184,
+            1,
+            29
+          ],
+          [
+            194,
+            1,
+            28
+          ],
+          [
+            212,
+            2,
+            26
+          ],
+          [
+            215,
+            1,
+            25
+          ],
+          [
+            223,
+            1,
+            24
+          ]
+        ]
+      }
+    },
+    {
+      "file": "8147265.json",
+      "rounds": 293,
+      "gf_side": 0,
+      "winner": 1,
+      "labels": [
+        "late_first_storm",
+        "storm_count_gap",
+        "coin_window_gap"
+      ],
+      "gf": {
+        "first_storm": 60,
+        "storm_count": 4,
+        "storm_gaps": [
+          55,
+          73,
+          49
+        ],
+        "first_prod": 140,
+        "prod_count": 2,
+        "builds": 30,
+        "downs": 14,
+        "ups": 3,
+        "base_speed": [],
+        "base_ant": [],
+        "emp": 0,
+        "def": 0,
+        "eva": 0,
+        "coins_avg": 38.23,
+        "enemy_coins_avg": 106.14,
+        "coins_ge90": 16,
+        "enemy_coins_ge90": 193,
+        "coins_ge135": 0,
+        "enemy_coins_ge135": 76,
+        "live_avg": 5.67,
+        "enemy_live_avg": 6.51,
+        "combat_avg": 2.14,
+        "enemy_combat_avg": 2.48,
+        "tower_avg": 0.36,
+        "enemy_tower_avg": 0.2,
+        "adv_avg": 0.13,
+        "enemy_adv_avg": 0.11,
+        "prod_live_rounds": 6,
+        "enemy_prod_live_rounds": 15,
+        "prod_avg": 0.02,
+        "enemy_prod_avg": 0.05,
+        "push2": 104,
+        "push4": 167,
+        "push6": 229,
+        "enemy_push2": 137,
+        "enemy_push4": 188,
+        "enemy_push6": 253,
+        "minpush_avg": 4.36,
+        "enemy_minpush_avg": 3.63,
+        "final_hp": 0,
+        "enemy_final_hp": 14,
+        "hp_loss_events": [
+          [
+            23,
+            1,
+            49
+          ],
+          [
+            39,
+            1,
+            48
+          ],
+          [
+            40,
+            1,
+            47
+          ],
+          [
+            49,
+            1,
+            46
+          ],
+          [
+            56,
+            1,
+            45
+          ],
+          [
+            58,
+            1,
+            44
+          ],
+          [
+            71,
+            1,
+            43
+          ],
+          [
+            82,
+            1,
+            42
+          ],
+          [
+            90,
+            1,
+            41
+          ],
+          [
+            91,
+            1,
+            40
+          ],
+          [
+            92,
+            1,
+            39
+          ],
+          [
+            95,
+            1,
+            38
+          ],
+          [
+            98,
+            1,
+            37
+          ],
+          [
+            99,
+            1,
+            36
+          ],
+          [
+            104,
+            1,
+            35
+          ],
+          [
+            106,
+            1,
+            34
+          ],
+          [
+            109,
+            1,
+            33
+          ],
+          [
+            112,
+            1,
+            32
+          ],
+          [
+            117,
+            1,
+            31
+          ],
+          [
+            118,
+            1,
+            30
+          ],
+          [
+            147,
+            1,
+            29
+          ],
+          [
+            150,
+            1,
+            28
+          ],
+          [
+            152,
+            1,
+            27
+          ],
+          [
+            156,
+            1,
+            26
+          ],
+          [
+            157,
+            1,
+            25
+          ]
+        ]
+      },
+      "opp": {
+        "first_storm": 24,
+        "storm_count": 8,
+        "storm_gaps": [
+          35,
+          35,
+          35,
+          35,
+          35,
+          35,
+          35
+        ],
+        "first_prod": 113,
+        "prod_count": 11,
+        "builds": 18,
+        "downs": 26,
+        "ups": 11,
+        "base_speed": [],
+        "base_ant": [],
+        "emp": 0,
+        "def": 0,
+        "eva": 0,
+        "coins_avg": 106.14,
+        "enemy_coins_avg": 38.23,
+        "coins_ge90": 193,
+        "enemy_coins_ge90": 16,
+        "coins_ge135": 76,
+        "enemy_coins_ge135": 0,
+        "live_avg": 6.51,
+        "enemy_live_avg": 5.67,
+        "combat_avg": 2.48,
+        "enemy_combat_avg": 2.14,
+        "tower_avg": 0.2,
+        "enemy_tower_avg": 0.36,
+        "adv_avg": 0.11,
+        "enemy_adv_avg": 0.13,
+        "prod_live_rounds": 15,
+        "enemy_prod_live_rounds": 6,
+        "prod_avg": 0.05,
+        "enemy_prod_avg": 0.02,
+        "push2": 137,
+        "push4": 188,
+        "push6": 253,
+        "enemy_push2": 104,
+        "enemy_push4": 167,
+        "enemy_push6": 229,
+        "minpush_avg": 3.63,
+        "enemy_minpush_avg": 4.36,
+        "final_hp": 14,
+        "enemy_final_hp": 0,
+        "hp_loss_events": [
+          [
+            19,
+            1,
+            49
+          ],
+          [
+            22,
+            1,
+            48
+          ],
+          [
+            29,
+            1,
+            47
+          ],
+          [
+            36,
+            1,
+            46
+          ],
+          [
+            48,
+            3,
+            43
+          ],
+          [
+            53,
+            1,
+            42
+          ],
+          [
+            59,
+            1,
+            41
+          ],
+          [
+            64,
+            1,
+            40
+          ],
+          [
+            99,
+            1,
+            39
+          ],
+          [
+            109,
+            1,
+            38
+          ],
+          [
+            113,
+            1,
+            37
+          ],
+          [
+            114,
+            1,
+            36
+          ],
+          [
+            116,
+            1,
+            35
+          ],
+          [
+            125,
+            1,
+            34
+          ],
+          [
+            134,
+            1,
+            33
+          ],
+          [
+            139,
+            1,
+            32
+          ],
+          [
+            149,
+            1,
+            31
+          ],
+          [
+            152,
+            1,
+            30
+          ],
+          [
+            160,
+            1,
+            29
+          ],
+          [
+            161,
+            1,
+            28
+          ],
+          [
+            163,
+            1,
+            27
+          ],
+          [
+            183,
+            1,
+            26
+          ],
+          [
+            184,
+            1,
+            25
+          ],
+          [
+            185,
+            1,
+            24
+          ],
+          [
+            194,
+            1,
+            23
+          ]
+        ]
+      }
+    },
+    {
+      "file": "8147266.json",
+      "rounds": 269,
+      "gf_side": 1,
+      "winner": 0,
+      "labels": [
+        "late_first_storm",
+        "storm_count_gap",
+        "coin_window_gap",
+        "weak_base_pressure",
+        "churn_without_economy"
+      ],
+      "gf": {
+        "first_storm": 96,
+        "storm_count": 3,
+        "storm_gaps": [
+          36,
+          73
+        ],
+        "first_prod": 102,
+        "prod_count": 2,
+        "builds": 28,
+        "downs": 11,
+        "ups": 3,
+        "base_speed": [],
+        "base_ant": [],
+        "emp": 0,
+        "def": 0,
+        "eva": 0,
+        "coins_avg": 55.8,
+        "enemy_coins_avg": 104.06,
+        "coins_ge90": 47,
+        "enemy_coins_ge90": 163,
+        "coins_ge135": 0,
+        "enemy_coins_ge135": 45,
+        "live_avg": 4.83,
+        "enemy_live_avg": 6.54,
+        "combat_avg": 0.65,
+        "enemy_combat_avg": 2.08,
+        "tower_avg": 0.34,
+        "enemy_tower_avg": 0.06,
+        "adv_avg": 0.13,
+        "enemy_adv_avg": 0.03,
+        "prod_live_rounds": 5,
+        "enemy_prod_live_rounds": 4,
+        "prod_avg": 0.02,
+        "enemy_prod_avg": 0.01,
+        "push2": 105,
+        "push4": 150,
+        "push6": 204,
+        "enemy_push2": 143,
+        "enemy_push4": 201,
+        "enemy_push6": 236,
+        "minpush_avg": 4.32,
+        "enemy_minpush_avg": 3.27,
+        "final_hp": 0,
+        "enemy_final_hp": 16,
+        "hp_loss_events": [
+          [
+            19,
+            1,
+            49
+          ],
+          [
+            21,
+            1,
+            48
+          ],
+          [
+            41,
+            1,
+            47
+          ],
+          [
+            45,
+            1,
+            46
+          ],
+          [
+            47,
+            1,
+            45
+          ],
+          [
+            52,
+            1,
+            44
+          ],
+          [
+            56,
+            2,
+            42
+          ],
+          [
+            60,
+            1,
+            41
+          ],
+          [
+            70,
+            1,
+            40
+          ],
+          [
+            73,
+            1,
+            39
+          ],
+          [
+            76,
+            1,
+            38
+          ],
+          [
+            80,
+            1,
+            37
+          ],
+          [
+            83,
+            1,
+            36
+          ],
+          [
+            89,
+            1,
+            35
+          ],
+          [
+            91,
+            1,
+            34
+          ],
+          [
+            126,
+            1,
+            33
+          ],
+          [
+            154,
+            1,
+            32
+          ],
+          [
+            158,
+            1,
+            31
+          ],
+          [
+            164,
+            1,
+            30
+          ],
+          [
+            170,
+            1,
+            29
+          ],
+          [
+            173,
+            1,
+            28
+          ],
+          [
+            176,
+            1,
+            27
+          ],
+          [
+            177,
+            1,
+            26
+          ],
+          [
+            180,
+            1,
+            25
+          ],
+          [
+            185,
+            1,
+            24
+          ]
+        ]
+      },
+      "opp": {
+        "first_storm": 20,
+        "storm_count": 8,
+        "storm_gaps": [
+          35,
+          35,
+          35,
+          35,
+          35,
+          35,
+          35
+        ],
+        "first_prod": 181,
+        "prod_count": 4,
+        "builds": 5,
+        "downs": 4,
+        "ups": 4,
+        "base_speed": [],
+        "base_ant": [],
+        "emp": 0,
+        "def": 0,
+        "eva": 0,
+        "coins_avg": 104.06,
+        "enemy_coins_avg": 55.8,
+        "coins_ge90": 163,
+        "enemy_coins_ge90": 47,
+        "coins_ge135": 45,
+        "enemy_coins_ge135": 0,
+        "live_avg": 6.54,
+        "enemy_live_avg": 4.83,
+        "combat_avg": 2.08,
+        "enemy_combat_avg": 0.65,
+        "tower_avg": 0.06,
+        "enemy_tower_avg": 0.34,
+        "adv_avg": 0.03,
+        "enemy_adv_avg": 0.13,
+        "prod_live_rounds": 4,
+        "enemy_prod_live_rounds": 5,
+        "prod_avg": 0.01,
+        "enemy_prod_avg": 0.02,
+        "push2": 143,
+        "push4": 201,
+        "push6": 236,
+        "enemy_push2": 105,
+        "enemy_push4": 150,
+        "enemy_push6": 204,
+        "minpush_avg": 3.27,
+        "enemy_minpush_avg": 4.32,
+        "final_hp": 16,
+        "enemy_final_hp": 0,
+        "hp_loss_events": [
+          [
+            27,
+            1,
+            49
+          ],
+          [
+            31,
+            1,
+            48
+          ],
+          [
+            49,
+            1,
+            47
+          ],
+          [
+            51,
+            1,
+            46
+          ],
+          [
+            53,
+            1,
+            45
+          ],
+          [
+            61,
+            1,
+            44
+          ],
+          [
+            65,
+            1,
+            43
+          ],
+          [
+            87,
+            1,
+            42
+          ],
+          [
+            90,
+            1,
+            41
+          ],
+          [
+            94,
+            1,
+            40
+          ],
+          [
+            103,
+            1,
+            39
+          ],
+          [
+            118,
+            1,
+            38
+          ],
+          [
+            119,
+            2,
+            36
+          ],
+          [
+            121,
+            1,
+            35
+          ],
+          [
+            122,
+            1,
+            34
+          ],
+          [
+            125,
+            1,
+            33
+          ],
+          [
+            137,
+            1,
+            32
+          ],
+          [
+            150,
+            1,
+            31
+          ],
+          [
+            155,
+            1,
+            30
+          ],
+          [
+            157,
+            1,
+            29
+          ],
+          [
+            158,
+            1,
+            28
+          ],
+          [
+            185,
+            1,
+            27
+          ],
+          [
+            187,
+            1,
+            26
+          ],
+          [
+            190,
+            1,
+            25
+          ],
+          [
+            193,
+            1,
+            24
+          ]
+        ]
+      }
+    },
+    {
+      "file": "8147267.json",
+      "rounds": 214,
+      "gf_side": 0,
+      "winner": 1,
+      "labels": [
+        "late_first_storm",
+        "storm_count_gap",
+        "no_producer",
+        "weak_base_pressure"
+      ],
+      "gf": {
+        "first_storm": 153,
+        "storm_count": 1,
+        "storm_gaps": [],
+        "first_prod": null,
+        "prod_count": 0,
+        "builds": 16,
+        "downs": 5,
+        "ups": 5,
+        "base_speed": [],
+        "base_ant": [],
+        "emp": 0,
+        "def": 0,
+        "eva": 0,
+        "coins_avg": 70.67,
+        "enemy_coins_avg": 49.58,
+        "coins_ge90": 65,
+        "enemy_coins_ge90": 25,
+        "coins_ge135": 37,
+        "enemy_coins_ge135": 5,
+        "live_avg": 5.33,
+        "enemy_live_avg": 9.17,
+        "combat_avg": 2.01,
+        "enemy_combat_avg": 2.99,
+        "tower_avg": 0.33,
+        "enemy_tower_avg": 0.2,
+        "adv_avg": 0.15,
+        "enemy_adv_avg": 0.11,
+        "prod_live_rounds": 0,
+        "enemy_prod_live_rounds": 14,
+        "prod_avg": 0.0,
+        "enemy_prod_avg": 0.07,
+        "push2": 64,
+        "push4": 113,
+        "push6": 162,
+        "enemy_push2": 121,
+        "enemy_push4": 167,
+        "enemy_push6": 196,
+        "minpush_avg": 4.47,
+        "enemy_minpush_avg": 2.9,
+        "final_hp": 0,
+        "enemy_final_hp": 34,
+        "hp_loss_events": [
+          [
+            40,
+            1,
+            49
+          ],
+          [
+            47,
+            1,
+            48
+          ],
+          [
+            56,
+            1,
+            47
+          ],
+          [
+            63,
+            1,
+            46
+          ],
+          [
+            67,
+            1,
+            45
+          ],
+          [
+            70,
+            1,
+            44
+          ],
+          [
+            76,
+            1,
+            43
+          ],
+          [
+            79,
+            2,
+            41
+          ],
+          [
+            83,
+            1,
+            40
+          ],
+          [
+            84,
+            1,
+            39
+          ],
+          [
+            86,
+            1,
+            38
+          ],
+          [
+            93,
+            1,
+            37
+          ],
+          [
+            94,
+            1,
+            36
+          ],
+          [
+            96,
+            1,
+            35
+          ],
+          [
+            102,
+            1,
+            34
+          ],
+          [
+            103,
+            1,
+            33
+          ],
+          [
+            110,
+            1,
+            32
+          ],
+          [
+            116,
+            1,
+            31
+          ],
+          [
+            124,
+            2,
+            29
+          ],
+          [
+            128,
+            1,
+            28
+          ],
+          [
+            130,
+            1,
+            27
+          ],
+          [
+            142,
+            1,
+            26
+          ],
+          [
+            145,
+            1,
+            25
+          ],
+          [
+            148,
+            1,
+            24
+          ],
+          [
+            149,
+            2,
+            22
+          ]
+        ]
+      },
+      "opp": {
+        "first_storm": 26,
+        "storm_count": 5,
+        "storm_gaps": [
+          35,
+          35,
+          51,
+          35
+        ],
+        "first_prod": 74,
+        "prod_count": 7,
+        "builds": 11,
+        "downs": 7,
+        "ups": 7,
+        "base_speed": [],
+        "base_ant": [],
+        "emp": 0,
+        "def": 0,
+        "eva": 0,
+        "coins_avg": 49.58,
+        "enemy_coins_avg": 70.67,
+        "coins_ge90": 25,
+        "enemy_coins_ge90": 65,
+        "coins_ge135": 5,
+        "enemy_coins_ge135": 37,
+        "live_avg": 9.17,
+        "enemy_live_avg": 5.33,
+        "combat_avg": 2.99,
+        "enemy_combat_avg": 2.01,
+        "tower_avg": 0.2,
+        "enemy_tower_avg": 0.33,
+        "adv_avg": 0.11,
+        "enemy_adv_avg": 0.15,
+        "prod_live_rounds": 14,
+        "enemy_prod_live_rounds": 0,
+        "prod_avg": 0.07,
+        "enemy_prod_avg": 0.0,
+        "push2": 121,
+        "push4": 167,
+        "push6": 196,
+        "enemy_push2": 64,
+        "enemy_push4": 113,
+        "enemy_push6": 162,
+        "minpush_avg": 2.9,
+        "enemy_minpush_avg": 4.47,
+        "final_hp": 34,
+        "enemy_final_hp": 0,
+        "hp_loss_events": [
+          [
+            52,
+            1,
+            49
+          ],
+          [
+            62,
+            2,
+            47
+          ],
+          [
+            68,
+            1,
+            46
+          ],
+          [
+            78,
+            1,
+            45
+          ],
+          [
+            94,
+            1,
+            44
+          ],
+          [
+            95,
+            1,
+            43
+          ],
+          [
+            125,
+            1,
+            42
+          ],
+          [
+            133,
+            1,
+            41
+          ],
+          [
+            137,
+            1,
+            40
+          ],
+          [
+            143,
+            2,
+            38
+          ],
+          [
+            176,
+            1,
+            37
+          ],
+          [
+            185,
+            1,
+            36
+          ],
+          [
+            187,
+            1,
+            35
+          ],
+          [
+            206,
+            1,
+            34
+          ]
+        ]
+      }
+    },
+    {
+      "file": "8147268.json",
+      "rounds": 201,
+      "gf_side": 1,
+      "winner": 0,
+      "labels": [
+        "storm_count_gap",
+        "no_producer",
+        "weak_base_pressure",
+        "defense_or_teleport_leak"
+      ],
+      "gf": {
+        "first_storm": 35,
+        "storm_count": 2,
+        "storm_gaps": [
+          111
+        ],
+        "first_prod": null,
+        "prod_count": 0,
+        "builds": 18,
+        "downs": 3,
+        "ups": 0,
+        "base_speed": [],
+        "base_ant": [],
+        "emp": 0,
+        "def": 0,
+        "eva": 0,
+        "coins_avg": 55.69,
+        "enemy_coins_avg": 40.27,
+        "coins_ge90": 17,
+        "enemy_coins_ge90": 4,
+        "coins_ge135": 0,
+        "enemy_coins_ge135": 0,
+        "live_avg": 4.37,
+        "enemy_live_avg": 8.15,
+        "combat_avg": 1.38,
+        "enemy_combat_avg": 3.5,
+        "tower_avg": 0.31,
+        "enemy_tower_avg": 0.22,
+        "adv_avg": 0.07,
+        "enemy_adv_avg": 0.12,
+        "prod_live_rounds": 0,
+        "enemy_prod_live_rounds": 16,
+        "prod_avg": 0.0,
+        "enemy_prod_avg": 0.08,
+        "push2": 59,
+        "push4": 102,
+        "push6": 153,
+        "enemy_push2": 127,
+        "enemy_push4": 155,
+        "enemy_push6": 172,
+        "minpush_avg": 4.7,
+        "enemy_minpush_avg": 3.01,
+        "final_hp": 0,
+        "enemy_final_hp": 33,
+        "hp_loss_events": [
+          [
+            22,
+            1,
+            49
+          ],
+          [
+            33,
+            1,
+            48
+          ],
+          [
+            37,
+            1,
+            47
+          ],
+          [
+            39,
+            1,
+            46
+          ],
+          [
+            40,
+            2,
+            44
+          ],
+          [
+            61,
+            1,
+            43
+          ],
+          [
+            73,
+            1,
+            42
+          ],
+          [
+            75,
+            1,
+            41
+          ],
+          [
+            80,
+            1,
+            40
+          ],
+          [
+            82,
+            1,
+            39
+          ],
+          [
+            90,
+            1,
+            38
+          ],
+          [
+            95,
+            1,
+            37
+          ],
+          [
+            100,
+            1,
+            36
+          ],
+          [
+            104,
+            1,
+            35
+          ],
+          [
+            106,
+            1,
+            34
+          ],
+          [
+            107,
+            1,
+            33
+          ],
+          [
+            110,
+            2,
+            31
+          ],
+          [
+            111,
+            1,
+            30
+          ],
+          [
+            114,
+            1,
+            29
+          ],
+          [
+            115,
+            1,
+            28
+          ],
+          [
+            116,
+            1,
+            27
+          ],
+          [
+            122,
+            1,
+            26
+          ],
+          [
+            125,
+            1,
+            25
+          ],
+          [
+            131,
+            1,
+            24
+          ],
+          [
+            132,
+            1,
+            23
+          ]
+        ]
+      },
+      "opp": {
+        "first_storm": 23,
+        "storm_count": 5,
+        "storm_gaps": [
+          39,
+          39,
+          39,
+          39
+        ],
+        "first_prod": 36,
+        "prod_count": 9,
+        "builds": 10,
+        "downs": 9,
+        "ups": 9,
+        "base_speed": [],
+        "base_ant": [],
+        "emp": 0,
+        "def": 0,
+        "eva": 0,
+        "coins_avg": 40.27,
+        "enemy_coins_avg": 55.69,
+        "coins_ge90": 4,
+        "enemy_coins_ge90": 17,
+        "coins_ge135": 0,
+        "enemy_coins_ge135": 0,
+        "live_avg": 8.15,
+        "enemy_live_avg": 4.37,
+        "combat_avg": 3.5,
+        "enemy_combat_avg": 1.38,
+        "tower_avg": 0.22,
+        "enemy_tower_avg": 0.31,
+        "adv_avg": 0.12,
+        "enemy_adv_avg": 0.07,
+        "prod_live_rounds": 16,
+        "enemy_prod_live_rounds": 0,
+        "prod_avg": 0.08,
+        "enemy_prod_avg": 0.0,
+        "push2": 127,
+        "push4": 155,
+        "push6": 172,
+        "enemy_push2": 59,
+        "enemy_push4": 102,
+        "enemy_push6": 153,
+        "minpush_avg": 3.01,
+        "enemy_minpush_avg": 4.7,
+        "final_hp": 33,
+        "enemy_final_hp": 0,
+        "hp_loss_events": [
+          [
+            31,
+            1,
+            49
+          ],
+          [
+            53,
+            1,
+            48
+          ],
+          [
+            74,
+            1,
+            47
+          ],
+          [
+            94,
+            1,
+            46
+          ],
+          [
+            95,
+            1,
+            45
+          ],
+          [
+            112,
+            1,
+            44
+          ],
+          [
+            118,
+            1,
+            43
+          ],
+          [
+            128,
+            1,
+            42
+          ],
+          [
+            134,
+            1,
+            41
+          ],
+          [
+            136,
+            1,
+            40
+          ],
+          [
+            137,
+            1,
+            39
+          ],
+          [
+            142,
+            1,
+            38
+          ],
+          [
+            145,
+            1,
+            37
+          ],
+          [
+            147,
+            1,
+            36
+          ],
+          [
+            171,
+            1,
+            35
+          ],
+          [
+            174,
+            1,
+            34
+          ],
+          [
+            196,
+            1,
+            33
+          ]
+        ]
+      }
+    },
+    {
+      "file": "8147269.json",
+      "rounds": 265,
+      "gf_side": 0,
+      "winner": 1,
+      "labels": [
+        "storm_count_gap",
+        "no_producer",
+        "coin_window_gap",
+        "churn_without_economy"
+      ],
+      "gf": {
+        "first_storm": 30,
+        "storm_count": 5,
+        "storm_gaps": [
+          36,
+          36,
+          84,
+          49
+        ],
+        "first_prod": null,
+        "prod_count": 0,
+        "builds": 21,
+        "downs": 12,
+        "ups": 2,
+        "base_speed": [],
+        "base_ant": [],
+        "emp": 0,
+        "def": 0,
+        "eva": 0,
+        "coins_avg": 42.09,
+        "enemy_coins_avg": 122.43,
+        "coins_ge90": 6,
+        "enemy_coins_ge90": 118,
+        "coins_ge135": 0,
+        "enemy_coins_ge135": 98,
+        "live_avg": 4.97,
+        "enemy_live_avg": 7.03,
+        "combat_avg": 2.23,
+        "enemy_combat_avg": 1.73,
+        "tower_avg": 0.33,
+        "enemy_tower_avg": 0.12,
+        "adv_avg": 0.08,
+        "enemy_adv_avg": 0.07,
+        "prod_live_rounds": 0,
+        "enemy_prod_live_rounds": 13,
+        "prod_avg": 0.0,
+        "enemy_prod_avg": 0.05,
+        "push2": 84,
+        "push4": 145,
+        "push6": 211,
+        "enemy_push2": 118,
+        "enemy_push4": 172,
+        "enemy_push6": 231,
+        "minpush_avg": 4.36,
+        "enemy_minpush_avg": 3.45,
+        "final_hp": 0,
+        "enemy_final_hp": 28,
+        "hp_loss_events": [
+          [
+            29,
+            1,
+            49
+          ],
+          [
+            54,
+            1,
+            48
+          ],
+          [
+            65,
+            1,
+            47
+          ],
+          [
+            75,
+            1,
+            46
+          ],
+          [
+            85,
+            1,
+            45
+          ],
+          [
+            95,
+            1,
+            44
+          ],
+          [
+            112,
+            2,
+            42
+          ],
+          [
+            121,
+            1,
+            41
+          ],
+          [
+            123,
+            1,
+            40
+          ],
+          [
+            130,
+            1,
+            39
+          ],
+          [
+            137,
+            1,
+            38
+          ],
+          [
+            140,
+            1,
+            37
+          ],
+          [
+            141,
+            1,
+            36
+          ],
+          [
+            142,
+            1,
+            35
+          ],
+          [
+            144,
+            1,
+            34
+          ],
+          [
+            145,
+            1,
+            33
+          ],
+          [
+            152,
+            1,
+            32
+          ],
+          [
+            153,
+            1,
+            31
+          ],
+          [
+            154,
+            1,
+            30
+          ],
+          [
+            155,
+            1,
+            29
+          ],
+          [
+            156,
+            1,
+            28
+          ],
+          [
+            160,
+            1,
+            27
+          ],
+          [
+            161,
+            1,
+            26
+          ],
+          [
+            163,
+            1,
+            25
+          ],
+          [
+            164,
+            1,
+            24
+          ]
+        ]
+      },
+      "opp": {
+        "first_storm": 28,
+        "storm_count": 7,
+        "storm_gaps": [
+          39,
+          49,
+          35,
+          35,
+          35,
+          35
+        ],
+        "first_prod": 39,
+        "prod_count": 7,
+        "builds": 7,
+        "downs": 11,
+        "ups": 7,
+        "base_speed": [],
+        "base_ant": [],
+        "emp": 0,
+        "def": 0,
+        "eva": 0,
+        "coins_avg": 122.43,
+        "enemy_coins_avg": 42.09,
+        "coins_ge90": 118,
+        "enemy_coins_ge90": 6,
+        "coins_ge135": 98,
+        "enemy_coins_ge135": 0,
+        "live_avg": 7.03,
+        "enemy_live_avg": 4.97,
+        "combat_avg": 1.73,
+        "enemy_combat_avg": 2.23,
+        "tower_avg": 0.12,
+        "enemy_tower_avg": 0.33,
+        "adv_avg": 0.07,
+        "enemy_adv_avg": 0.08,
+        "prod_live_rounds": 13,
+        "enemy_prod_live_rounds": 0,
+        "prod_avg": 0.05,
+        "enemy_prod_avg": 0.0,
+        "push2": 118,
+        "push4": 172,
+        "push6": 231,
+        "enemy_push2": 84,
+        "enemy_push4": 145,
+        "enemy_push6": 211,
+        "minpush_avg": 3.45,
+        "enemy_minpush_avg": 4.36,
+        "final_hp": 28,
+        "enemy_final_hp": 0,
+        "hp_loss_events": [
+          [
+            26,
+            1,
+            49
+          ],
+          [
+            47,
+            1,
+            48
+          ],
+          [
+            56,
+            1,
+            47
+          ],
+          [
+            65,
+            1,
+            46
+          ],
+          [
+            68,
+            1,
+            45
+          ],
+          [
+            79,
+            1,
+            44
+          ],
+          [
+            81,
+            1,
+            43
+          ],
+          [
+            83,
+            1,
+            42
+          ],
+          [
+            109,
+            1,
+            41
+          ],
+          [
+            111,
+            1,
+            40
+          ],
+          [
+            114,
+            1,
+            39
+          ],
+          [
+            118,
+            1,
+            38
+          ],
+          [
+            126,
+            1,
+            37
+          ],
+          [
+            163,
+            1,
+            36
+          ],
+          [
+            180,
+            1,
+            35
+          ],
+          [
+            185,
+            1,
+            34
+          ],
+          [
+            189,
+            1,
+            33
+          ],
+          [
+            195,
+            1,
+            32
+          ],
+          [
+            225,
+            1,
+            31
+          ],
+          [
+            238,
+            1,
+            30
+          ],
+          [
+            251,
+            1,
+            29
+          ],
+          [
+            255,
+            1,
+            28
+          ]
+        ]
+      }
+    },
+    {
+      "file": "8147270.json",
+      "rounds": 194,
+      "gf_side": 1,
+      "winner": 0,
+      "labels": [
+        "late_first_storm",
+        "storm_count_gap",
+        "no_producer",
+        "coin_window_gap",
+        "weak_base_pressure",
+        "defense_or_teleport_leak",
+        "churn_without_economy"
+      ],
+      "gf": {
+        "first_storm": 71,
+        "storm_count": 2,
+        "storm_gaps": [
+          79
+        ],
+        "first_prod": null,
+        "prod_count": 0,
+        "builds": 22,
+        "downs": 9,
+        "ups": 0,
+        "base_speed": [],
+        "base_ant": [],
+        "emp": 0,
+        "def": 0,
+        "eva": 0,
+        "coins_avg": 40.42,
+        "enemy_coins_avg": 67.81,
+        "coins_ge90": 1,
+        "enemy_coins_ge90": 41,
+        "coins_ge135": 0,
+        "enemy_coins_ge135": 11,
+        "live_avg": 3.34,
+        "enemy_live_avg": 8.08,
+        "combat_avg": 0.25,
+        "enemy_combat_avg": 1.41,
+        "tower_avg": 0.47,
+        "enemy_tower_avg": 0.04,
+        "adv_avg": 0.1,
+        "enemy_adv_avg": 0.02,
+        "prod_live_rounds": 0,
+        "enemy_prod_live_rounds": 4,
+        "prod_avg": 0.0,
+        "enemy_prod_avg": 0.02,
+        "push2": 41,
+        "push4": 65,
+        "push6": 96,
+        "enemy_push2": 92,
+        "enemy_push4": 122,
+        "enemy_push6": 164,
+        "minpush_avg": 6.47,
+        "enemy_minpush_avg": 3.72,
+        "final_hp": 0,
+        "enemy_final_hp": 34,
+        "hp_loss_events": [
+          [
+            29,
+            1,
+            49
+          ],
+          [
+            31,
+            1,
+            48
+          ],
+          [
+            34,
+            1,
+            47
+          ],
+          [
+            41,
+            1,
+            46
+          ],
+          [
+            44,
+            1,
+            45
+          ],
+          [
+            61,
+            1,
+            44
+          ],
+          [
+            62,
+            1,
+            43
+          ],
+          [
+            63,
+            1,
+            42
+          ],
+          [
+            67,
+            2,
+            40
+          ],
+          [
+            91,
+            1,
+            39
+          ],
+          [
+            94,
+            1,
+            38
+          ],
+          [
+            100,
+            1,
+            37
+          ],
+          [
+            104,
+            1,
+            36
+          ],
+          [
+            105,
+            1,
+            35
+          ],
+          [
+            107,
+            1,
+            34
+          ],
+          [
+            109,
+            1,
+            33
+          ],
+          [
+            110,
+            1,
+            32
+          ],
+          [
+            111,
+            1,
+            31
+          ],
+          [
+            112,
+            1,
+            30
+          ],
+          [
+            121,
+            1,
+            29
+          ],
+          [
+            122,
+            1,
+            28
+          ],
+          [
+            123,
+            2,
+            26
+          ],
+          [
+            125,
+            1,
+            25
+          ],
+          [
+            132,
+            1,
+            24
+          ],
+          [
+            133,
+            1,
+            23
+          ]
+        ]
+      },
+      "opp": {
+        "first_storm": 28,
+        "storm_count": 5,
+        "storm_gaps": [
+          36,
+          42,
+          35,
+          37
+        ],
+        "first_prod": 39,
+        "prod_count": 4,
+        "builds": 4,
+        "downs": 0,
+        "ups": 4,
+        "base_speed": [],
+        "base_ant": [],
+        "emp": 0,
+        "def": 0,
+        "eva": 0,
+        "coins_avg": 67.81,
+        "enemy_coins_avg": 40.42,
+        "coins_ge90": 41,
+        "enemy_coins_ge90": 1,
+        "coins_ge135": 11,
+        "enemy_coins_ge135": 0,
+        "live_avg": 8.08,
+        "enemy_live_avg": 3.34,
+        "combat_avg": 1.41,
+        "enemy_combat_avg": 0.25,
+        "tower_avg": 0.04,
+        "enemy_tower_avg": 0.47,
+        "adv_avg": 0.02,
+        "enemy_adv_avg": 0.1,
+        "prod_live_rounds": 4,
+        "enemy_prod_live_rounds": 0,
+        "prod_avg": 0.02,
+        "enemy_prod_avg": 0.0,
+        "push2": 92,
+        "push4": 122,
+        "push6": 164,
+        "enemy_push2": 41,
+        "enemy_push4": 65,
+        "enemy_push6": 96,
+        "minpush_avg": 3.72,
+        "enemy_minpush_avg": 6.47,
+        "final_hp": 34,
+        "enemy_final_hp": 0,
+        "hp_loss_events": [
+          [
+            52,
+            1,
+            49
+          ],
+          [
+            53,
+            1,
+            48
+          ],
+          [
+            55,
+            1,
+            47
+          ],
+          [
+            56,
+            1,
+            46
+          ],
+          [
+            67,
+            1,
+            45
+          ],
+          [
+            68,
+            1,
+            44
+          ],
+          [
+            106,
+            1,
+            43
+          ],
+          [
+            113,
+            1,
+            42
+          ],
+          [
+            114,
+            1,
+            41
+          ],
+          [
+            134,
+            1,
+            40
+          ],
+          [
+            139,
+            1,
+            39
+          ],
+          [
+            145,
+            1,
+            38
+          ],
+          [
+            148,
+            1,
+            37
+          ],
+          [
+            149,
+            1,
+            36
+          ],
+          [
+            170,
+            1,
+            35
+          ],
+          [
+            175,
+            1,
+            34
+          ]
+        ]
+      }
+    },
+    {
+      "file": "8147275.json",
+      "rounds": 239,
+      "gf_side": 0,
+      "winner": 1,
+      "labels": [
+        "late_first_storm",
+        "storm_count_gap",
+        "late_producer",
+        "coin_window_gap",
+        "churn_without_economy"
+      ],
+      "gf": {
+        "first_storm": 113,
+        "storm_count": 3,
+        "storm_gaps": [
+          73,
+          36
+        ],
+        "first_prod": 129,
+        "prod_count": 1,
+        "builds": 18,
+        "downs": 7,
+        "ups": 2,
+        "base_speed": [],
+        "base_ant": [],
+        "emp": 0,
+        "def": 0,
+        "eva": 0,
+        "coins_avg": 55.78,
+        "enemy_coins_avg": 101.03,
+        "coins_ge90": 48,
+        "enemy_coins_ge90": 144,
+        "coins_ge135": 0,
+        "enemy_coins_ge135": 38,
+        "live_avg": 5.87,
+        "enemy_live_avg": 6.71,
+        "combat_avg": 1.81,
+        "enemy_combat_avg": 2.15,
+        "tower_avg": 0.32,
+        "enemy_tower_avg": 0.16,
+        "adv_avg": 0.09,
+        "enemy_adv_avg": 0.1,
+        "prod_live_rounds": 3,
+        "enemy_prod_live_rounds": 14,
+        "prod_avg": 0.01,
+        "enemy_prod_avg": 0.06,
+        "push2": 89,
+        "push4": 151,
+        "push6": 213,
+        "enemy_push2": 128,
+        "enemy_push4": 170,
+        "enemy_push6": 215,
+        "minpush_avg": 3.72,
+        "enemy_minpush_avg": 3.05,
+        "final_hp": 0,
+        "enemy_final_hp": 28,
+        "hp_loss_events": [
+          [
+            31,
+            1,
+            49
+          ],
+          [
+            35,
+            1,
+            48
+          ],
+          [
+            38,
+            1,
+            47
+          ],
+          [
+            42,
+            1,
+            46
+          ],
+          [
+            46,
+            1,
+            45
+          ],
+          [
+            52,
+            1,
+            44
+          ],
+          [
+            53,
+            1,
+            43
+          ],
+          [
+            58,
+            1,
+            42
+          ],
+          [
+            60,
+            1,
+            41
+          ],
+          [
+            67,
+            2,
+            39
+          ],
+          [
+            72,
+            1,
+            38
+          ],
+          [
+            78,
+            1,
+            37
+          ],
+          [
+            87,
+            2,
+            35
+          ],
+          [
+            94,
+            1,
+            34
+          ],
+          [
+            96,
+            1,
+            33
+          ],
+          [
+            99,
+            1,
+            32
+          ],
+          [
+            102,
+            1,
+            31
+          ],
+          [
+            104,
+            1,
+            30
+          ],
+          [
+            105,
+            1,
+            29
+          ],
+          [
+            110,
+            1,
+            28
+          ],
+          [
+            141,
+            1,
+            27
+          ],
+          [
+            144,
+            1,
+            26
+          ],
+          [
+            145,
+            1,
+            25
+          ],
+          [
+            148,
+            1,
+            24
+          ],
+          [
+            149,
+            1,
+            23
+          ]
+        ]
+      },
+      "opp": {
+        "first_storm": 28,
+        "storm_count": 6,
+        "storm_gaps": [
+          35,
+          37,
+          35,
+          35,
+          35
+        ],
+        "first_prod": 73,
+        "prod_count": 10,
+        "builds": 11,
+        "downs": 14,
+        "ups": 10,
+        "base_speed": [],
+        "base_ant": [],
+        "emp": 0,
+        "def": 0,
+        "eva": 1,
+        "coins_avg": 101.03,
+        "enemy_coins_avg": 55.78,
+        "coins_ge90": 144,
+        "enemy_coins_ge90": 48,
+        "coins_ge135": 38,
+        "enemy_coins_ge135": 0,
+        "live_avg": 6.71,
+        "enemy_live_avg": 5.87,
+        "combat_avg": 2.15,
+        "enemy_combat_avg": 1.81,
+        "tower_avg": 0.16,
+        "enemy_tower_avg": 0.32,
+        "adv_avg": 0.1,
+        "enemy_adv_avg": 0.09,
+        "prod_live_rounds": 14,
+        "enemy_prod_live_rounds": 3,
+        "prod_avg": 0.06,
+        "enemy_prod_avg": 0.01,
+        "push2": 128,
+        "push4": 170,
+        "push6": 215,
+        "enemy_push2": 89,
+        "enemy_push4": 151,
+        "enemy_push6": 213,
+        "minpush_avg": 3.05,
+        "enemy_minpush_avg": 3.72,
+        "final_hp": 28,
+        "enemy_final_hp": 0,
+        "hp_loss_events": [
+          [
+            15,
+            1,
+            49
+          ],
+          [
+            31,
+            1,
+            48
+          ],
+          [
+            39,
+            1,
+            47
+          ],
+          [
+            44,
+            1,
+            46
+          ],
+          [
+            84,
+            1,
+            45
+          ],
+          [
+            92,
+            1,
+            44
+          ],
+          [
+            122,
+            1,
+            43
+          ],
+          [
+            128,
+            1,
+            42
+          ],
+          [
+            141,
+            1,
+            41
+          ],
+          [
+            150,
+            1,
+            40
+          ],
+          [
+            156,
+            1,
+            39
+          ],
+          [
+            166,
+            1,
+            38
+          ],
+          [
+            168,
+            1,
+            37
+          ],
+          [
+            199,
+            1,
+            36
+          ],
+          [
+            204,
+            1,
+            35
+          ],
+          [
+            214,
+            1,
+            34
+          ],
+          [
+            222,
+            1,
+            33
+          ],
+          [
+            223,
+            1,
+            32
+          ],
+          [
+            227,
+            1,
+            31
+          ],
+          [
+            230,
+            2,
+            29
+          ],
+          [
+            233,
+            1,
+            28
+          ]
+        ]
+      }
+    },
+    {
+      "file": "8147276.json",
+      "rounds": 266,
+      "gf_side": 1,
+      "winner": 0,
+      "labels": [
+        "late_first_storm",
+        "storm_count_gap",
+        "no_producer",
+        "coin_window_gap",
+        "weak_base_pressure",
+        "churn_without_economy"
+      ],
+      "gf": {
+        "first_storm": 47,
+        "storm_count": 3,
+        "storm_gaps": [
+          36,
+          97
+        ],
+        "first_prod": null,
+        "prod_count": 0,
+        "builds": 23,
+        "downs": 7,
+        "ups": 1,
+        "base_speed": [],
+        "base_ant": [],
+        "emp": 0,
+        "def": 0,
+        "eva": 0,
+        "coins_avg": 42.0,
+        "enemy_coins_avg": 92.27,
+        "coins_ge90": 7,
+        "enemy_coins_ge90": 126,
+        "coins_ge135": 0,
+        "enemy_coins_ge135": 36,
+        "live_avg": 4.9,
+        "enemy_live_avg": 6.77,
+        "combat_avg": 0.92,
+        "enemy_combat_avg": 1.6,
+        "tower_avg": 0.39,
+        "enemy_tower_avg": 0.13,
+        "adv_avg": 0.09,
+        "enemy_adv_avg": 0.06,
+        "prod_live_rounds": 0,
+        "enemy_prod_live_rounds": 5,
+        "prod_avg": 0.0,
+        "enemy_prod_avg": 0.02,
+        "push2": 68,
+        "push4": 112,
+        "push6": 183,
+        "enemy_push2": 122,
+        "enemy_push4": 182,
+        "enemy_push6": 245,
+        "minpush_avg": 5.37,
+        "enemy_minpush_avg": 3.23,
+        "final_hp": 0,
+        "enemy_final_hp": 31,
+        "hp_loss_events": [
+          [
+            15,
+            1,
+            49
+          ],
+          [
+            32,
+            1,
+            48
+          ],
+          [
+            36,
+            1,
+            47
+          ],
+          [
+            41,
+            1,
+            46
+          ],
+          [
+            42,
+            1,
+            45
+          ],
+          [
+            70,
+            1,
+            44
+          ],
+          [
+            71,
+            1,
+            43
+          ],
+          [
+            79,
+            1,
+            42
+          ],
+          [
+            89,
+            1,
+            41
+          ],
+          [
+            92,
+            1,
+            40
+          ],
+          [
+            95,
+            1,
+            39
+          ],
+          [
+            121,
+            1,
+            38
+          ],
+          [
+            128,
+            1,
+            37
+          ],
+          [
+            130,
+            1,
+            36
+          ],
+          [
+            134,
+            1,
+            35
+          ],
+          [
+            135,
+            1,
+            34
+          ],
+          [
+            138,
+            1,
+            33
+          ],
+          [
+            144,
+            1,
+            32
+          ],
+          [
+            145,
+            1,
+            31
+          ],
+          [
+            154,
+            1,
+            30
+          ],
+          [
+            157,
+            1,
+            29
+          ],
+          [
+            160,
+            1,
+            28
+          ],
+          [
+            166,
+            1,
+            27
+          ],
+          [
+            168,
+            1,
+            26
+          ],
+          [
+            176,
+            1,
+            25
+          ]
+        ]
+      },
+      "opp": {
+        "first_storm": 20,
+        "storm_count": 7,
+        "storm_gaps": [
+          36,
+          36,
+          35,
+          35,
+          35,
+          35
+        ],
+        "first_prod": 139,
+        "prod_count": 5,
+        "builds": 11,
+        "downs": 15,
+        "ups": 5,
+        "base_speed": [],
+        "base_ant": [],
+        "emp": 0,
+        "def": 0,
+        "eva": 2,
+        "coins_avg": 92.27,
+        "enemy_coins_avg": 42.0,
+        "coins_ge90": 126,
+        "enemy_coins_ge90": 7,
+        "coins_ge135": 36,
+        "enemy_coins_ge135": 0,
+        "live_avg": 6.77,
+        "enemy_live_avg": 4.9,
+        "combat_avg": 1.6,
+        "enemy_combat_avg": 0.92,
+        "tower_avg": 0.13,
+        "enemy_tower_avg": 0.39,
+        "adv_avg": 0.06,
+        "enemy_adv_avg": 0.09,
+        "prod_live_rounds": 5,
+        "enemy_prod_live_rounds": 0,
+        "prod_avg": 0.02,
+        "enemy_prod_avg": 0.0,
+        "push2": 122,
+        "push4": 182,
+        "push6": 245,
+        "enemy_push2": 68,
+        "enemy_push4": 112,
+        "enemy_push6": 183,
+        "minpush_avg": 3.23,
+        "enemy_minpush_avg": 5.37,
+        "final_hp": 31,
+        "enemy_final_hp": 0,
+        "hp_loss_events": [
+          [
+            32,
+            1,
+            49
+          ],
+          [
+            84,
+            2,
+            47
+          ],
+          [
+            89,
+            1,
+            46
+          ],
+          [
+            115,
+            1,
+            45
+          ],
+          [
+            120,
+            1,
+            44
+          ],
+          [
+            123,
+            1,
+            43
+          ],
+          [
+            146,
+            1,
+            42
+          ],
+          [
+            148,
+            1,
+            41
+          ],
+          [
+            157,
+            1,
+            40
+          ],
+          [
+            160,
+            1,
+            39
+          ],
+          [
+            172,
+            1,
+            38
+          ],
+          [
+            194,
+            1,
+            37
+          ],
+          [
+            215,
+            1,
+            36
+          ],
+          [
+            218,
+            1,
+            35
+          ],
+          [
+            224,
+            1,
+            34
+          ],
+          [
+            230,
+            1,
+            33
+          ],
+          [
+            231,
+            1,
+            32
+          ],
+          [
+            263,
+            1,
+            31
+          ]
+        ]
+      }
+    }
+  ]
+}

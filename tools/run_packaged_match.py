@@ -13,14 +13,14 @@ import sys
 import tempfile
 import threading
 import time
+import zipfile
 
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 GAME_DIR = REPO_ROOT / "game"
 DEFAULT_GAME_BIN = GAME_DIR / "output" / ("main.exe" if os.name == "nt" else "main")
 ALT_GAME_BIN = GAME_DIR / "output" / ("main" if os.name == "nt" else "main.exe")
-PACKAGE_AI = REPO_ROOT / "AI" / "package_ai.sh"
-TIMEOUT_SECONDS = 20.0
+TIMEOUT_SECONDS = 60.0
 
 
 class PipeReader:
@@ -85,7 +85,7 @@ def resolve_game_bin(game_bin: Path) -> Path:
     return game_bin
 
 
-def make_game(game_bin: Path) -> Path:
+def make_game_if_needed(game_bin: Path) -> Path:
     resolved = resolve_game_bin(game_bin)
     if resolved.exists():
         return resolved
@@ -100,8 +100,7 @@ def packet(payload: object) -> bytes:
     return struct.pack(">I", len(body)) + body
 
 
-def read_exact(stream, size: int, proc: subprocess.Popen[bytes], label: str,
-               timeout: float = TIMEOUT_SECONDS) -> bytes:
+def read_exact(stream, size: int, proc: subprocess.Popen[bytes], label: str, timeout: float = TIMEOUT_SECONDS) -> bytes:
     try:
         return _reader_for(stream).read_exact(size, timeout)
     except TimeoutError:
@@ -129,17 +128,6 @@ def read_ai_packet(ai: subprocess.Popen[bytes], name: str) -> bytes:
 def write_all(stream, payload: bytes) -> None:
     stream.write(payload)
     stream.flush()
-
-
-def stage_ai(target: str, parent: Path, label: str) -> Path:
-    output_dir = parent / f"{label}-{target}"
-    output_dir.mkdir(parents=True, exist_ok=False)
-    if os.name == "nt":
-        command = ["bash", PACKAGE_AI.as_posix(), target, output_dir.as_posix()]
-    else:
-        command = [str(PACKAGE_AI), target, str(output_dir)]
-    subprocess.run(command, cwd=REPO_ROOT, check=True)
-    return output_dir
 
 
 def launch_ai(ai_dir: Path, stderr_path: Path) -> subprocess.Popen[bytes]:
@@ -179,23 +167,29 @@ def read_text(path: Path) -> str:
     return path.read_text(encoding="utf-8", errors="replace")
 
 
+def stage_zip(zip_path: Path, parent: Path, label: str) -> Path:
+    output_dir = parent / label
+    output_dir.mkdir(parents=True, exist_ok=False)
+    with zipfile.ZipFile(zip_path) as zf:
+        zf.extractall(output_dir)
+    return output_dir
+
+
 def main() -> int:
-    parser = argparse.ArgumentParser(description="Run a full local game<->AI<->judger match")
-    parser.add_argument("--ai0", default="greedy", choices=["random", "mcts", "greedy", "example"])
-    parser.add_argument("--ai1", default="greedy", choices=["random", "mcts", "greedy", "example"])
+    parser = argparse.ArgumentParser(description="Run a local match between any two packaged AI zip files.")
+    parser.add_argument("--zip0", type=Path, required=True)
+    parser.add_argument("--zip1", type=Path, required=True)
     parser.add_argument("--seed", type=int, default=7)
-    parser.add_argument("--keep-dir", type=Path, default=None,
-                        help="Keep packaged AIs, replay, and stderr logs in this directory")
     parser.add_argument("--game-bin", type=Path, default=DEFAULT_GAME_BIN)
+    parser.add_argument("--keep-dir", type=Path, default=None)
     parser.add_argument("--verbose", action="store_true")
     args = parser.parse_args()
 
-    game_bin = make_game(args.game_bin.resolve())
-
+    game_bin = make_game_if_needed(args.game_bin.resolve())
     workdir_obj = args.keep_dir
     tempdir_obj = None
     if workdir_obj is None:
-        tempdir_obj = tempfile.TemporaryDirectory(prefix="agent-tradition-match-")
+        tempdir_obj = tempfile.TemporaryDirectory(prefix="agent-packaged-match-")
         workdir_obj = Path(tempdir_obj.name)
     workdir = workdir_obj.resolve()
     workdir.mkdir(parents=True, exist_ok=True)
@@ -204,22 +198,21 @@ def main() -> int:
     game_stderr_path = workdir / "game.stderr.log"
     ai0_stderr_path = workdir / "ai0.stderr.log"
     ai1_stderr_path = workdir / "ai1.stderr.log"
+    stage_root = workdir / "ais"
+    if stage_root.exists():
+        shutil.rmtree(stage_root)
+    stage_root.mkdir(parents=True)
 
-    ai_stage_root = workdir / "ais"
-    if ai_stage_root.exists():
-        shutil.rmtree(ai_stage_root)
-    ai_stage_root.mkdir(parents=True)
-
-    ai0_dir = stage_ai(args.ai0, ai_stage_root, "ai0")
-    ai1_dir = stage_ai(args.ai1, ai_stage_root, "ai1")
+    ai0_dir = stage_zip(args.zip0.resolve(), stage_root, "ai0")
+    ai1_dir = stage_zip(args.zip1.resolve(), stage_root, "ai1")
 
     game_stderr_handle = game_stderr_path.open("wb")
     game = None
     ai0 = None
     ai1 = None
     result: dict[str, object] = {
-        "ai0": args.ai0,
-        "ai1": args.ai1,
+        "zip0": str(args.zip0.resolve()),
+        "zip1": str(args.zip1.resolve()),
         "seed": args.seed,
         "workdir": str(workdir),
         "replay": str(replay_path),
@@ -229,7 +222,7 @@ def main() -> int:
     def record_event(kind: str, **payload: object) -> None:
         entry = {"kind": kind, **payload}
         events.append(entry)
-        if len(events) > 30:
+        if len(events) > 80:
             del events[0]
         if args.verbose:
             print(json.dumps(entry, ensure_ascii=False), flush=True)
@@ -253,9 +246,8 @@ def main() -> int:
             "config": {"random_seed": args.seed},
             "replay": str(replay_path),
         }
-        init_packet = packet(init)
-        write_all(game.stdin, init_packet)
-        record_event("send_init", size=len(init_packet))
+        write_all(game.stdin, packet(init))
+        record_event("send_init")
 
         while True:
             obj, payload = read_game_packet(game)
@@ -264,25 +256,26 @@ def main() -> int:
                 if payload and not payload.endswith(b"\n"):
                     payload += b"\n"
                 write_all(ais[obj].stdin, payload)
-                record_event("forward_to_ai", player=obj, size=len(payload))
+                record_event("forward_to_ai", player=obj, preview=payload[:120].decode("utf-8", errors="replace"))
                 continue
 
             message = json.loads(payload.decode("utf-8"))
+            record_event("game_message", message=message)
             if isinstance(message, dict) and "player" in message and "content" in message:
                 for player, content in zip(message["player"], message["content"]):
                     write_all(ais[int(player)].stdin, content.encode("utf-8"))
-                    record_event("broadcast_to_ai", player=int(player), size=len(content))
+                    record_event("broadcast_to_ai", player=int(player), preview=content[:120])
             if isinstance(message, dict) and message.get("listen"):
                 for player in message["listen"]:
                     ai_packet = read_ai_packet(ais[int(player)], f"ai{player}")
-                    record_event("ai_reply", player=int(player), size=len(ai_packet))
+                    record_event("ai_reply", player=int(player), preview=ai_packet[:120].decode("latin1", errors="replace"))
                     reply = {
                         "player": int(player),
                         "content": ai_packet.decode("latin1"),
                         "time": 0,
                     }
                     write_all(game.stdin, packet(reply))
-                    record_event("send_to_game", player=int(player), size=len(reply["content"]))
+                    record_event("send_to_game", player=int(player), preview=reply["content"][:120])
             if isinstance(message, dict) and "end_state" in message:
                 result["end_state"] = message["end_state"]
                 result["end_info"] = message.get("end_info")
@@ -325,6 +318,8 @@ def main() -> int:
         result["ai0_stderr"] = read_text(ai0_stderr_path)
         result["ai1_stderr"] = read_text(ai1_stderr_path)
         result["replay_exists"] = replay_path.exists()
+        if replay_path.exists():
+            result["replay_size"] = replay_path.stat().st_size
         print(json.dumps(result, ensure_ascii=False, indent=2))
         return 1
     finally:

@@ -8,6 +8,8 @@ from pathlib import Path
 import shutil
 import sys
 
+os.environ.setdefault("AGENT_TRADITION_ENABLE_TORCH", "1")
+
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 if str(REPO_ROOT) not in sys.path:
